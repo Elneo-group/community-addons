@@ -1,0 +1,181 @@
+# French translation of Odoo 8.0.
+# This file contains the translation of the following modules:
+#    * account_overdue
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: support@noviat.com\n"
+"POT-Creation-Date: 2015-03-29 23:47:54.877000\n"
+"PO-Revision-Date: 2015-03-29 23:47:54.877000\n"
+"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: account_overdue
+#: model:ir.actions.act_window,name:account_overdue.action_overdue_payment_wizard
+msgid "Print Overdue Payments"
+msgstr "Règlements en retard"
+
+#. module: account_overdue
+#: view:overdue.payment.wizard:0
+msgid "Print Overdue Payments"
+msgstr "Règlements en retard"
+
+#. module: account_overdue
+#: view:overdue.payment.wizard:0
+msgid "Print Overdue Payments Selection Criteria :"
+msgstr "Règlements en retard,  critères de recherche : "
+
+#. module: account_overdue
+#: view:overdue.payment.wizard:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_overdue
+#: view:overdue.payment.wizard:0
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: account_overdue
+#: field:overdue.payment.wizard,partner_select:0
+msgid "Customers"
+msgstr "Clients"
+
+#. module: account_overdue
+#: selection:overdue.payment.wizard,partner_select:0
+msgid "All Customers"
+msgstr "Tous les clients"
+
+#. module: account_overdue
+#: selection:overdue.payment.wizard,partner_select:0
+msgid "Selected Customers"
+msgstr "Clients sélectionnés"
+
+#. module: account_overdue
+#: field:overdue.payment.wizard,account_select:0
+msgid "Selected Accounts"
+msgstr "Comptes sélectionnés"
+
+#. module: account_overdue
+#: selection:overdue.payment.wizard,account_select:0
+msgid "Receivable Accounts"
+msgstr "Comptes à recevoir"
+
+#. module: account_overdue
+#: selection:overdue.payment.wizard,account_select:0
+msgid "Receivable and Payable Accounts"
+msgstr "Comptes à recevoir et à payer"
+
+#. module: account_overdue
+#: code:addons/account_overdue/report/print_overdue_payment.py:1
+msgid "Attn."
+msgstr "Attn."
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Li."
+msgstr "Li."
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "OD"
+msgstr "E"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Due"
+msgstr "Due"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Total"
+msgstr "Total"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Customer Ref"
+msgstr "Référence Client"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Description"
+msgstr "Description"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Date:"
+msgstr "Date :"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Inv. no"
+msgstr "Fact. no"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Mat. Date"
+msgstr "Echéance"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "VAT"
+msgstr "TVA"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Date"
+msgstr "Date"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Balance"
+msgstr "Solde"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Amount"
+msgstr "Montant"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Paid"
+msgstr "Payé"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Open"
+msgstr "Ouvert"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Days"
+msgstr "Jours"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "overdue"
+msgstr "échues"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Total amount overdue"
+msgstr "Montant total échu"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Best regards."
+msgstr "Nous vous prions d'agréer, Madame, Monsieur, l'expression de nos sentiments distingués."
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Document"
+msgstr "Document"
+
+#. module: account_overdue
+#: view:website:account_overdue.report_overdue_document
+msgid "Account statement"
+msgstr "Relevé de compte"
+

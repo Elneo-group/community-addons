@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">   
+  <t t-name="SearchExtension">
+    <div class="ui-toolbar" style="margin-bottom:0px;">
+    </div>
+  </t>
+</templates>

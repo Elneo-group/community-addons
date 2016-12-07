@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="datepicker_custo">
+        <div style="width:256px;" >
+            <span style="width:96px; padding-right:3px;">
+                <t t-set="placeholder" t-value="widget.getParent().node and widget.getParent().node.attrs.placeholder"/>
+                <input type="text" class="oe_datepicker_container" disabled="disabled" style="display: none;"/>
+                <input type="text" 
+                    t-att-name="widget.name"
+                    t-att-placeholder="placeholder"
+                    class="oe_datepicker_master" style="width:96px;"
+                /><img class="oe_input_icon oe_datepicker_trigger" style="margin-top:4px" draggable="false"
+                       t-att-src='_s + "/web/static/src/img/ui/field_calendar.png"'
+                       title="Select date" width="16" height="16" border="0"/>
+            </span>
+            <span style="margin-left:3px;">
+                <select name="hour" class="hour" style="border-radius:0.3em; min-height:22px; display: none;"/>
+                <select name="min" class="min" style="border-radius:0.3em; min-height:22px; display: none;"/>
+                <input type="number"
+                    name="min_number"
+                    class="oe_inline min_number"
+                    min="0" max="59"
+                    style="border-radius:0.3em; min-height:22px; display: none;" />
+            </span>
+            <!--<span>
+                <select name="am_pm_select" id='am_pm_select' class="col-sm-2 am_pm_select" style="margin-top: 3px;border-radius:0.3em; min-height:22px; display: none;">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </span>-->
+        </div>
+    </t>
+    
+    <t t-name="FieldDatetimeCusto">
+        <span class="oe_inline oe_form_field oe_datepicker_root" 
+            t-att-style="widget.node.attrs.style" id="datepicker_custo"/>
+        
+    </t>
+    
+</templates>

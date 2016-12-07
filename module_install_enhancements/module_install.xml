@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+      <field name="name">Local Modules</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="context">{}</field>
+    </record>
+
+    <record id="base.menu_module_tree" model="ir.ui.menu">
+      <field name="name">Local Modules</field>
+      <field name="sequence">1</field>
+    </record>
+
+
+    <record id="module_tree" model="ir.ui.view">
+      <field name="name">ir.module.module.tree</field>
+      <field name="model">ir.module.module</field>
+      <field name="inherit_id" ref="base.module_tree"/>
+      <field name="arch" type="xml">
+        <data>
+          <field name="category_id" position="after">
+            <button name="button_immediate_install" states="uninstalled" string="Install" type="object" class="oe_highlight" icon="terp-gtk-jump-to-ltr" />
+            <button name="button_immediate_upgrade" states="installed" string="Upgrade" type="object" class="oe_highlight"  icon="gtk-execute" />
+            <button name="button_immediate_uninstall" states="installed" string="Uninstall" type="object"
+              confirm="Do you confirm the uninstallation of this module? This will permanently erase all data currently stored by the module!"  icon="gtk-cancel"/>
+            <button name="button_uninstall_cancel" states="to remove" string="Cancel Uninstall" type="object" icon="gtk-remove"/>
+            <button name="button_upgrade_cancel" states="to upgrade" string="Cancel Upgrade" type="object" icon="gtk-remove"/>
+            <button name="button_install_cancel" states="to install" string="Cancel Install" type="object" icon="gtk-remove"/>
+          </field>
+        </data>
+      </field>
+    </record>
+
+  </data>
+</openerp>
