@@ -1,33 +1,20 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    Odoo, Open Source Management Solution
-#
-#    Copyright (c) 2009-2015 Noviat nv/sa (www.noviat.com).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# Copyright 2009-2017 Noviat.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
-import csv
 import base64
-from openerp import models, fields, api, _
-from openerp.exceptions import Warning
+import csv
+import time
+from sys import exc_info
+from traceback import format_exception
+
+from openerp import api, fields, models, _
+from openerp.exceptions import Warning as UserError
+
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -42,25 +29,48 @@ class InvoiceLineImport(models.TransientModel):
         compute='_compute_lines', string='Input Lines', required=True)
     dialect = fields.Binary(
         compute='_compute_dialect', string='Dialect', required=True)
-    csv_separator = fields.Char(
-        string='CSV Separator', size=1, required=True)
+    csv_separator = fields.Selection(
+        [(',', ', (comma)'), (';', '; (semicolon)')],
+        string='CSV Separator', required=True)
     decimal_separator = fields.Selection(
-        [('.', '.'), (',', ',')],
+        [('.', '. (dot)'), (',', ', (comma)')],
         string='Decimal Separator',
         default='.', required=True)
+    codepage = fields.Char(
+        string='Code Page',
+        default=lambda self: self._default_codepage(),
+        help="Code Page of the system that has generated the csv file."
+             "\nE.g. Windows-1252, utf-8")
     note = fields.Text('Log')
+
+    @api.model
+    def _default_codepage(self):
+        return 'Windows-1252'
 
     @api.one
     @api.depends('ail_data')
     def _compute_lines(self):
         if self.ail_data:
-            self.lines = base64.decodestring(self.ail_data)
+            lines = base64.decodestring(self.ail_data)
+            # convert windows & mac line endings to unix style
+            self.lines = lines.replace('\r\n', '\n').replace('\r', '\n')
 
     @api.one
     @api.depends('lines', 'csv_separator')
     def _compute_dialect(self):
         if self.lines:
-            self.dialect = csv.Sniffer().sniff(self.lines[:1024])
+            try:
+                self.dialect = csv.Sniffer().sniff(
+                    self.lines[:128], delimiters=';,')
+            except:
+                # csv.Sniffer is not always reliable
+                # in the detection of the delimiter
+                self.dialect = csv.Sniffer().sniff(
+                    '"header 1";"header 2";\r\n')
+                if ',' in self.lines[128]:
+                    self.dialect.delimiter = ','
+                elif ';' in self.lines[128]:
+                    self.dialect.delimiter = ';'
         if self.csv_separator:
             self.dialect.delimiter = str(self.csv_separator)
 
@@ -87,7 +97,7 @@ class InvoiceLineImport(models.TransientModel):
             else:
                 header = ln.lower()
         if not header:
-            raise Warning(
+            raise UserError(
                 _("No header line found in the input file !"))
         output = input.read()
         return output, header
@@ -116,8 +126,7 @@ class InvoiceLineImport(models.TransientModel):
         blacklist = models.MAGIC_COLUMNS + [ail_mod.CONCURRENCY_CHECK_FIELD]
         self._orm_fields = {
             f: orm_fields[f] for f in orm_fields
-            if f not in blacklist
-            and not orm_fields[f].get('depends')}
+            if f not in blacklist and not orm_fields[f].get('depends')}
 
     def _process_header(self, header_fields):
 
@@ -139,7 +148,7 @@ class InvoiceLineImport(models.TransientModel):
         header_fields2 = []
         for hf in header_fields:
             if hf in header_fields2:
-                raise Warning(_(
+                raise UserError(_(
                     "Duplicate header field '%s' found !"
                     "\nPlease correct the input file.")
                     % hf)
@@ -148,7 +157,8 @@ class InvoiceLineImport(models.TransientModel):
 
         for i, hf in enumerate(header_fields):
 
-            if hf in self._field_methods:
+            if hf in self._field_methods \
+                    and self._field_methods[hf].get('method'):
                 continue
 
             if hf not in self._orm_fields \
@@ -172,29 +182,16 @@ class InvoiceLineImport(models.TransientModel):
                 orm_field = hf
             field_type = field_def['type']
 
-            if field_type in ['char', 'text']:
+            try:
+                ft = field_type == 'text' and 'char' or field_type
                 self._field_methods[hf] = {
-                    'method': self._handle_orm_char,
+                    'method': getattr(self, '_handle_orm_%s' % ft),
                     'orm_field': orm_field,
                     }
-            elif field_type == 'integer':
-                self._field_methods[hf] = {
-                    'method': self._handle_orm_integer,
-                    'orm_field': orm_field,
-                    }
-            elif field_type == 'float':
-                self._field_methods[hf] = {
-                    'method': self._handle_orm_float,
-                    'orm_field': orm_field,
-                    }
-            elif field_type == 'many2one':
-                self._field_methods[hf] = {
-                    'method': self._handle_orm_many2one,
-                    'orm_field': orm_field,
-                    }
-            else:
+            except AttributeError:
                 _logger.error(
-                    _("%s, the import of ORM fields of type '%s' "
+                    _("%s, field '%s', "
+                      "the import of ORM fields of type '%s' "
                       "is not supported"),
                     self._name, hf, field_type)
                 self._skip_fields.append(hf)
@@ -202,8 +199,10 @@ class InvoiceLineImport(models.TransientModel):
         return header_fields
 
     def _log_line_error(self, line, msg):
+        data = self.csv_separator.join(
+            [line[hf] for hf in self._header_fields])
         self._err_log += _(
-            "Error when processing line '%s'") % line + ':\n' + msg + '\n\n'
+            "Error when processing line '%s'") % data + ':\n' + msg + '\n\n'
 
     def _handle_orm_char(self, field, line, invoice, ail_vals,
                          orm_field=False):
@@ -211,10 +210,10 @@ class InvoiceLineImport(models.TransientModel):
         if not ail_vals.get(orm_field):
             ail_vals[orm_field] = line[field]
 
-    def _handle_orm_integer(self, field, line, move, aml_vals,
+    def _handle_orm_integer(self, field, line, move, ail_vals,
                             orm_field=False):
         orm_field = orm_field or field
-        if not aml_vals.get(orm_field):
+        if not ail_vals.get(orm_field):
             val = str2int(
                 line[field], self.decimal_separator)
             if val is False:
@@ -224,13 +223,13 @@ class InvoiceLineImport(models.TransientModel):
                     ) % (line[field], field)
                 self._log_line_error(line, msg)
             else:
-                aml_vals[orm_field] = val
+                ail_vals[orm_field] = val
 
-    def _handle_orm_float(self, field, line, move, aml_vals,
+    def _handle_orm_float(self, field, line, move, ail_vals,
                           orm_field=False):
         orm_field = orm_field or field
-        if not aml_vals.get(orm_field):
-            aml_vals[orm_field] = str2float(
+        if not ail_vals.get(orm_field):
+            ail_vals[orm_field] = str2float(
                 line[field], self.decimal_separator)
 
             val = str2float(
@@ -242,12 +241,30 @@ class InvoiceLineImport(models.TransientModel):
                     ) % (line[field], field)
                 self._log_line_error(line, msg)
             else:
-                aml_vals[orm_field] = val
+                ail_vals[orm_field] = val
 
-    def _handle_orm_many2one(self, field, line, move, aml_vals,
+    def _handle_orm_boolean(self, field, line, move, ail_vals,
+                            orm_field=False):
+        orm_field = orm_field or field
+        if not ail_vals.get(orm_field):
+            val = line[field].capitalize()
+            if val in ['', '0', 'False']:
+                val = False
+            elif val in ['1', 'True']:
+                val = True
+            if isinstance(val, basestring):
+                msg = _(
+                    "Incorrect value '%s' "
+                    "for field '%s' of type Boolean !"
+                    ) % (line[field], field)
+                self._log_line_error(line, msg)
+            else:
+                ail_vals[orm_field] = val
+
+    def _handle_orm_many2one(self, field, line, move, ail_vals,
                              orm_field=False):
         orm_field = orm_field or field
-        if not aml_vals.get(orm_field):
+        if not ail_vals.get(orm_field):
             val = str2int(
                 line[field], self.decimal_separator)
             if val is False:
@@ -260,7 +277,7 @@ class InvoiceLineImport(models.TransientModel):
                     ) % (line[field], field)
                 self._log_line_error(line, msg)
             else:
-                aml_vals[orm_field] = val
+                ail_vals[orm_field] = val
 
     def _handle_description(self, field, line, invoice, ail_vals):
         if not ail_vals.get('name'):
@@ -430,6 +447,7 @@ class InvoiceLineImport(models.TransientModel):
     @api.multi
     def ail_import(self):
 
+        time_start = time.time()
         self._err_log = ''
         invoice = self.env['account.invoice'].browse(
             self._context['active_id'])
@@ -442,9 +460,9 @@ class InvoiceLineImport(models.TransientModel):
         lines, header = self._remove_leading_lines(self.lines)
         header_fields = csv.reader(
             StringIO.StringIO(header), dialect=self.dialect).next()
-        header_fields = self._process_header(header_fields)
+        self._header_fields = self._process_header(header_fields)
         reader = csv.DictReader(
-            StringIO.StringIO(lines), fieldnames=header_fields,
+            StringIO.StringIO(lines), fieldnames=self._header_fields,
             dialect=self.dialect)
 
         inv_lines = []
@@ -452,7 +470,19 @@ class InvoiceLineImport(models.TransientModel):
 
             ail_vals = {}
 
-            for i, hf in enumerate(header_fields):
+            # step 1: handle codepage
+            for i, hf in enumerate(self._header_fields):
+                try:
+                    line[hf] = line[hf].decode(self.codepage).strip()
+                except:
+                    tb = ''.join(format_exception(*exc_info()))
+                    raise UserError(
+                        _("Wrong Code Page"),
+                        _("Error while processing line '%s' :\n%s")
+                        % (line, tb))
+
+            # step 2: process input fields
+            for i, hf in enumerate(self._header_fields):
                 if i == 0 and line[hf] and line[hf][0] == '#':
                     # lines starting with # are considered as comment lines
                     break
@@ -461,7 +491,6 @@ class InvoiceLineImport(models.TransientModel):
                 if line[hf] == '':
                     continue
 
-                line[hf] = line[hf].strip()
                 if self._field_methods[hf].get('orm_field'):
                     self._field_methods[hf]['method'](
                         hf, line, invoice, ail_vals,
@@ -479,8 +508,9 @@ class InvoiceLineImport(models.TransientModel):
 
         if self._err_log:
             self.note = self._err_log
+            module = __name__.split('addons.')[1].split('.')[0]
             result_view = self.env.ref(
-                'account_invoice_line_import.ail_import_result_view')
+                '%s.ail_import_view_form_result' % module)
             return {
                 'name': _("Import File result"),
                 'res_id': self.id,
@@ -493,6 +523,10 @@ class InvoiceLineImport(models.TransientModel):
             }
         else:
             invoice.write({'invoice_line': vals})
+            import_time = time.time() - time_start
+            _logger.warn(
+                'account.invoice (id: %s) import time = %.3f seconds',
+                invoice.id, import_time)
             return {'type': 'ir.actions.act_window_close'}
 
 

@@ -1,9 +1,9 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution
 #
-#    Copyright (c) 2010-2015 Noviat nv/sa (www.noviat.com).
+#    Copyright (c) 2009-2016 Noviat nv/sa (www.noviat.com).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,10 +20,5 @@
 #
 ##############################################################################
 
-from . import partner
-from . import account_payment
-from . import account_move_line
-from . import account_bank_statement
-from . import res_partner_bank
-from . import account_invoice
+from . import models
 from . import wizard

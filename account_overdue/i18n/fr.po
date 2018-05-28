@@ -16,33 +16,25 @@ msgstr ""
 
 #. module: account_overdue
 #: model:ir.actions.act_window,name:account_overdue.action_overdue_payment_wizard
+#: model:ir.model,name:account_overdue.model_overdue_payment_wizard
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print Overdue Payments"
 msgstr "Règlements en retard"
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
-msgid "Print Overdue Payments"
-msgstr "Règlements en retard"
-
-#. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print Overdue Payments Selection Criteria :"
 msgstr "Règlements en retard,  critères de recherche : "
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print"
 msgstr "Imprimer"
-
-#. module: account_overdue
-#: field:overdue.payment.wizard,partner_select:0
-msgid "Customers"
-msgstr "Clients"
 
 #. module: account_overdue
 #: selection:overdue.payment.wizard,partner_select:0
@@ -71,43 +63,14 @@ msgstr "Comptes à recevoir et à payer"
 
 #. module: account_overdue
 #: code:addons/account_overdue/report/print_overdue_payment.py:1
+#, python-format
 msgid "Attn."
 msgstr "Attn."
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "Li."
-msgstr "Li."
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "OD"
-msgstr "E"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Due"
-msgstr "Due"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Total"
 msgstr "Total"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Customer Ref"
-msgstr "Référence Client"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Description"
-msgstr "Description"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Date:"
-msgstr "Date :"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
@@ -121,18 +84,8 @@ msgstr "Echéance"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "VAT"
-msgstr "TVA"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Date"
 msgstr "Date"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Balance"
-msgstr "Solde"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
@@ -156,26 +109,5 @@ msgstr "Jours"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "overdue"
-msgstr "échues"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Total amount overdue"
 msgstr "Montant total échu"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Best regards."
-msgstr "Nous vous prions d'agréer, Madame, Monsieur, l'expression de nos sentiments distingués."
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Document"
-msgstr "Document"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Account statement"
-msgstr "Relevé de compte"
-

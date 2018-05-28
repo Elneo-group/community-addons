@@ -16,33 +16,25 @@ msgstr ""
 
 #. module: account_overdue
 #: model:ir.actions.act_window,name:account_overdue.action_overdue_payment_wizard
+#: model:ir.model,name:account_overdue.model_overdue_payment_wizard
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print Overdue Payments"
 msgstr "Betalingsherinneringen"
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
-msgid "Print Overdue Payments"
-msgstr "Betalingsherinneringen"
-
-#. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print Overdue Payments Selection Criteria :"
 msgstr "Selectiecriteria betalingsherinneringen :"
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Cancel"
 msgstr "Annuleer"
 
 #. module: account_overdue
-#: view:overdue.payment.wizard:0
+#: view:overdue.payment.wizard:account_overdue.overdue_payment_wizard_view
 msgid "Print"
 msgstr "Afdrukken"
-
-#. module: account_overdue
-#: field:overdue.payment.wizard,partner_select:0
-msgid "Customers"
-msgstr "Klanten"
 
 #. module: account_overdue
 #: selection:overdue.payment.wizard,partner_select:0
@@ -71,43 +63,14 @@ msgstr "Te ontvangen en te betalen"
 
 #. module: account_overdue
 #: code:addons/account_overdue/report/print_overdue_payment.py:1
+#, python-format
 msgid "Attn."
 msgstr "T.a.v."
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "Li."
-msgstr "Li."
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "OD"
-msgstr "V"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Due"
-msgstr "Tot"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Total"
 msgstr "Totaal"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Customer Ref"
-msgstr "Klant ref"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Description"
-msgstr "Omschrijving"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Date:"
-msgstr "Datum:"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
@@ -121,18 +84,8 @@ msgstr "Vervaldatum"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "VAT"
-msgstr "BTW"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Date"
 msgstr "Datum"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Balance"
-msgstr "Saldo"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
@@ -156,26 +109,5 @@ msgstr "Dagen"
 
 #. module: account_overdue
 #: view:website:account_overdue.report_overdue_document
-msgid "overdue"
-msgstr "vervallen"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
 msgid "Total amount overdue"
 msgstr "Totaal bedrag waarvoor de vervaldatum overschreden is"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Best regards."
-msgstr "Met vriendelijke groeten,"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Document"
-msgstr "Document"
-
-#. module: account_overdue
-#: view:website:account_overdue.report_overdue_document
-msgid "Account statement"
-msgstr "Overzicht openstaande facturen"
-

@@ -1,9 +1,9 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, Open Source Management Solution
 #
-#    Copyright (c) 2015 Noviat nv/sa (www.noviat.com). All rights reserved.
+#    Copyright (c) 2009-2016 Noviat nv/sa (www.noviat.com).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -85,8 +85,8 @@ class be_invoice(report_sxw.rml_parse):
             res += '<br/>' + self._("Attn.") + ' '
             if p.title:
                 res += p.title.name + ' '
-            res += str(p.name)
-        res += '<br/>' + self._get_address(p_cpy, add_country)
+            res += p.name
+        res += '<br/>' + self._get_address(p, add_country)
         return res
 
     def _get_address(self, p, add_country=False):

@@ -1,3 +1,6 @@
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+    :alt: License
+
 Overdue Payments customisation
 ==============================
 
@@ -16,6 +19,8 @@ Features
   clearly shows the payments that are overdue.
 * The Invoice number is printed for outgoing transactions.
 * The payment notice text can be customized with html tags.
+* An "Overdue" button is added to the Customer search view to
+  facilitate the retrieval of Customers with Overdue payments.
 
 Overdue message template customization
 --------------------------------------
