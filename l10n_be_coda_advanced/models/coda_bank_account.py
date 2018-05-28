@@ -1,26 +1,8 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    Odoo, Open Source Management Solution
-#
-#    Copyright (c) 2009-2015 Noviat nv/sa (www.noviat.com).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# Copyright 2009-2017 Noviat.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api, _
+from openerp import api, fields, models, _
 from openerp.exceptions import ValidationError
 
 
@@ -106,7 +88,7 @@ class CodaBankAccount(models.Model):
              "Bank Transaction amounts.")
     find_account_move_line = fields.Boolean(
         string='Lookup Accounting Entries',
-        default=True,
+        default=False,   # default = False since this lookup may burn resources
         help="Find matching accounting entry when previous lookups "
              "(payment order, invoice, sales order) have failed."
              "\nThis allows e.g. to match with manually encoded "
@@ -148,10 +130,8 @@ class CodaBankAccount(models.Model):
     @api.one
     @api.depends('bank_id', 'currency_id', 'description1')
     def _compute_display_name(self):
-        if self.bank_id and self.bank_id.acc_number:
-            display_name = self.bank_id.acc_number
-        if self.currency_id and self.currency_id.name:
-            display_name = display_name + ' (' + self.currency_id.name + ')'
+        display_name = self.bank_id.acc_number \
+            + ' (' + self.currency_id.name + ')'
         if self.description1:
             display_name += ' ' + self.description1
         self.display_name = len(display_name) > 55 \
@@ -191,7 +171,7 @@ class CodaBankAccount(models.Model):
             'description1': (self.description1 or '') + ' (copy)',
             'description2': (self.description2 or '') + ' (copy)',
             'state': self.state,
-            })
+        })
         return super(CodaBankAccount, self).copy(default)
 
 
@@ -203,7 +183,7 @@ class CodaAccountMappingRule(models.Model):
     coda_bank_account_id = fields.Many2one(
         'coda.bank.account', string='CODA Bank Account', ondelete='cascade')
     sequence = fields.Integer(
-        string='Sequence',
+        string='Sequence', default=10,
         help='Determines the order of the rules to assign accounts')
     name = fields.Char(string='Rule Name', required=True)
     active = fields.Boolean(
@@ -219,14 +199,17 @@ class CodaAccountMappingRule(models.Model):
         domain=[('type', '=', 'code')])
     trans_category_id = fields.Many2one(
         'account.coda.trans.category', string='Transaction Category')
-    struct_comm_type_id = fields.Many2one(
-        'account.coda.comm.type', string='Structured Communication Type')
     partner_id = fields.Many2one(
         'res.partner', string='Partner', ondelete='cascade',
-        domain=['|', ('parent_id', '=', False), ('is_company', '=', True)]
-        )
+        domain=['|', ('parent_id', '=', False), ('is_company', '=', True)])
     freecomm = fields.Char(string='Free Communication', size=128)
+    struct_comm_type_id = fields.Many2one(
+        'account.coda.comm.type', string='Structured Communication Type')
     structcomm = fields.Char(string='Structured Communication', size=128)
+    payment_reference = fields.Char(
+        string='Payment Reference', size=35,
+        help="Payment Reference. For SEPA (SCT or SDD) transactions, "
+             "the EndToEndReference is recorded in this field.")
     # results
     account_id = fields.Many2one(
         'account.account', string='Account', ondelete='cascade',
@@ -239,37 +222,65 @@ class CodaAccountMappingRule(models.Model):
         domain=[('type', '!=', 'view'),
                 ('state', 'not in', ('close', 'cancelled'))])
 
+    def _rule_select_extra(self, coda_bank_account_id):
+        """
+        Use this method to customize the mapping rule engine.
+        Cf. l10n_be_coda_analytic_plan module for an example.
+        """
+        return ''
+
+    def _rule_result_extra(self, coda_bank_account_id):
+        """
+        Use this method to customize the mapping rule engine.
+        Cf. l10n_be_coda_analytic_plan module for an example.
+        """
+        return []
+
     @api.model
     def rule_get(self, coda_bank_account_id,
                  trans_type_id=None, trans_family_id=None,
                  trans_code_id=None, trans_category_id=None,
                  struct_comm_type_id=None, partner_id=None,
-                 freecomm=None, structcomm=None):
-        self._cr.execute("""
-            SELECT trans_type_id, trans_family_id, trans_code_id,
-              trans_category_id,
-              struct_comm_type_id, partner_id, freecomm, structcomm,
-              account_id, tax_code_id, analytic_account_id
-            FROM coda_account_mapping_rule
-            WHERE active = TRUE AND coda_bank_account_id = %s
-            ORDER BY sequence""" % coda_bank_account_id)
-        rules = self._cr.fetchall()
+                 freecomm=None, structcomm=None, payment_reference=None):
+
+        select = \
+            'SELECT trans_type_id, trans_family_id, trans_code_id, ' \
+            'trans_category_id, ' \
+            'struct_comm_type_id, partner_id, freecomm, structcomm, ' \
+            'account_id, tax_code_id, analytic_account_id, payment_reference'
+        select += self._rule_select_extra(coda_bank_account_id) + ' '
+        select += \
+            "FROM coda_account_mapping_rule " \
+            "WHERE active = TRUE AND coda_bank_account_id = %s " \
+            "ORDER BY sequence" % coda_bank_account_id
+        self._cr.execute(select)
+        rules = self._cr.dictfetchall()
         condition = \
-            '(not rule[0] or (trans_type_id == rule[0])) and ' \
-            '(not rule[1] or (trans_family_id == rule[1])) ' \
-            'and (not rule[2] or (trans_code_id == rule[2])) and ' \
-            '(not rule[3] or (trans_category_id == rule[3])) ' \
-            'and (not rule[4] or (struct_comm_type_id == rule[4])) and ' \
-            '(not rule[5] or (partner_id == rule[5])) ' \
-            'and (not rule[6] or (rule[6].lower() in ' \
-            '(freecomm and freecomm.lower() or ""))) ' \
-            'and (not rule[7] or (rule[7] in (structcomm or ""))) '
-        account_id = tax_code_id = analytic_account_id = False
+            "(not rule['trans_type_id'] or " \
+            "(trans_type_id == rule['trans_type_id'])) and " \
+            "(not rule['trans_family_id'] or " \
+            "(trans_family_id == rule['trans_family_id'])) " \
+            "and (not rule['trans_code_id'] or " \
+            "(trans_code_id == rule['trans_code_id'])) and " \
+            "(not rule['trans_category_id'] or " \
+            "(trans_category_id == rule['trans_category_id'])) " \
+            "and (not rule['struct_comm_type_id'] or " \
+            "(struct_comm_type_id == rule['struct_comm_type_id'])) and " \
+            "(not rule['partner_id'] or " \
+            "(partner_id == rule['partner_id'])) " \
+            "and (not rule['freecomm'] or (rule['freecomm'].lower() in " \
+            "(freecomm and freecomm.lower() or ''))) " \
+            "and (not rule['structcomm'] or " \
+            "(rule['structcomm'] in (structcomm or ''))) " \
+            "and (not rule['payment_reference'] or " \
+            "(rule['payment_reference'] in (payment_reference or ''))) "
+        result_fields = [
+            'account_id', 'tax_code_id', 'analytic_account_id']
+        result_fields += self._rule_result_extra(coda_bank_account_id)
+        res = {}
         for rule in rules:
             if eval(condition):
-                account_id, tax_code_id, analytic_account_id = rule[8:11]
+                for f in result_fields:
+                    res[f] = rule[f]
                 break
-        res = {'account_id': account_id,
-               'tax_code_id': tax_code_id,
-               'analytic_account_id': analytic_account_id}
-        return account_id and res or {}
+        return res

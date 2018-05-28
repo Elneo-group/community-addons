@@ -1,31 +1,23 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    Odoo, Open Source Management Solution
-#
-#    Copyright (c) 2009-2015 Noviat nv/sa (www.noviat.com).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# Copyright 2009-2017 Noviat.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields
+from openerp import fields, models
 
 
 class AccountBankStatement(models.Model):
     _inherit = 'account.bank.statement'
 
     coda_id = fields.Many2one(
-        'account.coda', string='CODA Data File')
+        comodel_name='account.coda', string='CODA Data File')
     coda_note = fields.Text('CODA Notes')
+    coda_bank_account_id = fields.Many2one(
+        comodel_name='coda.bank.account')
+
+    def _automatic_reconcile(self, reconcile_note):
+        if self.coda_bank_account_id:
+            wiz = self.env['account.coda.import']
+            reconcile_note = wiz._automatic_reconcile(
+                self, reconcile_note)
+        return super(AccountBankStatement, self
+                     )._automatic_reconcile(reconcile_note)
