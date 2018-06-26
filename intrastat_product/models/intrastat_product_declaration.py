@@ -2,8 +2,8 @@
 ##############################################################################
 #
 #    Intrastat Product module for Odoo
-#    Copyright (C) 2011-2015 Akretion (http://www.akretion.com)
-#    Copyright (C) 2009-2015 Noviat (http://www.noviat.com)
+#    Copyright (C) 2011-2016 Akretion (http://www.akretion.com)
+#    Copyright (C) 2009-2016 Noviat (http://www.noviat.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #    @author Luc de Meyer <info@noviat.com>
 #
@@ -158,8 +158,9 @@ class IntrastatProductDeclaration(models.Model):
     num_decl_lines = fields.Integer(
         compute='_compute_numbers', string='Number of Declaration Lines',
         store=True, track_visibility='onchange')
-    total_amount = fields.Integer(
-        compute='_compute_numbers', string='Total Fiscal Amount', store=True,
+    total_amount = fields.Float(
+        compute='_compute_numbers', digits=dp.get_precision('Account'),
+        string='Total Fiscal Amount', store=True,
         help="Total fiscal amount in company currency of the declaration.")
     currency_id = fields.Many2one(
         'res.currency', related='company_id.currency_id', readonly=True,
@@ -181,13 +182,13 @@ class IntrastatProductDeclaration(models.Model):
         compute='_check_validity',
         string='Valid')
 
-    @api.model
+    @api.one
     @api.constrains('year')
     def _check_year(self):
-        for this in self:
-            s = str(this.year)
-            if len(s) != 4 or s[0] != '2':
-                raise ValidationError(_("Invalid Year !"))
+        s = str(self.year)
+        if len(s) != 4 or s[0] != '2':
+            raise ValidationError(
+                _("Invalid Year !"))
 
     _sql_constraints = [
         ('date_uniq',
@@ -197,32 +198,29 @@ class IntrastatProductDeclaration(models.Model):
          "or change the revision number of this one."),
     ]
 
-    @api.multi
+    @api.one
     @api.depends('company_id')
     def _compute_company_country_code(self):
-        for this in self:
-            if this.company_id:
-                this.company_country_code = \
-                    this.company_id.country_id.code.lower()
+        if self.company_id:
+            self.company_country_code = \
+                self.company_id.country_id.code.lower()
 
-    @api.multi
+    @api.one
     @api.depends('year', 'month')
     def _compute_year_month(self):
-        for this in self:
-            if this.year and this.month:
-                this.year_month = '-'.join(
-                    [str(this.year), format(this.month, '02')])
+        if self.year and self.month:
+            self.year_month = '-'.join(
+                [str(self.year), format(self.month, '02')])
 
-    @api.multi
+    @api.one
     @api.depends('month')
     def _check_validity(self):
         """ TO DO: logic based upon computation lines """
-        for this in self:
-            this.valid = True
+        self.valid = True
 
-    @api.multi
+    @api.one
+    @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
-        self.ensure_one()
         default = default or {}
         default['revision'] = self.revision + 1
         return super(IntrastatProductDeclaration, self).copy(default)
@@ -263,10 +261,10 @@ class IntrastatProductDeclaration(models.Model):
         invoice = inv_line.invoice_id
         intrastat_unit_id = hs_code.intrastat_unit_id
         source_uom = inv_line.uos_id
-        weight_uom_categ = self._get_uom_refs('weight_uom_categ')
-        kg_uom = self._get_uom_refs('kg_uom')
-        pce_uom_categ = self._get_uom_refs('pce_uom_categ')
-        pce_uom = self._get_uom_refs('pce_uom')
+        weight_uom_categ = self._uom_refs['weight_uom_categ']
+        kg_uom = self._uom_refs['kg_uom']
+        pce_uom_categ = self._uom_refs['pce_uom_categ']
+        pce_uom = self._uom_refs['pce_uom']
         weight = suppl_unit_qty = 0.0
 
         if not source_uom:
@@ -290,7 +288,7 @@ class IntrastatProductDeclaration(models.Model):
                     "Please correct the Intrastat Supplementary Unit "
                     "settings and regenerate the lines or adjust the lines "
                     "with Intrastat Code '%s' manually"
-                    ) % hs_code.display_name
+                    ) % inv_line.hs_code_id.local_code
                 self._note += note
                 return weight, suppl_unit_qty
             if target_uom.category_id == source_uom.category_id:
@@ -355,33 +353,19 @@ class IntrastatProductDeclaration(models.Model):
 
     def _get_region(self, inv_line):
         """
-        For supplier invoices/refunds: if the invoice line is linked
-        to a stock move, use the destination stock location ;
-        otherwise, get the PO (which is linked to a stock location)
-        and then get the warehouse.
-        It is important to take into account the following scenario:
-        I order a qty of 50 kg and my suppliers delivers and invoices 52 kg
-        (quite common in some industries where the order qty cannot be exact
-        due to some operational constraints) ; in this case, I have a qty of
-        2 kg which is not linked to a PO, but it is linked to a stock move.
+        Logic copied from standard addons
 
-        For customer invoices/refunds: if the invoice line is linked to a
-        stock move, use the source stock location ;
-        otherwise, get the sale order, which is linked to the warehouse.
+        If purchase, comes from purchase order, linked to a location,
+        which is linked to the warehouse.
 
-        If none found, get the company's default intrastat region.
+        If sales, the sale order is linked to the warehouse.
+        If sales, from a delivery order, linked to a location,
+        which is linked to the warehouse.
 
+        If none found, get the company one.
         """
         region = False
-        inv_type = inv_line.invoice_id.type
-        if inv_line.move_line_ids:
-            if inv_type in ('in_invoice', 'out_refund'):
-                region = inv_line.move_line_ids[0].location_id.\
-                    get_intrastat_region()
-            else:
-                region = inv_line.move_line_ids[0].location_dest_id.\
-                    get_intrastat_region()
-        elif inv_type in ('in_invoice', 'in_refund'):
+        if inv_line.invoice_id.type in ('in_invoice', 'in_refund'):
             po_lines = self.env['purchase.order.line'].search(
                 [('invoice_lines', 'in', inv_line.id)])
             if po_lines:
@@ -429,32 +413,20 @@ class IntrastatProductDeclaration(models.Model):
 
     def _handle_invoice_accessory_cost(
             self, invoice, lines_current_invoice,
-            total_inv_accessory_costs_cc, total_inv_product_cc,
-            total_inv_weight):
+            total_inv_accessory_costs_cc, total_inv_product_cc):
         """
-        Affect accessory costs pro-rata of the value
-        (or pro-rata of the weight if the goods of the invoice
-        have no value)
+        Affect accessory costs pro-rata of the value.
 
         This method allows to implement a different logic
         in the localization modules.
         E.g. in Belgium accessory cost should not be added.
         """
-        if total_inv_accessory_costs_cc:
-            if total_inv_product_cc:
-                # pro-rata of the value
-                for ac_line_vals in lines_current_invoice:
-                    ac_line_vals['amount_accessory_cost_company_currency'] = (
-                        total_inv_accessory_costs_cc *
-                        ac_line_vals['amount_company_currency'] /
-                        total_inv_product_cc)
-            else:
-                # pro-rata of the weight
-                for ac_line_vals in lines_current_invoice:
-                    ac_line_vals['amount_accessory_cost_company_currency'] = (
-                        total_inv_accessory_costs_cc *
-                        ac_line_vals['weight'] /
-                        total_inv_weight)
+        if total_inv_accessory_costs_cc and total_inv_product_cc:
+            for ac_line_vals in lines_current_invoice:
+                ac_line_vals['amount_accessory_cost_company_currency'] = (
+                    total_inv_accessory_costs_cc *
+                    ac_line_vals['amount_company_currency'] /
+                    total_inv_product_cc)
 
     def _prepare_invoice_domain(self):
         """
@@ -468,17 +440,8 @@ class IntrastatProductDeclaration(models.Model):
             ('date_invoice', '>=', start_date),
             ('date_invoice', '<=', end_date),
             ('state', 'in', ['open', 'paid']),
-            ('intrastat_country', '=', True),
             ('company_id', '=', self.company_id.id)]
         return domain
-
-    def _is_product(self, invoice_line):
-        if (
-                invoice_line.product_id and
-                invoice_line.product_id.type in ('product', 'consu')):
-            return True
-        else:
-            return False
 
     def _gather_invoices_init(self):
         """ placeholder for localization modules """
@@ -498,7 +461,6 @@ class IntrastatProductDeclaration(models.Model):
             lines_current_invoice = []
             total_inv_accessory_costs_cc = 0.0  # in company currency
             total_inv_product_cc = 0.0  # in company currency
-            total_inv_weight = 0.0
             for inv_line in invoice.invoice_line:
 
                 if (
@@ -517,6 +479,12 @@ class IntrastatProductDeclaration(models.Model):
                     _logger.info(
                         'Skipping invoice line %s qty %s '
                         'of invoice %s. Reason: qty = 0'
+                        % (inv_line.name, inv_line.quantity, invoice.number))
+                    continue
+                if not inv_line.price_subtotal:
+                    _logger.info(
+                        'Skipping invoice line %s qty %s '
+                        'of invoice %s. Reason: price_subtotal = 0'
                         % (inv_line.name, inv_line.quantity, invoice.number))
                     continue
 
@@ -540,7 +508,9 @@ class IntrastatProductDeclaration(models.Model):
 
                 if inv_line.hs_code_id:
                     hs_code = inv_line.hs_code_id
-                elif inv_line.product_id and self._is_product(inv_line):
+                elif (
+                        inv_line.product_id and
+                        inv_line.product_id.type in ('product', 'consu')):
                     hs_code = inv_line.product_id.product_tmpl_id.\
                         get_hs_code_recursively()
                     if not hs_code:
@@ -553,7 +523,7 @@ class IntrastatProductDeclaration(models.Model):
                         continue
                 else:
                     _logger.info(
-                        'Skipping invoice line %s qty %s '
+                        'Skipping invoice line %s qty %s'
                         'of invoice %s. Reason: no product nor hs_code'
                         % (inv_line.name, inv_line.quantity, invoice.number))
                     continue
@@ -563,7 +533,6 @@ class IntrastatProductDeclaration(models.Model):
 
                 weight, suppl_unit_qty = self._get_weight_and_supplunits(
                     inv_line, hs_code)
-                total_inv_weight += weight
 
                 amount_company_currency = self._get_amount(inv_line)
                 total_inv_product_cc += amount_company_currency
@@ -603,35 +572,11 @@ class IntrastatProductDeclaration(models.Model):
 
             self._handle_invoice_accessory_cost(
                 invoice, lines_current_invoice,
-                total_inv_accessory_costs_cc, total_inv_product_cc,
-                total_inv_weight)
+                total_inv_accessory_costs_cc, total_inv_product_cc)
 
-            for line_vals in lines_current_invoice:
-                if (
-                        not line_vals['amount_company_currency'] and
-                        not
-                        line_vals['amount_accessory_cost_company_currency']):
-                    inv_line = self.env['account.invoice.line'].browse(
-                        line_vals['invoice_line_id'])
-                    _logger.info(
-                        'Skipping invoice line %s qty %s '
-                        'of invoice %s. Reason: price_subtotal = 0 '
-                        'and accessory costs = 0'
-                        % (inv_line.name, inv_line.quantity,
-                           inv_line.invoice_id.number))
-                    continue
-                lines.append(line_vals)
+            lines += lines_current_invoice
 
         return lines
-
-    def _get_uom_refs(self, ref):
-        uom_refs = {
-            'weight_uom_categ': self.env.ref('product.product_uom_categ_kgm'),
-            'kg_uom': self.env.ref('product.product_uom_kgm'),
-            'pce_uom_categ': self.env.ref('product.product_uom_categ_unit'),
-            'pce_uom': self.env.ref('product.product_uom_unit')
-            }
-        return uom_refs[ref]
 
     @api.multi
     def action_gather(self):
@@ -639,6 +584,12 @@ class IntrastatProductDeclaration(models.Model):
         self.message_post(_("Generate Lines from Invoices"))
         self._check_generate_lines()
         self._note = ''
+        self._uom_refs = {
+            'weight_uom_categ': self.env.ref('product.product_uom_categ_kgm'),
+            'kg_uom': self.env.ref('product.product_uom_kgm'),
+            'pce_uom_categ': self.env.ref('product.product_uom_categ_unit'),
+            'pce_uom': self.env.ref('product.product_uom_unit')
+            }
         if (
                 self.type == 'arrivals' and
                 self.company_id.intrastat_arrivals == 'extended') or (
@@ -827,12 +778,11 @@ class IntrastatProductComputationLine(models.Model):
         'res.country', string='Country of Origin of the Product',
         help="Country of origin of the product i.e. product 'made in ____'")
 
-    @api.multi
+    @api.one
     @api.depends('transport_id')
     def _check_validity(self):
         """ TO DO: logic based upon fields """
-        for this in self:
-            this.valid = True
+        self.valid = True
 
     @api.onchange('product_id')
     def _onchange_product(self):

@@ -37,6 +37,7 @@ class StockPicking(models.Model):
     def _create_invoice_from_picking(self, picking, vals):
         """ Copy data from picking to invoice. """
         vals['intrastat_transport_id'] = picking.intrastat_transport_id.id
+        vals['stock_picking_id'] = picking.id
         if picking.partner_id and picking.partner_id.country_id:
             vals['src_dest_country_id'] = picking.partner_id.country_id.id
         region = picking.location_id.get_intrastat_region()
