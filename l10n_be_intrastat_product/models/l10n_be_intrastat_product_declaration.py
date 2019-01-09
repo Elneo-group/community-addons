@@ -112,8 +112,7 @@ class L10nBeIntrastatProductDeclaration(models.Model):
 
     def _handle_invoice_accessory_cost(
             self, invoice, lines_current_invoice,
-            total_inv_accessory_costs_cc, total_inv_product_cc,
-            total_inv_weight):
+            total_inv_accessory_costs_cc, total_inv_product_cc):
         """
         In Belgium accessory cost should not be added.
         cf. Intrastat guide 2015 NBB/BNB:

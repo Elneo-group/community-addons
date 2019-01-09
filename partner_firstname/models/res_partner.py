@@ -21,7 +21,8 @@ class ResPartner(models.Model):
     firstname = fields.Char("First name")
     lastname = fields.Char("Last name")
     name = fields.Char(
-        sudo_compute="_compute_name",
+        compute="_compute_name",
+        compute_sudo=True,
         inverse="_inverse_name_after_cleaning_whitespace",
         required=False,
         store=True)
