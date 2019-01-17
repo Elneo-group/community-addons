@@ -137,8 +137,7 @@ class L10nBeIntrastatProductDeclaration(models.Model):
         # Current version implements only regular credit notes
         special_code = '99600000'
         hs_code = self.env['hs.code'].search(
-            [('company_id', '=', self.company_id.id),
-             ('local_code', '=', special_code)])
+            [('local_code', '=', special_code)])
         if not hs_code:
             action = self.env.ref(
                 '%s.intrastat_installer_action' % module)
