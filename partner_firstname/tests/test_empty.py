@@ -1,5 +1,4 @@
-# -*- encoding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
 # Odoo, Open Source Management Solution
 # Copyright (C) 2014-2015  Grupo ESOC <www.grupoesoc.es>
 #
@@ -23,7 +22,7 @@ To have more accurate results, remove the ``mail`` module before testing.
 
 from openerp.tests.common import TransactionCase
 from .base import MailInstalled
-from .. import exceptions as ex
+from ..models import exceptions as ex
 
 
 class CompanyCase(TransactionCase):
