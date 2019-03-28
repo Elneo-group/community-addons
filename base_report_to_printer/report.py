@@ -82,7 +82,11 @@ class Report(models.Model):
         can_print_report = self._can_print_report(cr, uid, ids,
                                                   behaviour, printer, document,
                                                   context=context)
-        if can_print_report and ("force_neopost_send" in context and not context['force_neopost_send']) or "force_neopost_send" not in context:
+        
+        if "force_neopost_send" in context and context['force_neopost_send']:
+            return document
+        
+        if can_print_report:
             printer.print_document(report, document, report.report_type)
         return document
 
