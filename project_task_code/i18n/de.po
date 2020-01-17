@@ -1,0 +1,44 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * project_task_code
+#
+# Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2016-2017
+# Thomas A. Jaeger, 2015
+# Renzo Meister, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: project (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-31 08:36+0000\n"
+"PO-Revision-Date: 2017-05-31 13:27+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-project-8-0/language/"
+"de/)\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: project_task_code
+#: model:ir.model,name:project_task_code.model_project_task
+msgid "Task"
+msgstr "Aufgabe"
+
+#. module: project_task_code
+#: field:project.task,code:0
+msgid "Task Number"
+msgstr "Aufgabennummer"
+
+#. module: project_task_code
+#: code:addons/project_task_code/models/project_task.py:17
+#: sql_constraint:project.task:0
+#, python-format
+msgid "The code must be unique!"
+msgstr "Der Schlüssel muss eindeutig sein!"
+
+#. module: project_task_code
+#: view:project.task:project_task_code.project_task_code_search_view
+msgid "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
+msgstr "['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
