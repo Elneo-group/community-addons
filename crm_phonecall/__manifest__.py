@@ -12,7 +12,7 @@
     "license": "AGPL-3",
     "depends": [
         'crm',
-        'sale_crm'
+        'sale_crm',
         'calendar',
     ],
     "data": [
