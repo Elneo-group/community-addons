@@ -15,20 +15,23 @@ class ResPartner(models.Model):
                  'commercial_partner_id.child_ids.invoice_ids')
     def _compute_prospect(self):
         for partner in self:
-            sale_ids = (
-                partner.commercial_partner_id.sale_order_ids +
-                partner.commercial_partner_id.mapped(
-                    'child_ids.sale_order_ids'))
-            invoice_ids = (
-                partner.commercial_partner_id.invoice_ids +
-                partner.commercial_partner_id.mapped(
-                    'child_ids.invoice_ids'))
-            partner.prospect = (
-                not sale_ids.filtered(
-                    lambda r: r.state not in
-                    ('draft', 'sent', 'cancel')) and
-                not invoice_ids.filtered(
-                    lambda r: r.type in ('out_invoice', 'out_refund')))
+            if partner.customer_rank == 0:
+                partner.prospect = False
+            else:
+                sale_ids = (
+                    partner.commercial_partner_id.sale_order_ids +
+                    partner.commercial_partner_id.mapped(
+                        'child_ids.sale_order_ids'))
+                invoice_ids = (
+                    partner.commercial_partner_id.invoice_ids +
+                    partner.commercial_partner_id.mapped(
+                        'child_ids.invoice_ids'))
+                partner.prospect = (
+                    not sale_ids.filtered(
+                        lambda r: r.state not in
+                        ('draft', 'sent', 'cancel')) and
+                    not invoice_ids.filtered(
+                        lambda r: r.type in ('out_invoice', 'out_refund')))
 
     prospect = fields.Boolean(
         'Prospect', compute='_compute_prospect',
