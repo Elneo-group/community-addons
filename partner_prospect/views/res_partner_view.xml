@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="vat" position="after">
-                <field name="prospect" />
+                <field name="prospect" attrs="{'invisible':[('customer_rank','=',0)]}" />
             </field>
         </field>
     </record>
@@ -16,14 +16,11 @@
         <field name="name">res.partner.prospect.search</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter" />
-        <field name="arch" type="xml">
-            <filter name="supplier" position="after">
-                <filter string="Actual Customer" name="noprospect" domain="[('prospect','=',False)]"/>
-                <filter string="Prospect" name="prospect" domain="[('prospect','=',True)]"/>
+        <field name="arch" type="xml"> 
+            <filter name="inactive" position="before">
+                <filter string="Prospect" name="prospect" domain="[('customer_rank','>',0),('prospect','=',True)]"/>
+                <separator/>
             </filter>
-            <xpath expr="//group[@name='group_by']" position="inside">
-                <filter name="group_prospect" string="Prospect" context="{'group_by': 'prospect'}"/>
-            </xpath>
         </field>
     </record>
 </odoo>
