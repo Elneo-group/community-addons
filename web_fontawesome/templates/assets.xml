@@ -9,10 +9,6 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
                position="replace">
             <link rel="stylesheet" type="text/css"
                   href="/web_fontawesome/static/src/css/fontawesome.css"/>
-            <link rel="stylesheet" type="text/css"
-                  href="/web_fontawesome/static/lib/fontawesome-5.3.1/css/all.css"/>
-            <link rel="stylesheet" type="text/css"
-                  href="/web_fontawesome/static/lib/fontawesome-5.3.1/css/v4-shims.css"/>
         </xpath>
         <xpath expr="." position="inside">
             <script type="text/javascript"
@@ -25,9 +21,7 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
         <xpath expr="link[@href='/web/static/lib/fontawesome/css/font-awesome.css']"
                position="replace">
             <link rel="stylesheet" type="text/css"
-                  href="/web_fontawesome/static/lib/fontawesome-5.3.1/css/all.css"/>
-            <link rel="stylesheet" type="text/css"
-                  href="/web_fontawesome/static/lib/fontawesome-5.3.1/css/v4-shims.css"/>
+                  href="/web_fontawesome/static/src/css/fontawesome.css"/>
         </xpath>
     </template>
 </odoo>
