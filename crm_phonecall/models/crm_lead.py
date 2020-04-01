@@ -25,7 +25,7 @@ class CrmLead(models.Model):
         for lead in self:
             lead.phonecall_count = self.env[
                 'crm.phonecall'].search_count(
-                [('opportunity_id', '=', lead.id)])
+                [('type','=','opportunity'),('opportunity_id', '=', lead.id)])
 
     def button_open_phonecall(self):
         self.ensure_one()
@@ -36,7 +36,8 @@ class CrmLead(models.Model):
         action_dict['context'].update({
             'default_opportunity_id': self.id,
             'search_default_opportunity_id': self.id,
-            'default_partner_id': self.partner_id.id,
+            'default_partner_society_id': self.partner_id.id,
             'default_duration': 1.0,
+            'default_type': 'opportunity',
         })
         return action_dict

@@ -24,4 +24,4 @@ class ResPartner(models.Model):
         for partner in self:
             partner.phonecall_count = self.env[
                 'crm.phonecall'].search_count(
-                ['|',('partner_society_id', '=', partner.id),('partner_id','=',partner.id)])
+                ['&',('type','=','opportunity'),('partner_society_id', '=', partner.id)])
