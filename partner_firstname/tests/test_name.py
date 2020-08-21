@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Authors: Nemry Jonathan
 # Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
 # All Rights Reserved
@@ -34,21 +36,21 @@ from .base import BaseCase
 class PartnerContactCase(BaseCase):
     def test_update_lastname(self):
         """Change lastname."""
-        self.expect("newlästname", self.firstname)
+        self.expect(u"newlästname", self.firstname)
         self.original.name = self.name
 
     def test_update_firstname(self):
         """Change firstname."""
-        self.expect(self.lastname, "newfïrstname")
+        self.expect(self.lastname, u"newfïrstname")
         self.original.name = self.name
 
     def test_whitespace_cleanup(self):
         """Check that whitespace in name gets cleared."""
-        self.expect("newlästname", "newfïrstname")
-        self.original.name = "  newfïrstname  newlästname  "
+        self.expect(u"newlästname", u"newfïrstname")
+        self.original.name = "  newlästname  newfïrstname  "
 
         # Need this to refresh the ``name`` field
-        self.original.invalidate_cache(["name"])
+        self.original.invalidate_cache()
 
 
 class PartnerCompanyCase(BaseCase):
@@ -63,23 +65,23 @@ class PartnerCompanyCase(BaseCase):
 
     def test_company_inverse(self):
         """Test the inverse method in a company record."""
-        name = "Thïs is a Companŷ"
+        name = u"Thïs is a Companŷ"
         self.expect(name, False, name)
         self.original.name = name
 
 
 class UserCase(PartnerContactCase):
     def create_original(self):
-        name = "{} {}".format(self.firstname, self.lastname)
+        name = u"%s %s" % (self.lastname, self.firstname)
 
         # Cannot create users if ``mail`` is installed
         if self.mail_installed():
             self.original = self.env.ref("base.user_demo")
             self.original.name = name
         else:
-            self.original = self.env["res.users"].create(
-                {"name": name, "login": "firstnametest@example.com"}
-            )
+            self.original = self.env["res.users"].create({
+                "name": name,
+                "login": "firstnametest@example.com"})
 
     def test_copy(self):
         """Copy the partner and compare the result."""

@@ -1,69 +1,71 @@
-# Copyright 2015 Antiun Ingenieria S.L. - Antonio Espinosa
+# -*- coding: utf-8 -*-
+# © 2015 Antiun Ingenieria S.L. - Antonio Espinosa
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
-
-from odoo import fields, models
-
+from openerp import models, fields, api
 _logger = logging.getLogger(__name__)
 
 
-class ResConfigSettings(models.TransientModel):
-    _inherit = "res.config.settings"
+class BaseConfigSettings(models.TransientModel):
+    _inherit = 'base.config.settings'
 
     partner_names_order = fields.Selection(
         string="Partner names order",
         selection="_partner_names_order_selection",
         help="Order to compose partner fullname",
-        config_parameter="partner_names_order",
-        default=lambda a: a._partner_names_order_default(),
-        required=True,
-        inverse="_inverse_partner_names_order",
-    )
+        required=True)
     partner_names_order_changed = fields.Boolean(
-        config_parameter="partner_names_order_changed"
-    )
+        readonly=True, compute="_compute_names_order_changed")
 
     def _partner_names_order_selection(self):
         return [
-            ("last_first", "Lastname Firstname"),
-            ("last_first_comma", "Lastname, Firstname"),
-            ("first_last", "Firstname Lastname"),
+            ('last_first', 'Lastname Firstname'),
+            ('last_first_comma', 'Lastname, Firstname'),
+            ('first_last', 'Firstname Lastname'),
         ]
 
     def _partner_names_order_default(self):
-        return self.env["res.partner"]._names_order_default()
+        return self.env['res.partner']._names_order_default()
 
-    def _inverse_partner_names_order(self):
-        current = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param(
-                "partner_names_order", default=self._partner_names_order_default()
-            )
+    @api.multi
+    def get_default_partner_names_order(self):
+        return {
+            'partner_names_order': self.env['ir.config_parameter'].get_param(
+                'partner_names_order', self._partner_names_order_default()),
+        }
+
+    @api.multi
+    @api.depends('partner_names_order')
+    def _compute_names_order_changed(self):
+        current = self.env['ir.config_parameter'].get_param(
+            'partner_names_order', self._partner_names_order_default(),
         )
         for record in self:
             record.partner_names_order_changed = bool(
                 record.partner_names_order != current
             )
 
-    def _partners_for_recalculating(self):
-        return self.env["res.partner"].search(
-            [
-                ("is_company", "=", False),
-                ("firstname", "!=", False),
-                ("lastname", "!=", False),
-            ]
-        )
+    @api.onchange('partner_names_order')
+    def _onchange_partner_names_order(self):
+        self.partner_names_order_changed = self._compute_names_order_changed()
 
+    @api.multi
+    def set_partner_names_order(self):
+        self.env['ir.config_parameter'].set_param(
+            'partner_names_order', self.partner_names_order)
+
+    @api.multi
+    def _partners_for_recalculating(self):
+        return self.env['res.partner'].search([
+            ('is_company', '=', False),
+            ('firstname', '!=', False), ('lastname', '!=', False),
+        ])
+
+    @api.multi
     def action_recalculate_partners_name(self):
-        self.env["ir.config_parameter"].sudo().set_param(
-            "partner_names_order", self.partner_names_order
-        )
         partners = self._partners_for_recalculating()
         _logger.info("Recalculating names for %d partners.", len(partners))
         partners._compute_name()
-        self.partner_names_order_changed = False
-        self.execute()
         _logger.info("%d partners updated.", len(partners))
         return True
