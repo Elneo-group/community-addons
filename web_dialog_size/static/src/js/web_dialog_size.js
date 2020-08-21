@@ -1,37 +1,69 @@
-openerp.web_dialog_size= function (instance) {
+odoo.define("web_dialog_size.web_dialog_size", function(require) {
+    "use strict";
 
-    instance.web.Dialog =  instance.web.Dialog.extend({
+    var rpc = require("web.rpc");
+    var Dialog = require("web.Dialog");
 
-        init_dialog: function () {
+    var config = rpc.query({
+        model: "ir.config_parameter",
+        method: "get_web_dialog_size_config",
+    });
+
+    Dialog.include({
+        willStart: function() {
             var self = this;
-            this._super();
-            self.$dialog_box.find('.dialog_button_restore').addClass('dialog_button_hide');
-            if (this.dialog_options.size !== 'large'){
-                self.$dialog_box.find('.dialog_button_extend').addClass('dialog_button_hide');
+            return this._super.apply(this, arguments).then(function() {
+                self.$modal
+                    .find(".dialog_button_extend")
+                    .on("click", self.proxy("_extending"));
+                self.$modal
+                    .find(".dialog_button_restore")
+                    .on("click", self.proxy("_restore"));
+                return config.then(function(r) {
+                    if (r.default_maximize) {
+                        self._extending();
+                    } else {
+                        self._restore();
+                    }
+                });
+            });
+        },
+
+        opened: function() {
+            return this._super.apply(this, arguments).then(
+                function() {
+                    if (this.$modal) {
+                        this.$modal.draggable({
+                            handle: ".modal-header",
+                            helper: false,
+                        });
+                    }
+                }.bind(this)
+            );
+        },
+
+        close: function() {
+            if (this.$modal) {
+                var draggable = this.$modal.draggable("instance");
+                if (draggable) {
+                    this.$modal.draggable("destroy");
+                }
             }
-            else{
-                self.$dialog_box.find('.dialog_button_extend').on('click', self._extending);
-                self.$dialog_box.find('.dialog_button_restore').on('click', self._restore);
-            }
+            return this._super.apply(this, arguments);
         },
 
         _extending: function() {
-            var self = this;
-            $(this).parents('.modal-dialog').addClass('dialog_full_screen');
-            $(this).addClass('dialog_button_hide');
-
-            $(this).parents('.modal-dialog').find('.dialog_button_restore').removeClass('dialog_button_hide')
+            var dialog = this.$modal.find(".modal-dialog");
+            dialog.addClass("dialog_full_screen");
+            dialog.find(".dialog_button_extend").hide();
+            dialog.find(".dialog_button_restore").show();
         },
 
         _restore: function() {
-            var self = this;
-            $(this).parents('.modal-dialog').removeClass('dialog_full_screen');
-            $(this).addClass('dialog_button_hide');
-
-            $(this).parents('.modal-dialog').find('.dialog_button_extend').removeClass('dialog_button_hide')
+            var dialog = this.$modal.find(".modal-dialog");
+            dialog.removeClass("dialog_full_screen");
+            dialog.find(".dialog_button_restore").hide();
+            dialog.find(".dialog_button_extend").show();
         },
-
     });
-
-};
-
+});

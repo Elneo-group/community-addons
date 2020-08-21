@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-# © 2015 Grupo ESOC
+# Copyright 2015 Grupo ESOC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
+
 from .base import MailInstalled
 
 
@@ -18,7 +18,7 @@ class CompanyCase(TransactionCase):
 
         See https://github.com/OCA/partner-contact/issues/154.
         """
-        data = {"name": u"Söme name"}
+        data = {"name": "Söme name"}
         record = self.env[self.model].with_context(**self.context).create(data)
         record.unlink()
         record.recompute()

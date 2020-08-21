@@ -1,566 +1,328 @@
-# French translation of Odoo 8.0.
+# French translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_be_coda_advanced
+#    * l10n_be_coda_advanced
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 8.0\n"
+"Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: support@noviat.com\n"
-"POT-Creation-Date: 2019-03-18 20:13:38.669000\n"
-"PO-Revision-Date: 2019-03-18 20:13:38.669000\n"
+"POT-Creation-Date: 2020-07-12 20:54:29.268000\n"
+"PO-Revision-Date: 2020-07-12 20:54:29.268000\n"
 "Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
+"Language: French\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: l10n_be_coda_advanced
-#: view:account.bank.statement:0
-msgid "Bank Statements"
-msgstr "Relevés"
-
-#. module: l10n_be_coda_advanced
-#: view:account.bank.statement:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.view_bank_statement_form
 msgid "CODA Notes"
 msgstr "Notes CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.bank.statement,coda_id:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_bank_statement_coda_id
 msgid "CODA Data File"
 msgstr "Fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.bank.statement,coda_note:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_bank_statement_coda_note
 msgid "CODA Notes"
 msgstr "Notes CODA"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_view_tree
 msgid "CODA Files"
 msgstr "Fichiers CODA"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_view_form
 msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda:0
-msgid "Additional Information"
-msgstr "Informations additionelles"
-
-#. module: l10n_be_coda_advanced
-#: view:account.coda:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_view_form
 msgid "Bank Statements"
 msgstr "Relevés"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda:0
-msgid "CODA Statements"
-msgstr "Relevés de compte CODA"
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_view_form
+msgid "Additional Information"
+msgstr "Informations additionelles"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,coda_creation_date:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_coda_creation_date
 msgid "CODA Creation Date"
 msgstr "Date de création du CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,coda_data:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_coda_data
 msgid "CODA File"
 msgstr "Fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,date:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_date
 msgid "Import Date"
 msgstr "Date de l'import"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,name:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_name
 msgid "CODA Filename"
 msgstr "Nom du fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,note:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_note
 msgid "Import Log"
 msgstr "Import log"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,statement_ids:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_statement_ids
 msgid "Generated CODA Bank Statements"
 msgstr "Relevés CODA générés"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda,user_id:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_user_id
 msgid "User"
 msgstr "Utilisateur"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.comm.type:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_comm_type_view_tree
 msgid "CODA Structured Communication Types"
 msgstr "Opérations CODA - Communications structurées"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.comm.type:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_comm_type_view_form
 msgid "CODA Structured Communication Type"
 msgstr "Opérations CODA - Communication structurée"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.comm.type,code:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_comm_type_code
 msgid "Structured Communication Type"
 msgstr "Type de communication structurée"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.comm.type,description:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_comm_type_description
 msgid "Description"
 msgstr "Description"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.category:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_category_view_tree
 msgid "CODA Transaction Categories"
 msgstr "Opérations CODA - Rubriques"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.category:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_category_view_form
 msgid "CODA Transaction Category"
 msgstr "Opérations CODA - Rubrique"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.category,category:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_category_category
 msgid "Transaction Category"
 msgstr "Opérations CODA - Rubrique"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.category,description:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_category_description
 msgid "Description"
 msgstr "Description"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.code:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_code_view_tree
 msgid "CODA Transaction Codes"
 msgstr "Opérations CODA - Codes"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.code:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_code_view_form
 msgid "CODA Transaction Code"
 msgstr "Opérations CODA - Code"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.code,comment:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_code_comment
 msgid "Comment"
 msgstr "Commentaire"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.code,description:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_code_description
 msgid "Description"
 msgstr "Description"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.code,parent_id:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_code_parent_id
 msgid "Family"
 msgstr "Famille"
 
 #. module: l10n_be_coda_advanced
-#: selection:account.coda.trans.code,type:0
+#: model:ir.model.fields.selection,name:l10n_be_coda_advanced.selection__account_coda_trans_code__type__code
 msgid "Transaction Code"
 msgstr "Opérations CODA - Code"
 
 #. module: l10n_be_coda_advanced
-#: selection:account.coda.trans.code,type:0
+#: model:ir.model.fields.selection,name:l10n_be_coda_advanced.selection__account_coda_trans_code__type__family
 msgid "Transaction Family"
 msgstr "Opérations CODA - Famille"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.type:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_type_view_tree
 msgid "CODA Transaction Types"
 msgstr "Opérations CODA - Types"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.trans.type:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_trans_type_view_form
 msgid "CODA Transaction Type"
 msgstr "Opérations CODA - Type"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.type,description:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_type_description
 msgid "Description"
 msgstr "Description"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.trans.type,type:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_type_type
 msgid "Transaction Type"
 msgstr "Opérations CODA - Type"
 
 #. module: l10n_be_coda_advanced
-#: view:coda.bank.account:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.coda_bank_account_view_search
 msgid "CODA Bank Account Configuration"
 msgstr "Configuration compte bancaire CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,active:0
-msgid "Active"
-msgstr "Actif"
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.coda_bank_account_view_tree
+msgid "CODA Bank Account Configuration"
+msgstr "Configuration compte bancaire CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,awaiting_account:0
-msgid "Default Account for Unrecognized Movement"
-msgstr "Compte par défaut pour les mouvements non reconus"
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.coda_bank_account_view_form
+msgid "CODA Bank Account Configuration"
+msgstr "Configuration compte bancaire CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,bank_id:0
-msgid "Bank Account"
-msgstr "Compte bancaire"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_name
+msgid "Name"
+msgstr "Nom"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,coda_st_naming:0
-msgid "Bank Statement Naming Policy"
-msgstr "Nomenclature relevé de compte"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.account,company_id:0
-msgid "Company"
-msgstr "Nom de la société"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.account,currency:0
-msgid "Currency"
-msgstr "Devises"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.account,description1:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_description1
 msgid "Primary Account Description"
 msgstr "Libellé du compte"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,description2:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_description2
 msgid "Secondary Account Description"
 msgstr "Libellé alternatif du compte"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,journal:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_journal_id
 msgid "Journal"
 msgstr "Journal"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.account,name:0
-msgid "Name"
-msgstr "Nom"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.account,state:0
-msgid "Type"
-msgstr "Type"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.account,state:0
-msgid "Info"
-msgstr "Info"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.account,state:0
-msgid "Normal"
-msgstr "Normale"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "CODA Bank Statements"
-msgstr "Relevés de compte CODA"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "CODA Bank Statement"
-msgstr "Relevé de compte CODA"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "Transactions"
-msgstr "Opérations"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "CODA Statement Lines"
-msgstr "Détailles CODA"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "_Generate Bank Statement"
-msgstr "_Générer relevé de compte"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement:0
-msgid "_Cancel"
-msgstr "_Annuler"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,balance_end:0
-msgid "Balance"
-msgstr "Solde de la balance"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,balance_end_real:0
-msgid "Ending Balance"
-msgstr "Solde final"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,balance_start:0
-msgid "Starting Balance"
-msgstr "Solde de début"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,coda_bank_account_id:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_bank_id
 msgid "Bank Account"
 msgstr "Compte bancaire"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,coda_id:0
-msgid "CODA Data File"
-msgstr "Fichier CODA"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,currency:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_currency_id
 msgid "Currency"
 msgstr "Devises"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,date:0
-msgid "Date"
-msgstr "Date"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_coda_st_naming
+msgid "Bank Statement Naming Policy"
+msgstr "Nomenclature relevé de compte"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,journal_id:0
-msgid "Journal"
-msgstr "Journal"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_transfer_account
+msgid "Internal Funds Transfer Account"
+msgstr "Compte virements internes"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,line_ids:0
-msgid "CODA Bank Statement lines"
-msgstr "Détailles CODA"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_mapping_ids
+msgid "Account Mapping Rules"
+msgstr "Account Mapping Rules"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,name:0
-msgid "Name"
-msgstr "Nom"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_active
+msgid "Active"
+msgstr "Actif"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,period_id:0
-msgid "Period"
-msgstr "Période"
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_company_id
+msgid "Company"
+msgstr "Nom de la société"
 
 #. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,type:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_state
 msgid "Type"
 msgstr "Type"
 
 #. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement,type:0
-msgid "Info"
-msgstr "Info"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement,type:0
-msgid "Normal"
-msgstr "Normale"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,state:0
-msgid "State"
-msgstr "État"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement,state:0
-msgid "Draft"
-msgstr "Brouillon"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement,state:0
-msgid "Done"
-msgstr "Clôturé"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement,statement_id:0
-msgid "Associated Bank Statement"
-msgstr "Relevé banque associé"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement.line:0
-msgid "CODA Statement Lines"
-msgstr "Détailles CODA"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement.line:0
-msgid "Glob. Amount"
-msgstr "Glob. montant"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement.line:0
-msgid "Glob. Lvl"
-msgstr "Glob. niveau"
-
-#. module: l10n_be_coda_advanced
-#: view:coda.bank.statement.line:0
-msgid "Notes"
-msgstr "Notes"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,account_id:0
-msgid "Account"
-msgstr "Compte"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,amount:0
-msgid "Amount"
-msgstr "Montant"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,date:0
-msgid "Entry Date"
-msgstr "Date de comptabilisation"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,globalisation_amount:0
-msgid "Globalisation Amount"
-msgstr "Montant de la globalisation"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,globalisation_level:0
-msgid "Globalisation Level"
-msgstr "Niveau de la globalisation"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,name:0
-msgid "Communication"
-msgstr "Communication"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,note:0
-msgid "Notes"
-msgstr "Notes"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,partner_id:0
-msgid "Partner"
-msgstr "Partennaire"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,payment_reference:0
-msgid "Payment Reference"
-msgstr "Référence paiement"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,ref:0
-msgid "Reference"
-msgstr "Référence"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,sequence:0
-msgid "Sequence"
-msgstr "Sequence"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,statement_id:0
-msgid "CODA Bank Statement"
-msgstr "Relevé CODA"
-
-#. module: l10n_be_coda_advanced
-#: field:coda.bank.statement.line,val_date:0
-msgid "Valuta Date"
-msgstr "Date de valeur"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "Supplier"
-msgstr "Fournisseur"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "Customer"
-msgstr "Client"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "General"
-msgstr "Général"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "Globalisation"
-msgstr "Globalisation"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "Information"
-msgstr "Information"
-
-#. module: l10n_be_coda_advanced
-#: selection:coda.bank.statement.line,type:0
-msgid "Communication"
-msgstr "Communication"
-
-#. module: l10n_be_coda_advanced
-#: field:account.coda.import,note:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_import_note
 msgid "Log"
 msgstr "Log"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Import CODA File"
 msgstr "Importer le fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Select Details"
 msgstr "Sélectionnez les détailles"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Select your file :"
 msgstr "Sélectionnez votre fichier:"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Import CODA File"
 msgstr "Importer le fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Import"
 msgstr "Importer"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_result
 msgid "Results :"
 msgstr "Résultat :"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Close"
 msgstr "Clôturer"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "View Bank Statement(s)"
 msgstr "Voir les relevés de compte"
 
 #. module: l10n_be_coda_advanced
-#: view:account.coda.import:0
-msgid "View CODA Bank Statement(s)"
-msgstr "Voir les relevés CODA"
+#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
+msgid "View CODA Files(s"
+msgstr "Voir les fichier(s) CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.import,coda_data:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_import_coda_data
 msgid "CODA (Zip) File "
 msgstr "Fichier CODA (Zip)"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.import,coda_fname:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_import_coda_fname
 msgid "CODA Filename"
 msgstr "Nom du fichier CODA"
 
 #. module: l10n_be_coda_advanced
-#: field:account.coda.import,coda_fname_dummy:0
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_import_coda_fname_dummy
 msgid "CODA Filename"
 msgstr "Nom du fichier CODA"
 
@@ -858,6 +620,21 @@ msgstr "Privé"
 #: code:addons/l10n_be_coda_advanced/wizard/coda_import.py:75
 msgid "Other"
 msgstr "Autres"
+
+#. module: l10n_be_coda_advanced
+#: code:addons/l10n_be_coda_advanced/wizard/coda_import.py:76
+msgid "Cumulative"
+msgstr "Cumul"
+
+#. module: l10n_be_coda_advanced
+#: code:addons/l10n_be_coda_advanced/wizard/coda_import.py:76
+msgid "Cumulative on network"
+msgstr "Cumul on network"
+
+#. module: l10n_be_coda_advanced
+#: code:addons/l10n_be_coda_advanced/wizard/coda_import.py:76
+msgid "POS others"
+msgstr "POS autres"
 
 #. module: l10n_be_coda_advanced
 #: code:addons/l10n_be_coda_advanced/wizard/coda_import.py:77
@@ -1326,8 +1103,8 @@ msgstr "Montant globalisé par la banque, par ex. : le montant total d'une séri
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.type,description:l10n_be_coda_advanced.actt_6
-msgid "Detail of 2. Simple amount without detailed data. Normally, data of this kind comes after type 2. The customer may ask for a separate file containing the detailed data. In that case, one will speak of a ‘separate application’. The records in a separate application keep type 6."
-msgstr "Détails de 2. Montant simple sans détails. Normalement, ces détails suivent le type 2. Le client peut choisir de recevoir ces détails dans un fichier distinct. On parle alors d'une "application distincte". Les enregistrements dans une application distincte conservent le type 6."
+msgid "Detail of 2. Simple amount without detailed data. Normally, data of this kind comes after type 2. The customer may ask for a separate file containing the detailed data. In that case, one will speak of a 'separate application'. The records in a separate application keep type 6."
+msgstr "Détails de 2. Montant simple sans détails. Normalement, ces détails suivent le type 2. Le client peut choisir de recevoir ces détails dans un fichier distinct. On parle alors d'une 'application distincte'. Les enregistrements dans une application distincte conservent le type 6."
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.type,description:l10n_be_coda_advanced.actt_7
@@ -3392,8 +3169,7 @@ msgstr "Débit client, agios décompte étranger, intérêts, commission de chan
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_07
 msgid "- insurance costs of account holders against fatal accidents - passing-on of several insurance costs"
-msgstr "- frais d'assurance des titulaires de compte en cas d'accident mortel 
-- imputation de divers frais d'assurance"
+msgstr "- frais d'assurance des titulaires de compte en cas d'accident mortel \n- imputation de divers frais d'assurance"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_09
@@ -3448,9 +3224,7 @@ msgstr "Pour publications de l'institution financière"
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_29
 msgid "Charges collected for: - commercial information - sundry information"
-msgstr "Frais perçus pour : 
-- des renseignements commerciaux 
-- renseignements divers"
+msgstr "Frais perçus pour : \n- des renseignements commerciaux \n- renseignements divers"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_31
@@ -3460,9 +3234,7 @@ msgstr "Par ex. pour la signature de factures"
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_33
 msgid "Costs not specified otherwise, often with a manual communication (e.g. for collecting, ordering funds). VAT excluded = type 0 VAT included = type 3 (at least 3 articles)"
-msgstr "Frais non définis ailleurs, souvent avec avis manuel (par ex. pour retrait, commande de valeurs) 
-Sans TVA = type 0 
-Avec TVA = type 3 (minimum 3 articles)"
+msgstr "Frais non définis ailleurs, souvent avec avis manuel (par ex. pour retrait, commande de valeurs) \nSans TVA = type 0 \nAvec TVA = type 3 (minimum 3 articles)"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_35
@@ -3471,8 +3243,8 @@ msgstr "Frais imputés pour le calcul du montant de l'impôt à payer (par ex. F
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_37
-msgid "Fixed right, either one-off or periodical; for details, see "categories""
-msgstr "Droit d'accès fixe - peut être unique ou périodique - pour les détails voir "rubriques""
+msgid "Fixed right, either one-off or periodical; for details, see 'categories'"
+msgstr "Droit d'accès fixe - peut être unique ou périodique - pour les détails voir 'rubriques'"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,comment:l10n_be_coda_advanced.actcc_80_39
@@ -4097,7 +3869,7 @@ msgstr "Information relative à des coupons"
 #. module: l10n_be_coda_advanced
 #: model:account.coda.comm.type,description:l10n_be_coda_advanced.acct_100
 msgid "(SEPA) payment with a structured format communication applying the ISO standard 11649: Structured creditor reference to remittance information"
-msgstr "Communication structurée d’un paiement conforme au standard ISO 11649: "Structured creditor reference to remittance information""
+msgstr "Communication structurée d’un paiement conforme au standard ISO 11649: 'Structured creditor reference to remittance information'"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.comm.type,description:l10n_be_coda_advanced.acct_101

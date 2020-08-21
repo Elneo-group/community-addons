@@ -1,40 +1,28 @@
-# -*- coding: utf-8 -*-
-# Odoo, Open Source Management Solution
-# Copyright (C) 2014-2015  Grupo ESOC <www.grupoesoc.es>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+# Copyright 2014-2015 Grupo ESOC <www.grupoesoc.es>
+# Copyright 2016 Yannick Vaucher (Camptocamp)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 """Test situations where names are empty.
 
 To have more accurate results, remove the ``mail`` module before testing.
 """
+from odoo.tests.common import TransactionCase
 
-from openerp.tests.common import TransactionCase
+from .. import exceptions as ex
 from .base import MailInstalled
-from ..models import exceptions as ex
 
 
 class CompanyCase(TransactionCase):
     """Test ``res.partner`` when it is a company."""
+
     model = "res.partner"
     context = {"default_is_company": True}
 
     def tearDown(self):
         try:
             data = {"name": self.name}
+            model = self.env[self.model].with_context(**self.context)
             with self.assertRaises(ex.EmptyNamesError):
-                self.env[self.model].with_context(**self.context).create(data)
+                model.create(data)
         finally:
             super(CompanyCase, self).tearDown()
 
@@ -49,11 +37,13 @@ class CompanyCase(TransactionCase):
 
 class PersonCase(CompanyCase):
     """Test ``res.partner`` when it is a person."""
-    context = {"default_is_company": False}
+
+    context = {"default_is_company": False, "default_type": "contact"}
 
 
 class UserCase(CompanyCase, MailInstalled):
     """Test ``res.users``."""
+
     model = "res.users"
     context = {"default_login": "user@example.com"}
 
@@ -65,3 +55,19 @@ class UserCase(CompanyCase, MailInstalled):
         else:
             # Run tests
             super(UserCase, self).tearDown()
+
+
+class AddressCase(TransactionCase):
+    """Test ``res.partner`` when it is a address."""
+
+    def test_new_empty_invoice_address(self):
+        """Create an invoice patner without name."""
+        self.original = self.env["res.partner"].create(
+            {"is_company": False, "type": "invoice", "lastname": "", "firstname": ""}
+        )
+
+    def test_new_empty_shipping_address(self):
+        """Create an shipping patner without name."""
+        self.original = self.env["res.partner"].create(
+            {"is_company": False, "type": "delivery", "lastname": "", "firstname": ""}
+        )

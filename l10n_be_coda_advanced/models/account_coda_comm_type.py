@@ -1,42 +1,59 @@
-# -*- coding: utf-8 -*-
-# Copyright 2009-2016 Noviat.
+# Copyright 2009-2020 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp import api, fields, models
+
+from odoo import api, fields, models
 
 
 class AccountCodaCommType(models.Model):
-    _name = 'account.coda.comm.type'
-    _description = 'CODA structured communication type'
-    _rec_name = "display_name"
+    _name = "account.coda.comm.type"
+    _description = "CODA structured communication type"
+    _order = "code"
 
-    code = fields.Char(
-        string='Structured Communication Type', size=3, required=True)
-    description = fields.Char(string='Description', translate=True)
-    display_name = fields.Char(
-        compute='_compute_display_name', string="Display Name", readonly=True)
+    _sql_constraints = [
+        (
+            "code_uniq",
+            "unique (code)",
+            "The Structured Communication Code must be unique !",
+        )
+    ]
 
-    @api.one
-    @api.depends('code', 'description')
-    def _compute_display_name(self):
-        display_name = self.code
-        if self.description:
-            display_name += ' ' + self.description
-        self.display_name = len(display_name) > 55 \
-            and display_name[:55] + '...' \
-            or display_name
+    name = fields.Char(compute="_compute_name", readonly=True)
+    code = fields.Char(string="Structured Communication Type", size=3, required=True)
+    description = fields.Char(string="Description", translate=True)
+
+    @api.depends("code", "description")
+    def _compute_name(self):
+        for rec in self:
+            name = rec.code
+            if rec.description:
+                name += " " + rec.description
+            rec.name = len(name) > 55 and name[:55] + "..." or name
 
     @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
+    def name_search(self, name, args=None, operator="ilike", limit=100):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search([('code', 'like', name)] + args, limit=limit)
+            recs = self.search([("code", "like", name)] + args, limit=limit)
         if not recs:
-            recs = self.search(
-                [('description', operator, name)] + args, limit=limit)
-        return [(r.id, r.display_name) for r in recs]
+            recs = self.search([("description", operator, name)] + args, limit=limit)
+        return [(r.id, r.name) for r in recs]
 
-    _sql_constraints = [
-        ('code_uniq', 'unique (code)',
-         "The Structured Communication Code must be unique !")
-    ]
+    @api.model
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        if not args:
+            args = []
+        new_args = []
+        for arg in args:
+            if len(arg) == 3 and arg[0] == "name":
+                new_arg = [
+                    "|",
+                    ("code", arg[1], arg[2]),
+                    ("description", arg[1], arg[2]),
+                ]
+                new_args += new_arg
+            else:
+                new_args.append(arg)
+        return super().search(
+            new_args, offset=offset, limit=limit, order=order, count=count
+        )

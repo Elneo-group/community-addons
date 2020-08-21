@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
   <data noupdate="1">
 
     <!-- account.coda.trans.type -->
@@ -23,7 +23,7 @@
     <record id="actt_6" model="account.coda.trans.type">
       <field name="type">6</field>
       <field name="parent_id" ref="actt_2"/>
-      <field name="description">Detail of 2. Simple amount without detailed data. Normally, data of this kind comes after type 2. The customer may ask for a separate file containing the detailed data. In that case, one will speak of a ‘separate application’. The records in a separate application keep type 6.</field>
+      <field name="description">Detail of 2. Simple amount without detailed data. Normally, data of this kind comes after type 2. The customer may ask for a separate file containing the detailed data. In that case, one will speak of a 'separate application'. The records in a separate application keep type 6.</field>
     </record>
     <record id="actt_7" model="account.coda.trans.type">
       <field name="type">7</field>
@@ -46,4 +46,4 @@
     </record>
 
   </data>
-</openerp>
+</odoo>

@@ -13,7 +13,3 @@ access_coda_bank_account_manager,coda.bank.account manager,model_coda_bank_accou
 access_coda_bank_account_user,coda.bank.account user,model_coda_bank_account,account.group_account_user,1,0,0,0
 access_coda_account_mapping_rule_manager,coda.account.mapping.rule manager,model_coda_account_mapping_rule,account.group_account_manager,1,1,1,1
 access_coda_account_mapping_rule_user,coda.account.mapping.rule user,model_coda_account_mapping_rule,account.group_account_user,1,0,0,0
-access_coda_bank_statement_manager,coda.bank.statement manager,model_coda_bank_statement,account.group_account_manager,1,1,1,1
-access_coda_bank_statement_user,coda.bank.statement user,model_coda_bank_statement,account.group_account_user,1,0,0,0
-access_coda_bank_statement_line_manager,coda.bank.statement.line manager,model_coda_bank_statement_line,account.group_account_manager,1,1,1,1
-access_coda_bank_statement_line_user,coda.bank.statement.line user,model_coda_bank_statement_line,account.group_account_user,1,0,0,0
