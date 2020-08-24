@@ -4,7 +4,6 @@
 
 from odoo import _, api, fields, models
 
-
 class AccountBankStatementLine(models.Model):
     _inherit = "account.bank.statement.line"
 
@@ -65,8 +64,9 @@ class AccountBankStatementLine(models.Model):
     moves_state = fields.Selection(
         string="Moves State",
         selection=[("draft", "Unposted"), ("posted", "Posted")],
-        compute="_compute_moves_state",
-        store=True,
+        # compute="_compute_moves_state",
+        # store=True,
+        #TODO VOIR POUR CALCULER MANUELLEMENT LE COMPUTE LORS DE RECEPTION DE DB
     )
     # update existing fields
     state = fields.Selection(store=True)
