@@ -15,7 +15,7 @@ def migrate(cr, version):
     codas = env["account.coda"].search([])
     for coda in codas:
         data = coda.coda_data
-        if not is_base64(data):
+        if data and not is_base64(data):
             coda.coda_data = base64.b64encode(data)
             _logger.warn(
                 "CODA File %s (%s) has been repaired",
