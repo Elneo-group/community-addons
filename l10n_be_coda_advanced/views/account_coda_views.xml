@@ -35,7 +35,7 @@
         </header>
         <group colspan="4" col="4">
           <field name="coda_creation_date"/>
-          <field name="name"/>
+          <field name="name"  invisible="1"/>
           <field name="coda_data" filename="name"/>
           <field name="date"/>
           <field name="user_id"/>
