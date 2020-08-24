@@ -7,4 +7,4 @@ Account Tax constraints
 =======================
 
 This module prohibits the removal of a tax when this tax
-has been set on product records.
+has been set on product records or used in Journal Items.
