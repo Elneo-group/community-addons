@@ -51,6 +51,7 @@ def migrate(cr, version):
     some trailing account templates from l10n_be.
     We therefor need to remove those first.
     """
+    version_main = int(version.split(".")[0])
     module = "l10n_be"
     # check l10n_be status
     # (V6 version of l10n_be_coa_multilang had l10n_be dependenct)
@@ -93,12 +94,13 @@ def migrate(cr, version):
     )
     res = cr.fetchall()
     att_ids = [x[0] for x in res]
-    cr.execute(
-        "UPDATE account_tax_template "
-        "SET name = to_char(id, 'FM999') "
-        "WHERE id IN %s",
-        (tuple(att_ids),),
-    )
+    if att_ids:
+        cr.execute(
+            "UPDATE account_tax_template "
+            "SET name = to_char(id, 'FM999') "
+            "WHERE id IN %s",
+            (tuple(att_ids),),
+        )
 
     # add transfer_account_id to account_chart_template
     name = "aatn_580000"
@@ -114,10 +116,11 @@ def migrate(cr, version):
     )
     res = cr.fetchone()
     chart_id = res and res[0]
-    cr.execute(
-        "UPDATE account_chart_template SET transfer_account_id=%s WHERE id=%s",
-        (aatn_580000_id, chart_id),
-    )
+    if version_main > 8:
+        cr.execute(
+            "UPDATE account_chart_template SET transfer_account_id=%s WHERE id=%s",
+            (aatn_580000_id, chart_id),
+        )
 
     # remove old be_legal_financial_reportscheme entries
     model = "be.legal.financial.reportscheme"
