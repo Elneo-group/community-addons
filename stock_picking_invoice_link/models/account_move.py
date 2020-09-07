@@ -14,8 +14,8 @@ class AccountMove(models.Model):
     picking_ids = fields.Many2many(
         comodel_name="stock.picking",
         string="Related Pickings",
-        store=True,
-        compute="_compute_picking_ids",
+        # store=True,
+        # compute="_compute_picking_ids",
         help="Related pickings "
         "(only when the invoice has been generated from a sale order).",
     )
