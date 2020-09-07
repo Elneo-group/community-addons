@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+  <record id="view_update_multi_chart" model="ir.ui.view">
+    <field name="name">wizard.update.charts.preserve.repartition_lines</field>
+    <field name="model">wizard.update.charts.accounts</field>
+    <field name="inherit_id" ref="account_chart_update.view_update_multi_chart"/>
+    <field name="arch" type="xml">
+      <field name="update_tax" position="after">
+        <field name="update_tax_repartition_line_account"
+               attrs="{'invisible':[('update_tax', '=', False)]}"/>
+        <field name="update_tax_repartition_line_tags"
+               attrs="{'invisible':[('update_tax', '=', False)]}"/>
+      </field>
+    </field>
+  </record>
+
+</odoo>
