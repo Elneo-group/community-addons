@@ -22,7 +22,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/account_chart_template_create_data.xml",
-        "data/account_tax_report_line_data.xml",
+        #"data/account_tax_report_line_data.xml",
         "data/account_account_template_data.xml",
         "data/account_chart_template_update_data.xml",
         "data/account_tax_group_data.xml",
