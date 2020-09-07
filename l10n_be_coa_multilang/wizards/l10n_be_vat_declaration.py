@@ -162,6 +162,9 @@ class L10nBeVatDeclaration(models.TransientModel):
             "91",
         ]
 
+    def _account_move_min_types(self):
+        return ["out_invoice", "out_receipt", "in_refund"]
+
     def _get_case_domain(self, case_report):
         if case_report.children_line_ids:
             case_dom = []
@@ -194,7 +197,7 @@ class L10nBeVatDeclaration(models.TransientModel):
         )
         amounts = dict.fromkeys(cases.mapped("id"), 0.0)
         date_dom = self._get_move_line_date_domain()
-        min_types = ["out_invoice", "out_receipt", "in_refund"]
+        min_types = self._account_move_min_types()
         dom_min = [("move_id.type", "in", min_types)]
         dom_plus = [("move_id.type", "not in", min_types)]
         for case in cases:
@@ -1054,6 +1057,7 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
 
         ws.freeze_panes(row_pos, 0)
 
+        min_types = decl._account_move_min_types()
         am_dom = self._date_dom + [("journal_id", "=", journal.id)]
         ams = self.env["account.move"].search(am_dom, order="name, date")
         amls = ams.mapped("line_ids")
@@ -1076,7 +1080,9 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
                 if tag not in self._tax_tags:
                     continue
                 tc = tc_str = tag.name[1:]
-                sign = tag.tax_negate and 1 or -1
+                sign = tag.tax_negate and -1 or 1
+                if am.type in min_types:
+                    sign = sign * -1
                 tax_amount = cround(sign * aml.balance)
                 if tax_amount < 0:
                     tc_str += "(-1)"
