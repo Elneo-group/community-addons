@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<odoo>
 
   <!-- account.tax.report.line -->
   <record id="atrl_I" model="account.tax.report.line">

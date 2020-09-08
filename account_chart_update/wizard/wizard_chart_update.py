@@ -684,8 +684,18 @@ class WizardUpdateChartsAccounts(models.TransientModel):
                     )
             # Register detected differences
             if expected is not None:
-                if expected != [] and expected != real[key]:
-                    result[key] = expected
+                if expected != []:
+                    # TODO: make PR to OCA combining line below
+                    # with account_chart_update_repartition_line module
+                    if (
+                        key
+                        in [
+                            "invoice_repartition_line_ids",
+                            "refund_repartition_line_ids",
+                        ]
+                        or expected != real[key]
+                    ):
+                        result[key] = expected
             else:
                 template_value = template[key]
                 if template._name == "account.account.template" and key == "code":
