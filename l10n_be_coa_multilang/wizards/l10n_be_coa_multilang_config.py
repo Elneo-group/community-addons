@@ -284,7 +284,6 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
                     )
                     % (taxes._name, tmpl.name, taxes[i].name)
                 )
-            taxes[i].code = tmpl.code
         in_fields = ["name", "description"]
         for in_field in in_fields:
             self.copy_xlat(langs, in_field, tax_tmpls, taxes, field_check=False)
