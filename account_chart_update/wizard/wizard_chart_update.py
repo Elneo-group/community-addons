@@ -6,6 +6,7 @@
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2016 Jacques-Etienne Baudoux <je@bcim.be>
 # Copyright 2018 Tecnativa - Pedro M. Baeza
+# Copyright 2020 Noviat - Luc De Meyer
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -66,6 +67,16 @@ class WizardUpdateChartsAccounts(models.TransientModel):
         string="Update taxes",
         default=True,
         help="Existing taxes are updated. Taxes are searched by name.",
+    )
+    update_tax_repartition_line_account = fields.Boolean(
+        string="Update Tax Account",
+        default=True,
+        help="Update account_id field on existing Tax repartition lines",
+    )
+    update_tax_repartition_line_tags = fields.Boolean(
+        string="Update Tax Tags",
+        default=True,
+        help="Update tag_ids field on existing Tax repartition lines",
     )
     update_account = fields.Boolean(
         string="Update accounts",
@@ -435,6 +446,8 @@ class WizardUpdateChartsAccounts(models.TransientModel):
     def find_repartition_by_templates(
         self, templates, current_repartition, inverse_name
     ):
+        upd_acc = self.update_tax_repartition_line_account
+        upd_tags = self.update_tax_repartition_line_tags
         result = []
         for tpl in templates:
             tax_id = self.find_tax_by_templates(tpl[inverse_name])
@@ -442,14 +455,33 @@ class WizardUpdateChartsAccounts(models.TransientModel):
             repartition_type = tpl.repartition_type
             account_id = self.find_account_by_templates(tpl.account_id)
             rep_obj = self.env["account.tax.repartition.line"]
-            existing = rep_obj.search(
-                [
-                    (inverse_name, "=", tax_id),
-                    ("factor_percent", "=", factor_percent),
-                    ("repartition_type", "=", repartition_type),
-                    ("account_id", "=", account_id),
-                ]
-            )
+            dom = [
+                (inverse_name, "=", tax_id),
+                ("factor_percent", "=", factor_percent),
+                ("repartition_type", "=", repartition_type),
+            ]
+            if not (upd_acc or upd_tags):
+                dom.append(("account_id", "=", account_id))
+            existing = rep_obj.search(dom)
+
+            if existing and len(existing) == 1:
+                upd_vals = {}
+                if upd_acc and existing.account_id.id != account_id:
+                    upd_vals["account_id"] = account_id
+                if upd_tags:
+                    tags = self.env["account.account.tag"]
+                    tags += tpl.plus_report_line_ids.mapped("tag_ids").filtered(
+                        lambda x: not x.tax_negate
+                    )
+                    tags += tpl.minus_report_line_ids.mapped("tag_ids").filtered(
+                        lambda x: x.tax_negate
+                    )
+                    tags += tpl.tag_ids
+                    if existing.tag_ids != tags:
+                        upd_vals["tag_ids"] = [(6, 0, tags.ids)]
+                if upd_vals:
+                    # update record
+                    result.append((1, existing.id, upd_vals))
             if not existing:
                 # create a new mapping
                 result.append(
@@ -685,8 +717,6 @@ class WizardUpdateChartsAccounts(models.TransientModel):
             # Register detected differences
             if expected is not None:
                 if expected != []:
-                    # TODO: make PR to OCA combining line below
-                    # with account_chart_update_repartition_line module
                     if (
                         key
                         in [
