@@ -12,6 +12,7 @@
     "website": "https://www.noviat.com",
     "depends": ["account"],
     "data": [
+        "views/account_fiscal_position_views.xml",
         "views/account_move_views.xml",
         "views/account_tax_views.xml",
         "views/account_tax_template_views.xml",
