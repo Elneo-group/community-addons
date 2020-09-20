@@ -59,6 +59,12 @@ class L10nBeVatCommon(models.AbstractModel):
     period = fields.Char(compute="_compute_period")
     date_from = fields.Date(string="Start Date")
     date_to = fields.Date(string="End Date")
+    target_move = fields.Selection(
+        [("posted", "All Posted Entries"), ("all", "All Entries")],
+        string="Target Moves",
+        required=True,
+        default="posted",
+    )
     file_name = fields.Char()
     file_save = fields.Binary(string="Save File", readonly=True)
     comments = fields.Text(string="Comments")
@@ -128,6 +134,12 @@ class L10nBeVatCommon(models.AbstractModel):
                 self.date_from = m_from and "{}-{}-01".format(self.year, m_from)
                 d_to = m_to and calendar.monthrange(int(self.year), int(m_to))[1]
                 self.date_to = d_to and "{}-{}-{}".format(self.year, m_to, d_to)
+            dom = self._get_move_line_date_domain()
+            dom.append(("state", "=", "draft"))
+            check_draft = self.env["account.move"].search_count(dom)
+            if check_draft:
+                self.note += _("Draft entries found for the selected period.")
+                self.note += "\n"
 
     def create_xls(self):
         raise UserError(_("The XLS export function is not available."))
@@ -156,6 +168,12 @@ class L10nBeVatCommon(models.AbstractModel):
             ("date", ">=", self.date_from),
             ("date", "<=", self.date_to),
         ]
+        return aml_dom
+
+    def _get_move_line_domain(self):
+        aml_dom = self._get_move_line_date_domain()
+        if self.target_move == "posted":
+            aml_dom.append(("move_id.state", "=", "posted"))
         return aml_dom
 
     def _get_company_data(self):

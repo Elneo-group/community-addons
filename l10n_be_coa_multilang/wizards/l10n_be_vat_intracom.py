@@ -104,7 +104,7 @@ class L10nBeVatIntracom(models.TransientModel):
         flds = ["partner_id", "debit", "credit"]
         groupby = ["partner_id"]
 
-        aml_dom = self._get_move_line_date_domain()
+        aml_dom = self._get_move_line_domain()
         S_dom, L_dom, T_dom = self._get_move_line_tax_domains()
         S_data = self.env["account.move.line"].read_group(
             aml_dom + S_dom, flds, groupby
@@ -275,7 +275,7 @@ class L10nBeVatIntracomClient(models.TransientModel):
     def view_move_lines(self):
         self.ensure_one()
         act_window = self.intracom_id._move_lines_act_window()
-        aml_dom = self.intracom_id._get_move_line_date_domain()
+        aml_dom = self.intracom_id._get_move_line_domain()
         aml_dom += [("partner_id", "=", self.partner_id.id)]
         tax_doms = self.intracom_id._get_move_line_tax_domains()
         i = ["S", "L", "T"].index(self.code)
@@ -377,9 +377,17 @@ class L10nBeVatIntracomXlsx(models.AbstractModel):
         row_pos += 1
         ws.write_string(row_pos, 1, self._("Period") + ":", self.format_left_bold)
         ws.write_string(row_pos, 2, listing.period)
+        row_pos += 1
+        ws.write_string(row_pos, 1, self._("Target Moves") + ":", self.format_left_bold)
+        ws.write_string(row_pos, 2, listing.target_move)
         return row_pos + 2
 
     def _listing_lines(self, ws, row_pos, ws_params, data, listing):
+
+        if not listing.client_ids:
+            no_entries = self._("No records found for the selected period.")
+            row_pos = ws.write_string(row_pos, 0, no_entries, self.format_left_bold)
+            return
 
         row_pos = self._write_line(
             ws,

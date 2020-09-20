@@ -41,7 +41,6 @@ class L10nBeVatDeclaration(models.TransientModel):
 
     def generate_declaration(self):
         self.ensure_one()
-        self.note = ""
         case_vals = self._get_case_vals()
         self.case_ids = [(0, 0, x) for x in case_vals]
         self._vat_declaration_controls()
@@ -196,14 +195,14 @@ class L10nBeVatDeclaration(models.TransientModel):
             [("parent_id", "child_of", case_root.id), ("children_line_ids", "=", False)]
         )
         amounts = dict.fromkeys(cases.mapped("id"), 0.0)
-        date_dom = self._get_move_line_date_domain()
+        dom = self._get_move_line_domain()
         min_types = self._account_move_min_types()
         dom_min = [("move_id.type", "in", min_types)]
         dom_plus = [("move_id.type", "not in", min_types)]
         for case in cases:
             tc = case.code
             for tag in tax_code_map[tc]:
-                aml_dom = date_dom + [("tag_ids", "in", tag.id)]
+                aml_dom = dom + [("tag_ids", "in", tag.id)]
                 sign = tag.tax_negate and -1 or 1
                 flds = ["balance"]
                 groupby = []
@@ -468,9 +467,9 @@ class L10nBeVatDeclarationCase(models.TransientModel):
     def view_move_lines(self):
         self.ensure_one()
         act_window = self.declaration_id._move_lines_act_window()
-        date_dom = self.declaration_id._get_move_line_date_domain()
+        aml_dom = self.declaration_id._get_move_line_domain()
         case_dom = self.declaration_id._get_case_domain(self.case_id)
-        act_window["domain"] = date_dom + case_dom
+        act_window["domain"] = aml_dom + case_dom
         return act_window
 
 
@@ -547,6 +546,9 @@ class L10nBeVatDeclarationXlsx(models.AbstractModel):
         row_pos += 1
         ws.write_string(row_pos, 1, self._("Period") + ":", self.format_left_bold)
         ws.write_string(row_pos, 2, declaration.period)
+        row_pos += 1
+        ws.write_string(row_pos, 1, self._("Target Moves") + ":", self.format_left_bold)
+        ws.write_string(row_pos, 2, declaration.target_move)
         return row_pos + 2
 
     def _declaration_lines(self, ws, row_pos, ws_params, data, declaration):
@@ -631,10 +633,10 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
 
     def _get_ws_params(self, wb, data, decl):
         dummy, self._tax_tags = decl._get_tax_code_map()
-        self._date_dom = decl._get_move_line_date_domain()
+        aml_dom = decl._get_move_line_domain()
         flds = ["journal_id", "debit"]
         groupby = ["journal_id"]
-        totals = self.env["account.move.line"].read_group(self._date_dom, flds, groupby)
+        totals = self.env["account.move.line"].read_group(aml_dom, flds, groupby)
         j_dict = {}
         for entry in totals:
             if entry["debit"]:
@@ -685,7 +687,12 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
         wl = ["code", "name", "debit"]
 
         title = (10 * " ").join(
-            [decl.company_id.name, _("Journal Centralisation"), decl.period]
+            [
+                decl.company_id.name,
+                _("Journal Centralisation"),
+                decl.period,
+                decl.target_move,
+            ]
         )
 
         return {
@@ -713,6 +720,11 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
         return self._write_ws_title(ws, row_pos, ws_params)
 
     def _centralisation_lines(self, ws, row_pos, ws_params, data, decl):
+
+        if not self._journals:
+            no_entries = self._("No records found for the selected period.")
+            row_pos = ws.write_string(row_pos, 0, no_entries, self.format_left_bold)
+            return
 
         wl = ws_params["wanted_list"]
         debit_pos = wl.index("debit")
@@ -1000,6 +1012,7 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
                 decl.company_id.name,
                 journal.name + "({})".format(journal.code),
                 decl.period,
+                decl.target_move,
             ]
         )
         ws_params_summary = {
@@ -1058,7 +1071,9 @@ class L10nBeVatDetailXlsx(models.AbstractModel):
         ws.freeze_panes(row_pos, 0)
 
         min_types = decl._account_move_min_types()
-        am_dom = self._date_dom + [("journal_id", "=", journal.id)]
+        am_dom = self._get_move_line_domain() + [("journal_id", "=", journal.id)]
+        if self.target_move == "posted":
+            am_dom.append(("state", "=", "posted"))
         ams = self.env["account.move"].search(am_dom, order="name, date")
         amls = ams.mapped("line_ids")
 
