@@ -1769,10 +1769,10 @@ class AccountCodaImport(models.TransientModel):
             return reconcile_note
 
         # match on sale order
-        reconcile_note, match = self._match_sale_order(
-            st_line, cba, transaction, reconcile_note)
-        if match:
-            return reconcile_note
+        # reconcile_note, match = self._match_sale_order(
+        #     st_line, cba, transaction, reconcile_note)
+        # if match:
+        #     return reconcile_note
 
         # match on open accounting entries
         reconcile_note, match = self._match_account_move_line(
