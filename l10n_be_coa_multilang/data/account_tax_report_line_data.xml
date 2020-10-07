@@ -215,12 +215,41 @@
   <record id="atrl_48" model="account.tax.report.line">
     <field name="name">Issued Credit Notes Operations Grid [44] and [46]</field>
     <field name="code">48</field>
-    <field name="tag_name">48</field>
     <field name="factor">1</field>
     <field name="sequence">171</field>
     <field name="parent_id" ref="atrl_IIG"/>
     <field name="info">Bedrag van de uitgereikte creditnota’s en de negatieve verbeteringen&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Rooster [48] : bedrag van de uitgereikte creditnota’s en de negatieve verbeteringen met betrekking tot de handelingen ingeschreven in rooster [46].&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Vanaf 1 jan 2010: &amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;[48] : behalve de huidige beoogde verbeteringen zal dit rooster ook de eventuele negatieve verbeteringen van de in rooster [44] vermelde handelingen moeten bevatten (voorheen opgenomen in rooster [49]).</field>
     <field name="invisible" eval="0"/>
+    <field name="country_id" ref="base.be"/>
+  </record>
+  <record id="atrl_48S" model="account.tax.report.line">
+    <field name="name">Issued Credit Notes Operations Grid [44]</field>
+    <field name="code">48S</field>
+    <field name="tag_name">48S</field>
+    <field name="factor">1</field>
+    <field name="sequence">172</field>
+    <field name="parent_id" ref="atrl_48"/>
+    <field name="invisible" eval="1"/>
+    <field name="country_id" ref="base.be"/>
+  </record>
+  <record id="atrl_48L" model="account.tax.report.line">
+    <field name="name">Issued Credit Notes Operations Grid [46L]</field>
+    <field name="code">48L</field>
+    <field name="tag_name">48L</field>
+    <field name="factor">1</field>
+    <field name="sequence">173</field>
+    <field name="parent_id" ref="atrl_48"/>
+    <field name="invisible" eval="1"/>
+    <field name="country_id" ref="base.be"/>
+  </record>
+  <record id="atrl_48T" model="account.tax.report.line">
+    <field name="name">Issued Credit Notes Operations Grid [46T]</field>
+    <field name="code">48T</field>
+    <field name="tag_name">48T</field>
+    <field name="factor">1</field>
+    <field name="sequence">174</field>
+    <field name="parent_id" ref="atrl_48"/>
+    <field name="invisible" eval="1"/>
     <field name="country_id" ref="base.be"/>
   </record>
   <record id="atrl_49" model="account.tax.report.line">

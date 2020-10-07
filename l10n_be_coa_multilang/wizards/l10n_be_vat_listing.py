@@ -122,10 +122,10 @@ class L10nBeVatListing(models.TransientModel):
         if not partners:
             raise UserError(_("No Belgian VAT subjected customers found."))
 
-        flds = ["partner_id", "debit", "credit"]
+        flds = ["partner_id", "balance"]
         groupby = ["partner_id"]
 
-        aml_dom = self._get_move_line_date_domain()
+        aml_dom = self._get_move_line_domain()
         aml_dom += [("partner_id", "in", partners.ids)]
         base_dom, vat_dom = self._get_move_line_tax_domains()
 
@@ -150,12 +150,10 @@ class L10nBeVatListing(models.TransientModel):
             vat = self._normalise_vat(partners[i].vat)
             records[entry["partner_id"][0]] = {
                 "vat": vat,
-                "base_amount": entry["credit"] - entry["debit"],
+                "base_amount": -entry["balance"],
             }
         for entry in vat_data:
-            records[entry["partner_id"][0]]["vat_amount"] = (
-                entry["credit"] - entry["debit"]
-            )
+            records[entry["partner_id"][0]]["vat_amount"] = -entry["balance"]
 
         # remove entries < limit amount
         client_list = []
@@ -196,12 +194,12 @@ class L10nBeVatListing(models.TransientModel):
             ("applicability", "=", "taxes"),
         ]
 
-        codes_base = ("00", "01", "02", "03", "45")  # base amount codes
+        codes_base = ("00", "01", "02", "03", "45", "49")  # base amount codes
         tag_dom_base = dom + [("name", "in", ["+" + x for x in codes_base])]
         tags_base = self.env["account.account.tag"].search(tag_dom_base)
         aml_dom_base = [("tag_ids.id", "in", tags_base.ids)]
 
-        codes_vat = ("01", "02", "03")  # tax amount codes
+        codes_vat = ("54", "64")  # tax amount codes
         tag_dom_vat = dom + [("name", "in", ["+" + x for x in codes_vat])]
         tags_vat = self.env["account.account.tag"].search(tag_dom_vat)
         aml_dom_vat = [("tag_ids.id", "in", tags_vat.ids)]
@@ -306,7 +304,7 @@ class L10nBeVatListingClient(models.TransientModel):
     def view_move_lines(self):
         self.ensure_one()
         act_window = self.listing_id._move_lines_act_window()
-        aml_dom = self.listing_id._get_move_line_date_domain()
+        aml_dom = self.listing_id._get_move_line_domain()
         aml_dom += [("partner_id", "=", self.partner_id.id)]
         base_dom, vat_dom = self.listing_id._get_move_line_tax_domains()
         aml_dom += ["|"] + base_dom + vat_dom
@@ -414,9 +412,17 @@ class L10nBeVatListingXlsx(models.AbstractModel):
         row_pos += 1
         ws.write_string(row_pos, 1, self._("Year") + ":", self.format_left_bold)
         ws.write_string(row_pos, 2, listing.year)
+        row_pos += 1
+        ws.write_string(row_pos, 1, self._("Target Moves") + ":", self.format_left_bold)
+        ws.write_string(row_pos, 2, listing.target_move)
         return row_pos + 2
 
     def _listing_lines(self, ws, row_pos, ws_params, data, listing):
+
+        if not listing.client_ids:
+            no_entries = self._("No records found for the selected period.")
+            row_pos = ws.write_string(row_pos, 0, no_entries, self.format_left_bold)
+            return
 
         row_pos = self._write_line(
             ws,

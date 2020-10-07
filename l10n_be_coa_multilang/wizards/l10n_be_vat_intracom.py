@@ -101,10 +101,10 @@ class L10nBeVatIntracom(models.TransientModel):
         ).report_action(self)
 
     def _get_client_vals(self):
-        flds = ["partner_id", "debit", "credit"]
+        flds = ["partner_id", "balance"]
         groupby = ["partner_id"]
 
-        aml_dom = self._get_move_line_date_domain()
+        aml_dom = self._get_move_line_domain()
         S_dom, L_dom, T_dom = self._get_move_line_tax_domains()
         S_data = self.env["account.move.line"].read_group(
             aml_dom + S_dom, flds, groupby
@@ -132,7 +132,7 @@ class L10nBeVatIntracom(models.TransientModel):
                         "partner_id": partner.id,
                         "vat": vat,
                         "code": entry["code"],
-                        "amount": entry["credit"] - entry["debit"],
+                        "amount": -entry["balance"],
                     }
                 )
             else:
@@ -141,7 +141,7 @@ class L10nBeVatIntracom(models.TransientModel):
                         "partner_id": partner.id,
                         "vat": vat,
                         "code": entry["code"],
-                        "amount": entry["credit"] - entry["debit"],
+                        "amount": -entry["balance"],
                     }
                 ]
 
@@ -157,18 +157,18 @@ class L10nBeVatIntracom(models.TransientModel):
             ("country_id", "=", self.env.ref("base.be").id),
             ("applicability", "=", "taxes"),
         ]
-        code_S = "44"
-        dom_S = dom + [("name", "=", "+" + code_S)]
+        code_S = ["+" + x for x in ["44", "48S"]]
+        dom_S = dom + [("name", "in", code_S)]
         tags_S = self.env["account.account.tag"].search(dom_S)
         S_dom = [("tag_ids.id", "in", tags_S.ids)]
 
-        code_L = "46L"
-        dom_L = dom + [("name", "=", "+" + code_L)]
+        code_L = ["+" + x for x in ["46L", "48L"]]
+        dom_L = dom + [("name", "in", code_L)]
         tags_L = self.env["account.account.tag"].search(dom_L)
         L_dom = [("tag_ids.id", "in", tags_L.ids)]
 
-        code_T = "46T"
-        dom_T = dom + [("name", "=", "+" + code_T)]
+        code_T = ["+" + x for x in ["46T", "48T"]]
+        dom_T = dom + [("name", "in", code_T)]
         tags_T = self.env["account.account.tag"].search(dom_T)
         T_dom = [("tag_ids.id", "in", tags_T.ids)]
 
@@ -275,7 +275,7 @@ class L10nBeVatIntracomClient(models.TransientModel):
     def view_move_lines(self):
         self.ensure_one()
         act_window = self.intracom_id._move_lines_act_window()
-        aml_dom = self.intracom_id._get_move_line_date_domain()
+        aml_dom = self.intracom_id._get_move_line_domain()
         aml_dom += [("partner_id", "=", self.partner_id.id)]
         tax_doms = self.intracom_id._get_move_line_tax_domains()
         i = ["S", "L", "T"].index(self.code)
@@ -377,9 +377,17 @@ class L10nBeVatIntracomXlsx(models.AbstractModel):
         row_pos += 1
         ws.write_string(row_pos, 1, self._("Period") + ":", self.format_left_bold)
         ws.write_string(row_pos, 2, listing.period)
+        row_pos += 1
+        ws.write_string(row_pos, 1, self._("Target Moves") + ":", self.format_left_bold)
+        ws.write_string(row_pos, 2, listing.target_move)
         return row_pos + 2
 
     def _listing_lines(self, ws, row_pos, ws_params, data, listing):
+
+        if not listing.client_ids:
+            no_entries = self._("No records found for the selected period.")
+            row_pos = ws.write_string(row_pos, 0, no_entries, self.format_left_bold)
+            return
 
         row_pos = self._write_line(
             ws,
