@@ -57,8 +57,12 @@ class MergePurchaseOrder(models.TransientModel):
                 'trigger_onchange': True,
                 'onchange_fields_to_trigger': [partner]
             }).create({'partner_id': partner})
+            po.onchange_partner_id()
+            po.origin = ' / '.join((p.origin for p in purchase_orders))
             default = {'order_id': po.id}
             for order in purchase_orders:
+                for sale in order.sale_ids:
+                    po.sale_ids = [(4,sale.id)]
                 for line in order.order_line:
                     if po.order_line:
                         for poline in po.order_line:
@@ -83,8 +87,12 @@ class MergePurchaseOrder(models.TransientModel):
                 'trigger_onchange': True,
                 'onchange_fields_to_trigger': [partner]
             }).create({'partner_id': partner})
+            po.onchange_partner_id()
+            po.origin = ' / '.join((p.origin for p in purchase_orders))
             default = {'order_id': po.id}
             for order in purchase_orders:
+                for sale in order.sale_ids:
+                    po.sale_ids = [(4,sale.id)]
                 for line in order.order_line:
                     if po.order_line:
                         for po_line in po.order_line:
@@ -111,6 +119,8 @@ class MergePurchaseOrder(models.TransientModel):
             for order in purchase_orders:
                 if order == po:
                     continue
+                for sale in order.sale_ids:
+                    po.sale_ids = [(4,sale.id)]
                 for line in order.order_line:
                     if po.order_line:
                         for po_line in po.order_line:
@@ -137,6 +147,8 @@ class MergePurchaseOrder(models.TransientModel):
             for order in purchase_orders:
                 if order == po:
                     continue
+                for sale in order.sale_ids:
+                    po.sale_ids = [(4,sale.id)]
                 for line in order.order_line:
                     if po.order_line:
                         for po_line in po.order_line:
