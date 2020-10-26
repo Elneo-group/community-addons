@@ -35,7 +35,7 @@ class HSCode(models.Model):
         "res.company",
         string="Company",
         readonly=True,
-        required=False,
+        required=True,
         default=lambda self: self._default_company_id(),
     )
     product_categ_ids = fields.One2many(
