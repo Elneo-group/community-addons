@@ -1,0 +1,8 @@
+<odoo>
+
+  <record id="group_account_move_delete" model="res.groups">
+    <field name="name">Allow "Delete Journal Entry"</field>
+    <field name="category_id" ref="base.module_category_hidden" />
+  </record>
+
+</odoo>
