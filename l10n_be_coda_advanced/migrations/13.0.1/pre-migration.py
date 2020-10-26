@@ -22,4 +22,6 @@ def migrate(env, version):
         if not openupgrade.column_exists(env.cr, table, column_new):
             openupgrade.rename_fields(env, _field_renames)
         else:
-            env.cr.execute("UPDATE coda_bank_account SET transfer_account_id=transfer_account")
+            env.cr.execute(
+                "UPDATE coda_bank_account SET transfer_account_id=transfer_account"
+            )

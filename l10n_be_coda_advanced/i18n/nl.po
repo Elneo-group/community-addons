@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: support@noviat.com\n"
-"POT-Creation-Date: 2020-07-12 20:54:29.255000\n"
-"PO-Revision-Date: 2020-07-12 20:54:29.255000\n"
+"POT-Creation-Date: 2020-09-19 20:32:54.758000\n"
+"PO-Revision-Date: 2020-09-19 20:32:54.758000\n"
 "Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1104,7 +1104,7 @@ msgstr "Bedrag getotaliseerd door de bank; bijv. : het totale bedrag van een ree
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.type,description:l10n_be_coda_advanced.actt_6
 msgid "Detail of 2. Simple amount without detailed data. Normally, data of this kind comes after type 2. The customer may ask for a separate file containing the detailed data. In that case, one will speak of a 'separate application'. The records in a separate application keep type 6."
-msgstr "Detail van 2. Enkelvoudig bedrag zonder details. Normaal volgen deze details op het type 2. De cliënt kan er voor kiezen om deze details in een apart bestand te ontvangen. Men spreekt dan van een ‘afzonderlijke toepassing’. De records in een afzonderlijke toepassing behouden het type 6"
+msgstr "Detail van 2. Enkelvoudig bedrag zonder details. Normaal volgen deze details op het type 2. De cliënt kan er voor kiezen om deze details in een apart bestand te ontvangen. Men spreekt dan van een 'afzonderlijke toepassing'. De records in een afzonderlijke toepassing behouden het type 6"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.type,description:l10n_be_coda_advanced.actt_7
