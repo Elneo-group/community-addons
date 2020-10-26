@@ -77,9 +77,18 @@ class CodaAccountMappingRule(models.Model):
         domain=[("deprecated", "=", False)],
     )
     account_tax_id = fields.Many2one(
-        comodel_name="account.tax", string="Tax", ondelete="cascade"
+        comodel_name="account.tax",
+        string="Tax",
+        ondelete="cascade",
+        help="Select Tax object for bank costs. "
+        "CODA files have seperate lines for Base and VAT amount, "
+        "hence only simple tax objects containing the base (82) or "
+        "deductible vat (59) case are supported, cf. VAT-V59 and "
+        "VAT-V82 tax objects provided as part of the l10n_be_coa_multilang "
+        "module. Expansion of a single transaction into multipe lines such "
+        "as done by the 'Statement Operations' in the reconcile widget is "
+        "not supported.",
     )
-    tax_type = fields.Selection(selection=[("base", "Base"), ("tax", "Tax")])
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
@@ -123,8 +132,7 @@ class CodaAccountMappingRule(models.Model):
             "trans_type_id, trans_family_id, trans_code_id, "
             "trans_category_id, "
             "struct_comm_type_id, freecomm, structcomm, "
-            "account_id, analytic_account_id, account_tax_id, tax_type, "
-            "payment_reference"
+            "account_id, analytic_account_id, account_tax_id, payment_reference"
         )
         select += self._rule_select_extra(coda_bank_account_id) + " "
         select += (
@@ -162,7 +170,6 @@ class CodaAccountMappingRule(models.Model):
         result_fields = [
             "account_id",
             "account_tax_id",
-            "tax_type",
             "analytic_account_id",
         ]
         result_fields += self._rule_result_extra(coda_bank_account_id)

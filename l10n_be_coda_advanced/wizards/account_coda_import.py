@@ -1030,18 +1030,21 @@ class AccountCodaImport(models.TransientModel):
                 transaction["name"] = self._get_st_line_name(transaction)
             if transaction["type"] == "information":
                 if transaction["struct_comm_type"] in PARSE_COMMS_INFO:
-                    transaction["name"], transaction[
-                        "communication"
-                    ] = self._parse_comm_info(coda_statement, transaction)
+                    (
+                        transaction["name"],
+                        transaction["communication"],
+                    ) = self._parse_comm_info(coda_statement, transaction)
                 elif transaction["struct_comm_type"] in PARSE_COMMS_MOVE:
-                    transaction["name"], transaction[
-                        "communication"
-                    ] = self._parse_comm_move(coda_statement, transaction)
+                    (
+                        transaction["name"],
+                        transaction["communication"],
+                    ) = self._parse_comm_move(coda_statement, transaction)
             elif transaction["struct_comm_type"] in PARSE_COMMS_MOVE:
                 transaction["struct_comm_raw"] = transaction["communication"]
-                transaction["name"], transaction[
-                    "communication"
-                ] = self._parse_comm_move(coda_statement, transaction)
+                (
+                    transaction["name"],
+                    transaction["communication"],
+                ) = self._parse_comm_move(coda_statement, transaction)
 
         transaction["name"] = transaction["name"].strip()
 
@@ -1373,8 +1376,9 @@ class AccountCodaImport(models.TransientModel):
             coda_data = base64.decodestring(self.coda_data)
             with zipfile.ZipFile(BytesIO(coda_data)) as coda_zip:
                 for fn in coda_zip.namelist():
-                    if not fn.endswith("/"):
-                        coda_files.append((coda_zip.read(fn), fn))
+                    if fn.endswith("/") or fn.startswith("__MACOSX/"):
+                        continue
+                    coda_files.append((coda_zip.read(fn), fn))
         # fall back to regular CODA file processing if zip expand fails
         except zipfile.BadZipfile as e:
             _logger.error(str(e))
@@ -1934,7 +1938,7 @@ class AccountCodaImport(models.TransientModel):
 
         select = """
     SELECT id FROM (
-      SELECT id, type, state, amount_total, name, invoice_payment_ref,
+      SELECT id, type, state, amount_total, name, invoice_payment_ref, ref,
              '%s'::text AS free_comm
         FROM account_move
         WHERE invoice_payment_state != 'paid' AND company_id = %s
@@ -1967,7 +1971,8 @@ class AccountCodaImport(models.TransientModel):
         else:
             select2 = (
                 " AND type = 'in_invoice'"
-                " AND free_comm ilike '%'||invoice_payment_ref||'%'"
+                " AND (free_comm ilike '%'||invoice_payment_ref||'%'"
+                "   OR free_comm ilike '%'||ref||'%')"
             )
             self.env.cr.execute(select + select2)  # pylint: disable=E8103
             res = self.env.cr.fetchall()
@@ -2108,7 +2113,7 @@ class AccountCodaImport(models.TransientModel):
                         "Invoice %s matching Structured Communication '%s' "
                         "has another currency than this CODA file."
                     )
-                    % (invoice.number, transaction["struct_comm_bba"])
+                    % (invoice.name, transaction["struct_comm_bba"])
                 ]
                 line_notes.append(_("A manual reconciliation is required."))
                 reconcile_note += self._format_line_notes(
@@ -2137,7 +2142,7 @@ class AccountCodaImport(models.TransientModel):
                         "Invoice %s matching Structured Communication '%s' "
                         "has different residual amounts."
                     )
-                    % (invoice.number, transaction["struct_comm_bba"])
+                    % (invoice.name, transaction["struct_comm_bba"])
                 ]
                 line_notes.append(_("A manual reconciliation is required."))
                 reconcile_note += self._format_line_notes(
@@ -2474,10 +2479,11 @@ class AccountCodaImport(models.TransientModel):
         match = transaction["matching_info"]
         new_aml_dict = {"account_id": match["account_id"], "name": transaction["name"]}
         if match.get("account_tax_id"):
-            if match["tax_type"] == "base":
-                new_aml_dict["tax_ids"] = [match["account_tax_id"]]
-            else:
-                new_aml_dict["tax_line_id"] = match["account_tax_id"]
+            tax = self.env["account.tax"].browse(match["account_tax_id"])
+            tag = tax.get_tax_tags(False, "base")
+            new_aml_dict.update(
+                {"tax_ids": [(6, 0, tax.ids)], "tag_ids": [(6, 0, tag.ids)]}
+            )
         if match.get("analytic_account_id"):
             new_aml_dict["analytic_account_id"] = match["analytic_account_id"]
         # the process_reconciliation method takes assumes that the
@@ -2500,7 +2506,7 @@ class AccountCodaImport(models.TransientModel):
         for entry in match["counterpart_amls"]:
             aml = entry[0]
             am_name = aml.move_id.name if aml.move_id.name != "/" else ""
-            aml_name = aml.name
+            aml_name = aml.name or ""
             name = " ".join([am_name, aml_name])
             counterpart_aml_dict = {
                 "move_line": aml,
