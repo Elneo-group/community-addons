@@ -7,18 +7,19 @@ from odoo import _, api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+
+    out_inv_comm_algorithm = fields.Selection(
+        selection="_selection_out_inv_comm_algorithm",
+        string="Communication Algorithm",
+        help="Select Algorithm to generate the "
+        "Structured Communication on Outgoing Invoices.",
+    )
     out_inv_comm_type = fields.Selection(
         selection="_selection_out_inv_comm_type",
         string="Communication Type",
         change_default=True,
         default="normal",
         help="Select Default Communication Type for Outgoing Invoices.",
-    )
-    out_inv_comm_algorithm = fields.Selection(
-        selection="_selection_out_inv_comm_algorithm",
-        string="Communication Algorithm",
-        help="Select Algorithm to generate the "
-        "Structured Communication on Outgoing Invoices.",
     )
 
     @api.model

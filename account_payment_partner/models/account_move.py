@@ -18,7 +18,7 @@ class AccountMove(models.Model):
     payment_mode_id = fields.Many2one(
         comodel_name="account.payment.mode",
         compute="_compute_payment_mode",
-        store=True,
+        # store=True,
         ondelete="restrict",
         readonly=False,
     )

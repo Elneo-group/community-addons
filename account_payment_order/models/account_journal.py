@@ -8,10 +8,12 @@ class AccountJournal(models.Model):
     _inherit = "account.journal"
 
     inbound_payment_order_only = fields.Boolean(
-        compute="_compute_inbound_payment_order_only", readonly=True, store=True
+        compute="_compute_inbound_payment_order_only", readonly=True,
+        # store=True
     )
     outbound_payment_order_only = fields.Boolean(
-        compute="_compute_outbound_payment_order_only", readonly=True, store=True
+        compute="_compute_outbound_payment_order_only", readonly=True,
+        # store=True
     )
 
     @api.depends("inbound_payment_method_ids.payment_order_only")

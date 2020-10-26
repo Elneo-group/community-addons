@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
         string="Partner Bank Account",
         compute="_compute_partner_bank_id",
         readonly=False,
-        store=True,
+        # store=True,
         help="Bank account on which we should pay the supplier",
     )
     bank_payment_line_id = fields.Many2one(
