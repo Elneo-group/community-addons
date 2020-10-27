@@ -54,7 +54,7 @@ class AccountMove(models.Model):
                         return journals
                 # purchase.order: journal selection via onchange,
                 #     cf. account_journal_refund_settings_purchase module
-        return super()._default_journal()
+        return super()._get_default_journal()
 
     def _guess_sale_order_journals(self, journals):
         """
