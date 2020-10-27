@@ -47,13 +47,11 @@ class AccountMove(models.Model):
             else:
                 if not self.env.context.get("active_model"):
                     # return empty journal to enforce manual selection
-                    return super()._get_default_journal()
+                    return self.env["account.journal"]
                 elif self.env.context.get("active_model") == "sale.order":
                     journals = self._guess_sale_order_journals(journals)
                     if len(journals) == 1:
                         return journals
-                # purchase.order: journal selection via onchange,
-                #     cf. account_journal_refund_settings_purchase module
         return super()._get_default_journal()
 
     def _guess_sale_order_journals(self, journals):
@@ -78,9 +76,15 @@ class AccountMove(models.Model):
     @api.onchange("type")
     def _onchange_type(self):
         res = super()._onchange_type() or {"domain": {}}
+        company_id = self.env.context.get(
+            "force_company",
+            self.env.context.get("default_company_id", self.env.company.id),
+        )
+        # set company to avoid stack trace when entering lines with empty journal
+        self.company_id = self.env["res.company"].browse(company_id)
         j_dom = [
             ("type", "=", self.invoice_filter_type_domain),
-            ("company_id", "=", self.company_id.id),
+            ("company_id", "=", company_id),
         ]
         if self.is_invoice() and self.journal_id.refund_usage != "both":
             if self.type in ["in_invoice", "out_invoice"]:
@@ -89,6 +93,15 @@ class AccountMove(models.Model):
                 j_dom.append(("refund_usage", "!=", "regular"))
         res["domain"]["journal_id"] = j_dom
         return res
+
+    @api.onchange("journal_id")
+    def _onchange_journal(self):
+        super()._onchange_journal()
+        if not self.currency_id:
+            self.currency_id = (
+                self.journal_id.currency_id or self.env.company.currency_id
+            )
+            self._onchange_currency()
 
     def _reverse_move_vals(self, default_values, cancel=True):
         vals = super()._reverse_move_vals(default_values, cancel=cancel)
@@ -132,3 +145,13 @@ class AccountMove(models.Model):
                         )
                     )
         super().post()
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    @api.onchange("product_uom_id")
+    def _onchange_uom_id(self):
+        if not self.move_id.journal_id:
+            raise UserError(_("Select the Journal before entering lines."))
+        return super()._onchange_uom_id()
