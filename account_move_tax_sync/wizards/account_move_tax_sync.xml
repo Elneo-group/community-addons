@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="account_move_tax_sync_view_form" model="ir.ui.view">
+    <field name="name">account.move.tax.sync.form</field>
+    <field name="model">account.move.tax.sync</field>
+    <field name="arch" type="xml">
+      <form string="Sync Journal Entry Taxes">
+        <group name="main">
+          <group name="left">
+            <field name="date_from"/>
+            <field name="date_to"/>
+            <field name="company_id"
+                   options="{'no_create': True, 'no_open': True}"/>
+          </group>
+          <group name="right">
+            <field name="journal_id"
+                   options="{'no_create': True, 'no_open': True}"
+                   domain="[('company_id', '=', company_id)]"/>
+            <field name="move_id"
+                   options="{'no_create': True, 'no_open': True}"/>
+            <field name="tax_id"
+                   options="{'no_create': True, 'no_open': True}"
+                   context="{'show_tax_id': 1}"/>
+          </group>
+        </group>
+        <footer>
+          <button name="tax_sync" string="Sync Taxes"
+                  type="object" class="oe_highlight" default_focus="1"/>
+          or
+          <button string="Close" class="oe_link" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_move_tax_sync_view_form_result" model="ir.ui.view">
+    <field name="name">account.move.tax.sync.form.result</field>
+    <field name="model">account.move.tax.sync</field>
+    <field name="arch" type="xml">
+      <form string="Sync Journal Entry Taxes">
+        <field name="note" nolabel="1"/>
+        <footer>
+          <button string="Close" class="oe_link" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_move_tax_sync_action" model="ir.actions.act_window">
+    <field name="name">Sync Journal Entry Taxes</field>
+    <field name="res_model">account.move.tax.sync</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="account_move_tax_sync_view_form"/>
+    <field name="target">new</field>
+  </record>
+
+  <menuitem id="account_move_tax_sync_menu"
+            name="Sync Journal Entry Taxes"
+            parent="account.menu_finance_configuration"
+            action="account_move_tax_sync_action"
+            groups="base.group_no_one"
+            sequence="100"/>
+
+</odoo>
