@@ -18,7 +18,9 @@ class L10nBeChartCommon(models.AbstractModel):
     color = fields.Char(help="CSS color unit")
     font = fields.Selection(selection=lambda self: self._selection_font())
     sequence = fields.Integer(default=0)
-    level = fields.Integer(compute="_compute_level", string="Level", store=True)
+    level = fields.Integer(string="Level",
+                           #store=True,compute="_compute_level",
+                           )
     info = fields.Text()
 
     @api.model
