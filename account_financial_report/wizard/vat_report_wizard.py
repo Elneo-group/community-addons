@@ -11,7 +11,7 @@ class VATReportWizard(models.TransientModel):
 
     company_id = fields.Many2one(
         comodel_name="res.company",
-        default=lambda self: self.env.user.company_id,
+        default=lambda self: self.env.company.id,
         required=False,
         string="Company",
     )
@@ -25,6 +25,12 @@ class VATReportWizard(models.TransientModel):
         default="taxtags",
     )
     tax_detail = fields.Boolean("Detail Taxes")
+    target_move = fields.Selection(
+        [("posted", "All Posted Entries"), ("all", "All Entries")],
+        string="Target Moves",
+        required=True,
+        default="posted",
+    )
 
     @api.onchange("company_id")
     def onchange_company_id(self):
@@ -105,7 +111,9 @@ class VATReportWizard(models.TransientModel):
             "date_from": self.date_from,
             "date_to": self.date_to,
             "based_on": self.based_on,
+            "only_posted_moves": self.target_move == "posted",
             "tax_detail": self.tax_detail,
+            "account_financial_report_lang": self.env.lang,
         }
 
     def _export(self, report_type):

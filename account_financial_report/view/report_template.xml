@@ -10,10 +10,10 @@
                 href="/account_financial_report/static/src/css/report.css"
                 rel="stylesheet"
             />
-            <script
-                type="text/javascript"
-                src="/account_financial_report/static/src/js/account_financial_report_backend.js"
-            />
+<!--            <script-->
+<!--                type="text/javascript"-->
+<!--                src="/account_financial_report/static/src/js/account_financial_report_backend.js"-->
+<!--            />-->
             <script
                 type="text/javascript"
                 src="/account_financial_report/static/src/js/account_financial_report_widgets.js"

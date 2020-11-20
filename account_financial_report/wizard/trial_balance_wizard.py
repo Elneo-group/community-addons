@@ -1,7 +1,7 @@
 # Author: Julien Coux
 # Copyright 2016 Camptocamp SA
 # Copyright 2017 Akretion - Alexis de Lattre
-# Copyright 2018 Eficent Business and IT Consuting Services, S.L.
+# Copyright 2018 ForgeFlow, S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
@@ -15,12 +15,6 @@ class TrialBalanceReportWizard(models.TransientModel):
     _description = "Trial Balance Report Wizard"
     _inherit = "account_financial_report_abstract_wizard"
 
-    company_id = fields.Many2one(
-        comodel_name="res.company",
-        default=lambda self: self.env.user.company_id,
-        required=False,
-        string="Company",
-    )
     date_range_id = fields.Many2one(comodel_name="date.range", string="Date range")
     date_from = fields.Date(required=True)
     date_to = fields.Date(required=True)
@@ -77,6 +71,34 @@ class TrialBalanceReportWizard(models.TransientModel):
         "account currency is not setup through chart of accounts "
         "will display initial and final balance in that currency.",
     )
+    account_code_from = fields.Many2one(
+        comodel_name="account.account",
+        string="Account Code From",
+        help="Starting account in a range",
+    )
+    account_code_to = fields.Many2one(
+        comodel_name="account.account",
+        string="Account Code To",
+        help="Ending account in a range",
+    )
+
+    @api.onchange("account_code_from", "account_code_to")
+    def on_change_account_range(self):
+        if (
+            self.account_code_from
+            and self.account_code_from.code.isdigit()
+            and self.account_code_to
+            and self.account_code_to.code.isdigit()
+        ):
+            start_range = int(self.account_code_from.code)
+            end_range = int(self.account_code_to.code)
+            self.account_ids = self.env["account.account"].search(
+                [("code", "in", [x for x in range(start_range, end_range + 1)])]
+            )
+            if self.company_id:
+                self.account_ids = self.account_ids.filtered(
+                    lambda a: a.company_id == self.company_id
+                )
 
     @api.constrains("hierarchy_on", "show_hierarchy_level")
     def _check_show_hierarchy_level(self):
@@ -260,6 +282,7 @@ class TrialBalanceReportWizard(models.TransientModel):
             "hide_parent_hierarchy_level": self.hide_parent_hierarchy_level,
             "show_partner_details": self.show_partner_details,
             "unaffected_earnings_account": self.unaffected_earnings_account.id,
+            "account_financial_report_lang": self.env.lang,
         }
 
     def _export(self, report_type):
