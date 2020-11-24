@@ -2453,6 +2453,7 @@ class AccountCodaImport(models.TransientModel):
                 'bank_bic': bic,
                 'bank_name': bank_name,
                 'acc_number': iban,
+                'sequence': 100,
             })
         return feedback
 
