@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
+  <data noupdate="1">
   <!-- account.tax.report.line -->
   <record id="atrl_I" model="account.tax.report.line">
     <field name="name">Belgian Chart of Taxes</field>
@@ -740,5 +740,5 @@
     <field name="invisible" eval="0"/>
     <field name="country_id" ref="base.be"/>
   </record>
-
+  </data>
 </odoo>
