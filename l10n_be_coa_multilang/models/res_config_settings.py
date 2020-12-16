@@ -25,8 +25,8 @@ class ResConfigSettings(models.TransientModel):
         # settings but doesn't check which may give wrong results.
         # We therefor have added this check here.
         # TODO: make PR on https://github.com/odoo/odoo
-        if self.company_id != self.env.user.company_id:
-            raise UserError(
-                _("Your 'Current Company' must be set to '%s' !") % self.company_id.name
-            )
+        # if self.company_id != self.env.user.company_id:
+        #     raise UserError(
+        #         _("Your 'Current Company' must be set to '%s' !") % self.company_id.name
+        #     )
         return super(ResConfigSettings, self.with_context(ctx)).execute()
