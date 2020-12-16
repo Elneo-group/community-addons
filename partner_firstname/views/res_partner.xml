@@ -48,13 +48,13 @@
                         <group attrs="{'invisible': [('is_company', '=', True)]}">
                             <field
                                 name="lastname"
-                                attrs="{'required': [('firstname', '=', False),
+                                attrs="{'invisible': [('type','!=','contact')], 'required': [('firstname', '=', False),
                                 ('is_company', '=', False),
                                 ('type', '=', 'contact')]}"
                             />
                             <field
                                 name="firstname"
-                                attrs="{'required': [('lastname', '=', False),
+                                attrs="{'invisible': [('type','!=','contact')], 'required': [('lastname', '=', False),
                                 ('is_company', '=', False),
                                 ('type', '=', 'contact')]}"
                             />
