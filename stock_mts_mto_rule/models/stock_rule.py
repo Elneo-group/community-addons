@@ -4,8 +4,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
 from odoo.tools import float_compare, float_is_zero
-import logging
-_logger = logging.getLogger(__name__)
+
 
 class StockRule(models.Model):
     _inherit = "stock.rule"
@@ -25,16 +24,16 @@ class StockRule(models.Model):
                         "No MTS or MTO rule configured on procurement " "rule: %s!"
                     ) % (rule.name,)
                     raise ValidationError(msg)
-                # if (
-                #     rule.mts_rule_id.location_src_id.id
-                #     != rule.mto_rule_id.location_src_id.id
-                # ):
-                #     msg = _(
-                #         "Inconsistency between the source locations of "
-                #         "the mts and mto rules linked to the procurement "
-                #         "rule: %s! It should be the same."
-                #     ) % (rule.name,)
-                #     raise ValidationError(msg)
+                if (
+                    rule.mts_rule_id.location_src_id.id
+                    != rule.mto_rule_id.location_src_id.id
+                ):
+                    msg = _(
+                        "Inconsistency between the source locations of "
+                        "the mts and mto rules linked to the procurement "
+                        "rule: %s! It should be the same."
+                    ) % (rule.name,)
+                    raise ValidationError(msg)
 
     def get_mto_qty_to_order(self, product, product_qty, product_uom, values):
         self.ensure_one()
@@ -42,12 +41,9 @@ class StockRule(models.Model):
             "Product Unit of Measure"
         )
         src_location_id = self.mts_rule_id.location_src_id.id
-        if self.mts_rule_id.warehouse_id:
-            product_location = product.with_context(warehouse=self.mts_rule_id.warehouse_id.id)
-        else:
-            product_location = product.with_context(location=src_location_id)
-        qty_available_not_res = product_location.qty_available_not_res
-        qty_available = product.uom_id._compute_quantity(qty_available_not_res, product_uom)
+        product_location = product.with_context(location=src_location_id)
+        virtual_available = product_location.virtual_available
+        qty_available = product.uom_id._compute_quantity(virtual_available, product_uom)
         if float_compare(qty_available, 0.0, precision_digits=precision) > 0:
             if (
                 float_compare(qty_available, product_qty, precision_digits=precision)
