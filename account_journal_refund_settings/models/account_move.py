@@ -50,7 +50,7 @@ class AccountMove(models.Model):
             else:
                 if not self.env.context.get("active_model"):
                     # return empty journal to enforce manual selection
-                    return super()._get_default_journal()
+                    return self.env["account.journal"]
                 elif self.env.context.get("active_model") == "sale.order":
                     journals = self._guess_sale_order_journals(journals)
                     if len(journals) == 1:
