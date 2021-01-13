@@ -25,14 +25,14 @@ class AccountMove(models.Model):
         comodel_name="res.country",
         string="Origin/Destination Country",
         compute="_compute_intrastat_country",
-        # store=True,
+        store=True,
         compute_sudo=True,
         help="Destination country for dispatches. Origin country for " "arrivals.",
     )
     intrastat_country = fields.Boolean(
         compute="_compute_intrastat_country",
         string="Intrastat Country",
-        # store=True,
+        store=True,
         compute_sudo=True,
     )
     src_dest_region_id = fields.Many2one(
