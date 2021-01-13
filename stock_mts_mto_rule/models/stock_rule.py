@@ -59,7 +59,9 @@ class StockRule(models.Model):
             "Product Unit of Measure"
         )
         for procurement, rule in procurements:
-            domain = self.env["procurement.group"]._get_moves_to_assign_domain()
+            domain = self.env["procurement.group"]._get_moves_to_assign_domain(
+                procurement.company_id.id
+            )
             needed_qty = rule.get_mto_qty_to_order(
                 procurement.product_id,
                 procurement.product_qty,
