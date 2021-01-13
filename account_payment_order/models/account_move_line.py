@@ -12,7 +12,7 @@ class AccountMoveLine(models.Model):
     partner_bank_id = fields.Many2one(
         comodel_name="res.partner.bank",
         string="Partner Bank Account",
-        compute="_compute_partner_bank_id",
+        # compute="_compute_partner_bank_id",
         readonly=False,
         # store=True,
         help="Bank account on which we should pay the supplier",
