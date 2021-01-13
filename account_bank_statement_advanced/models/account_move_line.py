@@ -25,29 +25,29 @@ class AccountMoveLine(models.Model):
                 )
         return super().unlink()
 
-    def write(self, vals, **kwargs):
-        for move_line in self:
-            st = move_line.statement_id
-            if st and st.state == "confirm":
-                for k in vals:
-                    if k not in [
-                        "full_reconcile_id",
-                        "matched_debit_ids",
-                        "matched_credit_ids",
-                    ]:
-                        raise UserError(
-                            _(
-                                "Operation not allowed ! "
-                                "\nYou cannot modify an Accounting Entry "
-                                "that is linked to a Confirmed Bank Statement. "
-                                "\nStatement = %s"
-                                "\nMove = %s (id:%s)\nUpdate Values = %s"
-                            )
-                            % (
-                                st.name,
-                                move_line.move_id.name,
-                                move_line.move_id.id,
-                                vals,
-                            )
-                        )
-        return super().write(vals)
+    # def write(self, vals, **kwargs):
+    #     for move_line in self:
+    #         st = move_line.statement_id
+    #         if st and st.state == "confirm":
+    #             for k in vals:
+    #                 if k not in [
+    #                     "full_reconcile_id",
+    #                     "matched_debit_ids",
+    #                     "matched_credit_ids",
+    #                 ]:
+    #                     raise UserError(
+    #                         _(
+    #                             "Operation not allowed ! "
+    #                             "\nYou cannot modify an Accounting Entry "
+    #                             "that is linked to a Confirmed Bank Statement. "
+    #                             "\nStatement = %s"
+    #                             "\nMove = %s (id:%s)\nUpdate Values = %s"
+    #                         )
+    #                         % (
+    #                             st.name,
+    #                             move_line.move_id.name,
+    #                             move_line.move_id.id,
+    #                             vals,
+    #                         )
+    #                     )
+    #     return super().write(vals)
