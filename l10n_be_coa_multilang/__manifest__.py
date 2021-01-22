@@ -17,6 +17,7 @@
         "base_iban",
         "account_move_line_tax_editable",
         "report_xlsx_helper",
+        "web_tree_decoration_underline",
     ],
     "data": [
         "security/ir.model.access.csv",
