@@ -1,16 +1,12 @@
 # Copyright 2009-2020 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
 class AccountFiscalPosition(models.Model):
     _inherit = "account.fiscal.position"
-
-    company_id = fields.Many2one(
-        required=True, default=lambda self: self.env.user.company_id
-    )
 
     _sql_constraints = [
         (
