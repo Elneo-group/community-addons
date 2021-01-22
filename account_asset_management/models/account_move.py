@@ -87,11 +87,12 @@ class AccountMove(models.Model):
                     "asset_profile_id"
                 ).asset_id.name_get()
             ]
-            message = _("This invoice created the asset(s): %s") % ", ".join(refs)
-            move.message_post(body=message)
+            if refs:
+                message = _("This invoice created the asset(s): %s") % ", ".join(refs)
+                move.message_post(body=message)
 
     def button_draft(self):
-        invoices = self.filtered(lambda r: not r.is_sale_document())
+        invoices = self.filtered(lambda r: r.is_purchase_document())
         if invoices:
             invoices.line_ids.asset_id.unlink()
         super().button_draft()

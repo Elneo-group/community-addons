@@ -32,7 +32,9 @@ class ResUsersRole(models.Model):
         default=lambda cls: cls.env.ref("base_user_role.ir_module_category_role").id,
         string="Associated category",
         help="Associated group's category",
+        readonly=False,
     )
+    comment = fields.Html(string="Internal Notes",)
 
     @api.depends("line_ids.user_id")
     def _compute_user_ids(self):
