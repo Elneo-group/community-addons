@@ -63,7 +63,6 @@ class WizPartnerOpenItems(models.TransientModel):
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        readonly=True,
         default=lambda self: self._default_company_id(),
     )
 
@@ -77,7 +76,7 @@ class WizPartnerOpenItems(models.TransientModel):
 
     @api.model
     def _default_company_id(self):
-        return self.env.user.company_id
+        return self.env.company
 
     @api.depends("account_ids")
     def _compute_accounts(self):
