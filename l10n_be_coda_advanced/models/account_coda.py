@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, fields, models
@@ -41,8 +41,13 @@ class AccountCoda(models.Model):
         required=True,
         readonly=True,
     )
-    company_id = fields.Many2one(
-        comodel_name="res.company", string="Company", readonly=True
+    company_ids = fields.Many2many(
+        comodel_name="res.company",
+        string="Companies",
+        readonly=True,
+        help="A single CODA File can contain statements from multiple "
+        "companies. This field shows all companies for which statements "
+        "have been created.",
     )
 
     _sql_constraints = [

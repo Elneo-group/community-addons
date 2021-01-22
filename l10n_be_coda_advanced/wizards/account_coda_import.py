@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import base64
@@ -175,7 +175,7 @@ class AccountCodaImport(models.TransientModel):
 
         cba = self._coda_banks.filtered(cba_filter)
         if cba:
-            if cba.company_id != self.env.user.company_id:
+            if cba.company_id not in self.env.companies:
                 self._coda_import_note += _(
                     "\n\nMatching CODA Bank Account Configuration "
                     "record found for Bank Account Number '%s' "
@@ -1279,8 +1279,6 @@ class AccountCodaImport(models.TransientModel):
         return [transaction_copy]
 
     def coda_import(self):
-        ctx = dict(self.env.context, allowed_company_ids=self.env.user.company_ids.ids)
-        self = self.with_context(ctx)
         import_results = []
         self._ziperr_log = ""
         if self.coda_fname.split(".")[-1].lower() == "zip":
@@ -1599,6 +1597,7 @@ class AccountCodaImport(models.TransientModel):
                 if bank_st:
                     bank_statements += bank_st
                     coda_statement["bank_st_id"] = bank_st.id
+                    coda.company_ids |= coda_statement["coda_bank_params"].company_id
                 else:
                     break
 
@@ -2002,6 +2001,7 @@ class AccountCodaImport(models.TransientModel):
             domain += [
                 ("invoice_payment_state", "!=", "paid"),
                 ("invoice_payment_ref", "=", transaction["struct_comm_bba"]),
+                ("company_id", "=", cba.company_id.id),
             ]
             invoices = self.env["account.move"].search(domain)
             if not invoices:
@@ -2029,32 +2029,44 @@ class AccountCodaImport(models.TransientModel):
         # use free comm in bank statement line
         # for lookup against open invoices
         if not match.get("invoice_id") and cba.find_bbacom:
-            # extract possible bba scor from free form communication
-            # and try to find matching invoice
+            # Extract possible bba scor from free form communication
+            # and try to find matching invoice.
+            # We also match in this case on amount to mimimise risk on
+            # false positives.
             free_comm_digits = re.sub(r"\D", "", transaction["communication"] or "")
-            select = (
-                r"""
-    SELECT id FROM (
-      SELECT id, type, state, amount_total, name, invoice_payment_ref,
-      '%s'::text AS free_comm_digits
-        FROM account_move
-        WHERE invoice_payment_state != 'paid'
-      ) sq
-      WHERE free_comm_digits LIKE
-            '%%'||regexp_replace(invoice_payment_ref, '\D', '', 'g')||'%%'
-            """
-                % free_comm_digits
-            )
-            if transaction["amount"] > 0:
-                select2 = " AND type IN ('out_invoice', 'in_refund')"
-            else:
-                select2 = " AND type IN ('in_invoice', 'out_refund')"
-            self.env.cr.execute(select + select2)  # pylint: disable=E8103
-            res = self.env.cr.fetchall()
-            if res:
-                inv_ids = [x[0] for x in res]
-                if len(inv_ids) == 1:
-                    match["invoice_id"] = inv_ids[0]
+            if len(free_comm_digits) >= 12:
+                amount_fmt = "%.2f"
+                if transaction["amount"] > 0:
+                    amount_rounded = amount_fmt % round(transaction["amount"], 2)
+                else:
+                    amount_rounded = amount_fmt % round(-transaction["amount"], 2)
+                select = r"""
+        SELECT id FROM (
+          SELECT id, type, state, amount_total, name, invoice_payment_ref,
+          '%s'::text AS free_comm_digits
+            FROM account_move
+            WHERE invoice_payment_state != 'paid'
+              AND company_id = %s
+              AND round(amount_total, 2) = %s
+          ) sq
+          WHERE free_comm_digits LIKE
+                '%%'||regexp_replace(invoice_payment_ref, '\D', '', 'g')||'%%'
+
+                """ % (
+                    free_comm_digits,
+                    cba.company_id.id,
+                    amount_rounded,
+                )
+                if transaction["amount"] > 0:
+                    select2 = " AND type IN ('out_invoice', 'in_refund')"
+                else:
+                    select2 = " AND type IN ('in_invoice', 'out_refund')"
+                self.env.cr.execute(select + select2)  # pylint: disable=E8103
+                res = self.env.cr.fetchall()
+                if res:
+                    inv_ids = [x[0] for x in res]
+                    if len(inv_ids) == 1:
+                        match["invoice_id"] = inv_ids[0]
 
         if (
             not match.get("invoice_id")
@@ -2168,7 +2180,7 @@ class AccountCodaImport(models.TransientModel):
             (search_field, "=", search_input),
             ("full_reconcile_id", "=", False),
             ("account_id.reconcile", "=", True),
-            ("user_type_id.type", "not in", ["payable", "receivable"]),
+            ("account_internal_type", "not in", ["payable", "receivable"]),
         ]
         return domain
 
@@ -2246,7 +2258,7 @@ class AccountCodaImport(models.TransientModel):
     def _match_aml_arap_domain(self, st_line, cba, transaction):
         domain = [
             ("full_reconcile_id", "=", False),
-            ("user_type_id.type", "in", ["payable", "receivable"]),
+            ("account_internal_type", "in", ["payable", "receivable"]),
             ("partner_id", "!=", False),
         ]
         return domain
@@ -2329,11 +2341,9 @@ class AccountCodaImport(models.TransientModel):
         return reconcile_note
 
     def _match_counterparty(self, st_line, cba, transaction, reconcile_note):
-
         match = transaction["matching_info"]
         if match["status"] in ["break", "done"]:
             return reconcile_note
-        partner_banks = False
         cp_number = transaction["counterparty_number"]
         if not cp_number:
             return reconcile_note
@@ -2350,37 +2360,28 @@ class AccountCodaImport(models.TransientModel):
         if match["status"] == "done" or not cba.find_partner:
             return reconcile_note
 
-        partner_banks = self.env["res.partner.bank"].search(
+        partner_bank = self.env["res.partner.bank"].search(
             [
                 ("sanitized_acc_number", "=", cp_number),
+                ("partner_id.active", "=", True),
+                "|",
+                ("partner_id.parent_id", "=", False),
+                ("partner_id.is_company", "=", True),
+                "|",
+                ("company_id", "=", False),
+                ("company_id", "=", cba.company_id.id),
                 "|",
                 ("partner_id.company_id", "=", False),
                 ("partner_id.company_id", "=", cba.company_id.id),
             ]
         )
-        partner_banks = partner_banks.filtered(lambda r: r.partner_id.active)
         line_note = ""
-        if partner_banks:
-            # filter out partners that belong to other companies
-            # TODO :
-            # adapt this logic to cope with
-            # res.partner record rule customisations
-            partner_banks_2 = []
-            for pb in partner_banks:
-                add_pb = True
-                pb_partner = pb.partner_id
-                if not pb_partner.is_company and pb_partner.parent_id:
-                    add_pb = False
-                try:
-                    if pb_partner.company_id and (
-                        pb_partner.company_id.id != cba.company_id.id
-                    ):
-                        add_pb = False
-                except Exception:
-                    add_pb = False
-                if add_pb:
-                    partner_banks_2.append(pb)
-            if len(partner_banks_2) > 1:
+        if partner_bank:
+            if len(partner_bank) == 1:
+                match["status"] = "done"
+                match["bank_account_id"] = partner_bank.id
+                match["partner_id"] = partner_bank.partner_id.id
+            else:
                 line_note = (
                     _(
                         "No partner record assigned: "
@@ -2389,11 +2390,6 @@ class AccountCodaImport(models.TransientModel):
                     )
                     % cp_number
                 )
-            elif len(partner_banks_2) == 1:
-                partner_bank = partner_banks_2[0]
-                match["status"] = "done"
-                match["bank_account_id"] = partner_bank.id
-                match["partner_id"] = partner_bank.partner_id.id
         else:
             line_note = _(
                 "The bank account '%s' is not defined for the partner '%s' !"
@@ -2440,6 +2436,9 @@ class AccountCodaImport(models.TransientModel):
                 [
                     ("sanitized_acc_number", "=", cp),
                     ("partner_id", "=", match["partner_id"]),
+                    "|",
+                    ("company_id", "=", False),
+                    ("company_id", "=", cba.company_id.id),
                 ],
                 order="id",
             )
@@ -2449,7 +2448,8 @@ class AccountCodaImport(models.TransientModel):
                 )
 
             if not partner_banks:
-                feedback = self.update_partner_bank(
+                feedback = self._create_res_partner_bank(
+                    cba,
                     transaction["counterparty_bic"],
                     transaction["counterparty_number"],
                     match["partner_id"],
@@ -2696,7 +2696,7 @@ class AccountCodaImport(models.TransientModel):
         bank_name = bank and bank.name or False
         return bank_id, bic, bank_name, feedback
 
-    def update_partner_bank(self, bic, iban, partner_id, partner_name):
+    def _create_res_partner_bank(self, cba, bic, iban, partner_id, partner_name):
 
         bank_id = False
         feedback = False
@@ -2720,6 +2720,7 @@ class AccountCodaImport(models.TransientModel):
                     "bank_id": bank_id,
                     "acc_type": "iban",
                     "acc_number": iban,
+                    "company_id": cba.company_id.id,
                 }
             )
         return feedback
