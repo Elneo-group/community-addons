@@ -54,7 +54,7 @@
                             />
                             <field
                                 name="firstname"
-                                attrs="{required': [('lastname', '=', False),
+                                attrs="{'required': [('lastname', '=', False),
                                 ('is_company', '=', False),
                                 ('type', '=', 'contact')]}"
                             />
@@ -80,13 +80,13 @@
                         <group attrs="{'invisible': [('is_company', '=', True)]}">
                             <field
                                 name="lastname"
-                                attrs="{'invisible': [('type','!=','contact')], 'required': [('firstname', '=', False),
+                                attrs="{'required': [('firstname', '=', False),
                                 ('is_company', '=', False),
                                 ('type', '=', 'contact')]}"
                             />
                             <field
                                 name="firstname"
-                                attrs="{'invisible': [('type','!=','contact')], 'required': [('lastname', '=', False),
+                                attrs="{'required': [('lastname', '=', False),
                                 ('is_company', '=', False),
                                 ('type', '=', 'contact')]}"
                             />

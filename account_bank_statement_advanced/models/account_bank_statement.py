@@ -7,9 +7,7 @@ from odoo import _, api, fields, models
 class AccountBankStatement(models.Model):
     _inherit = "account.bank.statement"
 
-    foreign_currency = fields.Boolean(
-        #compute="_compute_foreign_currency", store=True
-    )
+    foreign_currency = fields.Boolean(compute="_compute_foreign_currency", store=True)
 
     @api.depends("currency_id")
     def _compute_foreign_currency(self):

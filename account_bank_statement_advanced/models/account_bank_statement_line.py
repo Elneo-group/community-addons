@@ -65,8 +65,8 @@ class AccountBankStatementLine(models.Model):
     moves_state = fields.Selection(
         string="Moves State",
         selection=[("draft", "Unposted"), ("posted", "Posted")],
-        #compute="_compute_moves_state",
-        #store=True,
+        compute="_compute_moves_state",
+        store=True,
     )
     # update existing fields
     state = fields.Selection(store=True)
