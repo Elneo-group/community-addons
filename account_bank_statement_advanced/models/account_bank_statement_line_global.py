@@ -66,7 +66,7 @@ class AccountBankStatementLineGlobal(models.Model):
         if c_id:
             res = self.env["res.company"].browse(c_id)
         else:
-            res = self.env.user.company_id
+            res = self.env.company
         return res
 
     @api.model
