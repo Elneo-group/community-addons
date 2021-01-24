@@ -10,13 +10,15 @@ class AccountBankStatementLine(models.Model):
 
     # new fields
     statement_date = fields.Date(
-        related="statement_id.date", string="Statement Date", readonly=True, store=True
+        #related="statement_id.date",
+        string="Statement Date", readonly=True,
+        #store=True
     )
     val_date = fields.Date(string="Value Date")  # nl: valuta datum)
     journal_code = fields.Char(
-        related="statement_id.journal_id.code",
+        #related="statement_id.journal_id.code",
         string="Journal Code",
-        store=True,
+        #store=True,
         readonly=True,
     )
     globalisation_id = fields.Many2one(
@@ -69,7 +71,10 @@ class AccountBankStatementLine(models.Model):
         #store=True,
     )
     # update existing fields
-    state = fields.Selection(store=True)
+    state = fields.Selection(
+        compute=False
+        #store=True
+    )
     date = fields.Date(string="Entry Date")
     partner_id = fields.Many2one(
         domain=["|", ("parent_id", "=", False), ("is_company", "=", True)]
