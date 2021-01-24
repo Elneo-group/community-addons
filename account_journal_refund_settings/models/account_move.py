@@ -35,7 +35,10 @@ class AccountMove(models.Model):
         j_type = _T2T.get(inv_type)
         j_refund_usage = _T2U.get(inv_type)
         if j_type and j_refund_usage:
-            company_id = self.env.context.get("company_id", self.env.user.company_id.id)
+            company_id = self._context.get(
+                "force_company",
+                self.env.context.get("default_company_id", self.env.company.id),
+            )
             j_dom = [
                 ("type", "=", j_type),
                 ("refund_usage", "in", j_refund_usage),

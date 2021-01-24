@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
@@ -153,7 +153,7 @@ class CodaBankAccount(models.Model):
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env.user.company_id,
+        default=lambda self: self.env.company,
         required=True,
     )
     display_name = fields.Char(

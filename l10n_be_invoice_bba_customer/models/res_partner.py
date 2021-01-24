@@ -7,7 +7,6 @@ from odoo import _, api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-
     out_inv_comm_algorithm = fields.Selection(
         selection="_selection_out_inv_comm_algorithm",
         string="Communication Algorithm",

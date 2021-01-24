@@ -11,7 +11,9 @@
         <field name="description1"/>
         <field name="journal_id"/>
         <field name="currency_id" widget="selection"/>
-        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+        <field name="company_id" widget="selection"
+               domain="[('id', 'in', allowed_company_ids)]"
+               groups="base.group_multi_company"/>
         <newline/>
         <group expand="0" string="Group By">
           <filter name="bank" string="Bank Account" context="{'group_by': 'bank_id'}"/>
@@ -58,13 +60,15 @@
           <field name="balance_start_enforce"/>
           <field name="discard_dup"/>
           <field name="active"/>
-          <field name="company_id" widget='selection' groups="base.group_multi_company"/>
+          <field name="company_id" widget="selection"
+                 domain="[('id', 'in', allowed_company_ids)]"
+                 groups="base.group_multi_company"/>
         </group>
         <notebook>
           <page string="Default Accounts">
             <separator colspan="4" string="Default Account Mapping"/>
             <group>
-              <field name="transfer_account_id"/>
+              <field name="transfer_account_id" domain="[('company_id', '=', company_id)]"/>
             </group>
           </page>
           <page string="Accounts Mapping">
@@ -85,6 +89,7 @@
                   <field name="name"/>
                   <field name="sequence"/>
                   <field name="active"/>
+                  <field name="company_id" invisible="1"/>
                 </group>
                 <group name="condition" col="4">
                   <separator string="Conditions" colspan="4"/>
@@ -106,10 +111,11 @@
                 </group>
                 <group name="result" col="4" attrs="{'invisible': [('split', '=', True)]}">
                   <separator string="Result" colspan="4"/>
-                  <field name="account_id" attrs="{'required': [('split', '=', False)]}"/>
-                  <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                  <field name="account_id" attrs="{'required': [('split', '=', False)]}" domain="[('company_id', '=', company_id)]"/>
+                  <field name="analytic_account_id" groups="analytic.group_analytic_accounting"
+                         domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
                   <newline/>
-                  <field name="account_tax_id"/>
+                  <field name="account_tax_id" domain="[('company_id', '=', company_id)]"/>
                 </group>
               </form>
             </field>

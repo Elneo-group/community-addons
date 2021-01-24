@@ -17,6 +17,7 @@ class CodaAccountMappingRule(models.Model):
     )
     name = fields.Char(string="Rule Name", required=True)
     active = fields.Boolean(default=True, help="Switch on/off this rule.")
+    company_id = fields.Many2one(related="coda_bank_account_id.company_id")
     # matching criteria
     partner_name = fields.Char(
         help="The name of the partner in the CODA Transaction."

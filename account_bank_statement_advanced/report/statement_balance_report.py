@@ -15,10 +15,12 @@ class StatementBalanceReport(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         journal_ids = data["journal_ids"]
-        company = self.env.user.company_id
         if not journal_ids:
             journals = self.env["account.journal"].search(
-                [("type", "=", "bank"), ("company_id", "=", company.id)]
+                [
+                    ("type", "=", "bank"),
+                    ("company_id", "in", self.env.context.get("allowed_company_ids")),
+                ]
             )
             journal_ids = journals.ids
         if not journal_ids:
