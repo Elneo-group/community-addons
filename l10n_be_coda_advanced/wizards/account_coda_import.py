@@ -2721,6 +2721,7 @@ class AccountCodaImport(models.TransientModel):
                     "acc_type": "iban",
                     "acc_number": iban,
                     "company_id": cba.company_id.id,
+                    "sequence": 100,
                 }
             )
         return feedback
