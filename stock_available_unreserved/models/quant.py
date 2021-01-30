@@ -10,8 +10,8 @@ class StockQuant(models.Model):
 
     contains_unreserved = fields.Boolean(
         string="Contains unreserved products",
-        compute="_compute_contains_unreserved",
-        store=True,
+        #compute="_compute_contains_unreserved",
+        #store=True,
     )
 
     @api.depends("product_id", "location_id", "quantity", "reserved_quantity")
