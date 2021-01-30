@@ -14,15 +14,16 @@ def migrate(cr, version):
         """
     )
     res = cr.fetchall()
-    field_id = res[0][0]
-    cr.execute(  # pylint: disable=E8103
-        """
-        UPDATE ir_property
-          SET name='property_in_inv_account_id', fields_id=%s
-          WHERE name='property_in_inv_account_id';
-        UPDATE ir_property
-          SET name='property_out_inv_account_id', fields_id=%s
-          WHERE name='property_out_inv_account_id';
-        """
-        % (field_id, field_id)
-    )
+    if res:
+        field_id = res[0][0]
+        cr.execute(  # pylint: disable=E8103
+            """
+            UPDATE ir_property
+              SET name='property_in_inv_account_id', fields_id=%s
+              WHERE name='property_in_inv_account_id';
+            UPDATE ir_property
+              SET name='property_out_inv_account_id', fields_id=%s
+              WHERE name='property_out_inv_account_id';
+            """
+            % (field_id, field_id)
+        )
