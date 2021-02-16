@@ -130,9 +130,8 @@ msgstr "Compte d'immobilisation"
 #: model_terms:ir.ui.view,arch_db:account_asset_management.account_asset_group_view_form
 #: model_terms:ir.ui.view,arch_db:account_asset_management.account_asset_group_view_search
 #: model_terms:ir.ui.view,arch_db:account_asset_management.account_asset_group_view_tree
-#, fuzzy
 msgid "Asset Group"
-msgstr "Compte d'immobilisation"
+msgstr "Catégorie d'immobilisation"
 
 #. module: account_asset_management
 #: model:ir.actions.act_window,name:account_asset_management.account_asset_group_action
