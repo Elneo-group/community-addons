@@ -176,7 +176,7 @@ msgstr "Catégorie d'immobilisation"
 #: model:ir.actions.act_window,name:account_asset_management.account_asset_profile_action
 #: model:ir.ui.menu,name:account_asset_management.account_asset_profile_menu
 msgid "Asset Profiles"
-msgstr "Catégories d'immobilisation"
+msgstr "Groupes d'immobilisation"
 
 #. module: account_asset_management
 #: model:ir.model.fields.selection,name:account_asset_management.selection__account_asset_line__type__remove
