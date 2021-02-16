@@ -170,7 +170,7 @@ msgstr "Nom de l'immobilisation"
 #: model:ir.model.fields,field_description:account_asset_management.field_account_move_line__asset_profile_id
 #: model_terms:ir.ui.view,arch_db:account_asset_management.account_asset_profile_view_search
 msgid "Asset Profile"
-msgstr "Catégorie d'immobilisation"
+msgstr "Groupe d'immobilisation"
 
 #. module: account_asset_management
 #: model:ir.actions.act_window,name:account_asset_management.account_asset_profile_action
@@ -479,7 +479,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset_management.field_account_account__asset_profile_id
 msgid "Default Asset Profile when creating invoice lines with this account."
 msgstr ""
-"Catégorie d'immobilisation par défaut lors de la création de lignes de "
+"Groupe d'immobilisation par défaut lors de la création de lignes de "
 "facture sur ce compte."
 
 #. module: account_asset_management
@@ -1135,7 +1135,7 @@ msgstr "Rechercher une catégorie d'immobilisation"
 #. module: account_asset_management
 #: model_terms:ir.ui.view,arch_db:account_asset_management.account_asset_profile_view_search
 msgid "Search Asset Profile"
-msgstr "Rechercher une catégorie d'immobilisation"
+msgstr "Rechercher un groupe d'immobilisation"
 
 #. module: account_asset_management
 #: model:ir.model.fields,help:account_asset_management.field_account_asset_line__init_entry
@@ -1200,7 +1200,7 @@ msgstr ""
 msgid ""
 "The Asset Account defined in the Asset Profile must be equal to the account."
 msgstr ""
-"Le compte d'immobilisation défini dans la catégorie doit être égal au compte."
+"Le compte d'immobilisation défini dans le groupe doit être égal au compte."
 
 #. module: account_asset_management
 #: code:addons/account_asset_management/wizard/account_asset_remove.py:0
