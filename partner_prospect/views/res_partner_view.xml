@@ -19,6 +19,7 @@
         <field name="arch" type="xml"> 
             <filter name="inactive" position="before">
                 <filter string="Prospect" name="prospect" domain="[('customer_rank','>',0),('prospect','=',True)]"/>
+                <filter string="Not Prospect" name="not_prospect" domain="[('customer_rank','>',0),('prospect','=',False)]"/>
                 <separator/>
             </filter>
         </field>
