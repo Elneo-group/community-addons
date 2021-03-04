@@ -10,7 +10,7 @@
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": [
-        "sale",
+        "sale","account"
     ],
     "data": [
         "views/res_partner_view.xml",
