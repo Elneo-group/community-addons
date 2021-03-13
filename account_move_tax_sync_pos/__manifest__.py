@@ -8,6 +8,6 @@
     "author": "Noviat",
     "website": "http://www.noviat.com",
     "category": "Accounting & Finance",
-    "depends": ["account"],
-    "data": ["wizards/account_move_tax_sync.xml"],
+    "depends": ["account_move_tax_sync", "point_of_sale"],
+    "auto_install": True,
 }
