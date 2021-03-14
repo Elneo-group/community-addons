@@ -56,11 +56,4 @@
     <field name="target">new</field>
   </record>
 
-  <menuitem id="account_move_tax_sync_menu"
-            name="Sync Journal Entry Taxes"
-            parent="account.menu_finance_configuration"
-            action="account_move_tax_sync_action"
-            groups="base.group_no_one"
-            sequence="100"/>
-
 </odoo>

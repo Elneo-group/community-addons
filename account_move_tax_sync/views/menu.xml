@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <menuitem id="account_move_tax_sync_menu"
+            name="Sync Journal Entry Taxes"
+            parent="account.menu_finance_configuration"
+            action="account_move_tax_sync_action"
+            groups="base.group_no_one"
+            sequence="100"/>
+
+  <menuitem id="wizard_update_charts_accounts_menu"
+            name="Resync Account Chart Template"
+            parent="account.menu_finance_configuration"
+            action="account_chart_update.action_wizard_update_chart"
+            groups="base.group_no_one"
+            sequence="100"/>
+
+</odoo>
