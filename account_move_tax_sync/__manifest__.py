@@ -8,6 +8,6 @@
     "author": "Noviat",
     "website": "http://www.noviat.com",
     "category": "Accounting & Finance",
-    "depends": ["account_chart_update"],
+    "depends": ["account_chart_update_tax_code"],
     "data": ["wizards/account_move_tax_sync.xml", "views/menu.xml"],
 }
