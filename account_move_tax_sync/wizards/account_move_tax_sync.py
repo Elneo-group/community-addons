@@ -46,15 +46,23 @@ class AccountMoveTaxSync(models.TransientModel):
         return res
 
     def tax_sync(self):
+        tax_tags = self.env["account.account.tag"].search(
+            [
+                ("applicability", "=", "taxes"),
+                ("country_id", "=", self.company_id.country_id.id),
+            ]
+        )
         wiz_dict = {
             "error_log": "",
             "error_cnt": 0,
             "warning_log": "",
             "warning_cnt": 0,
             "updates": self.env["account.move"],
-            "check_account_invoice": "init",
-            "check_tax_code": "init",
+            "check_account_invoice": False,
+            "check_tax_code": False,
+            "tax_tags": {x.id: x for x in tax_tags},
         }
+        self._check_legacy_tables(wiz_dict)
         if not self._uid == self.env.ref("base.user_admin").id:
             raise UserError(_("You are not allowed to execute this Operation."))
         ams = self.move_id
@@ -101,6 +109,33 @@ class AccountMoveTaxSync(models.TransientModel):
             "target": "new",
             "type": "ir.actions.act_window",
         }
+
+    def _check_legacy_tables(self, wiz_dict):
+        """
+        entries created <= Odoo 12.0: check account_invoice
+        entries created <= Odoo 8.0: check account_tax_code
+        """
+        self.env.cr.execute(
+            "SELECT table_name FROM information_schema.tables "
+            "WHERE table_name = 'account_invoice'"
+        )
+        res = self.env.cr.fetchone()
+        if res:
+            wiz_dict["check_account_invoice"] = True
+
+        self.env.cr.execute(
+            "SELECT table_name FROM information_schema.tables "
+            "WHERE table_name = 'account_tax_code'"
+        )
+        res = self.env.cr.fetchone()
+        if res:
+            wiz_dict["check_tax_code"] = True
+            self.env.cr.execute(
+                "SELECT id, code FROM account_tax_code " "WHERE company_id = %s",
+                (self.company_id.id,),
+            )
+            res = self.env.cr.fetchall()
+            wiz_dict["tax_codes"] = {x[0]: x[1] for x in res}
 
     def _sync_taxes(self, am, wiz_dict):
         error_cnt = 0
@@ -272,7 +307,10 @@ class AccountMoveTaxSync(models.TransientModel):
                 "tag_ids": aml_new.tag_ids.ids,
                 "tax_audit": aml_new.tax_audit,
             }
-            aml = self._check_origin_models(aml_new_dict, am_dict, wiz_dict)
+            if wiz_dict["check_account_invoice"]:
+                aml = self._check_account_invoice(aml_new_dict, am_dict, wiz_dict)
+            else:
+                aml = False
             if not aml:
                 to_create.append(aml_new_dict)
             else:
@@ -442,37 +480,12 @@ class AccountMoveTaxSync(models.TransientModel):
             pos_order_ids = [x[0] for x in res]
             return self.env["pos.order"].browse(pos_order_ids)
 
-    def _check_origin_models(self, aml_new_dict, am_dict, wiz_dict):
-        """
-        Check legacy account.invoice.
-        This method can be extended to other legacy models.
-        """
-        amls = False
-        for table in ["account_invoice"]:
-            method = "_check_%s" % table
-            if wiz_dict["check_%s" % table]:
-                amls = getattr(self, method)(aml_new_dict, am_dict, wiz_dict)
-            if amls:
-                self._calc_aml_updates(aml_new_dict, amls, am_dict, wiz_dict)
-                break
-        return amls
-
     def _check_account_invoice(self, aml_new_dict, am_dict, wiz_dict):
         """
         Find match via account_invoice table for databases which have been
         created prior to Odoo 13.0
         """
         am = am_dict["am"]
-        if wiz_dict["check_account_invoice"] == "init":
-            self.env.cr.execute(
-                "SELECT table_name FROM information_schema.tables "
-                "WHERE table_name = 'account_invoice'"
-            )
-            res = self.env.cr.fetchone()
-            if not res:
-                wiz_dict["check_account_invoice"] = False
-                return False
-
         self.env.cr.execute(
             "SELECT id FROM account_invoice WHERE move_id = %s", (am.id,)
         )
@@ -490,6 +503,7 @@ class AccountMoveTaxSync(models.TransientModel):
         sign = am.type in ("in_refund", "out_invoice") and -1 or 1
         tax_line_id = aml_new_dict["tax_line_id"]
         account_id = aml_new_dict["account_id"]
+        tag_ids = aml_new_dict["tag_ids"]
         for ait in res:
             if aml_new_dict["currency_id"]:
                 amt_fld = "amount_currency"
@@ -497,16 +511,29 @@ class AccountMoveTaxSync(models.TransientModel):
             else:
                 amt_fld = "balance"
                 is_zero = am.company_id.currency_id.is_zero
-            if ait["tax_id"] == tax_line_id and ait["account_id"] == account_id:
-                aml = aml_todo.filtered(
-                    lambda r: r.account_id.id == account_id
-                    and r.tax_line_id.id == tax_line_id
-                    and is_zero(r[amt_fld] - sign * ait["amount"])
-                )
-                if aml:
-                    return aml
+            if ait["account_id"] != account_id:
+                continue
+            aml = aml_todo.filtered(
+                lambda r: r.account_id.id == account_id
+                and is_zero(r[amt_fld] - sign * ait["amount"])
+            )
+            if ait.get("tax_code_id"):
+                tax_code = wiz_dict["tax_codes"][ait["tax_code_id"]]
+                if len(tag_ids) != 1:
+                    continue
+                tax_tag = wiz_dict["tax_tags"][tag_ids[0]]
+                if tax_code not in tax_tag.name:
+                    continue
+            else:
+                # check also on tax_id for entries created > Odoo 8.0
+                if ait["tax_id"] != tax_line_id:
+                    continue
+                aml = aml.filtered(lambda r: r.tax_line_id.id == tax_line_id)
 
-        return False
+            if len(aml) == 1:
+                return aml
+
+        return self.env["account.move.line"]
 
     def _get_tax_base_amount(self, aml, am_dict, wiz_dict):
         """
@@ -568,14 +595,4 @@ class AccountMoveTaxSync(models.TransientModel):
         Handle legacy zero lines with tax_code_id and tax_amount
         created in Odoo <= 8.0
         """
-        if wiz_dict["check_tax_code"] == "init":
-            self.env.cr.execute(
-                "SELECT table_name FROM information_schema.tables "
-                "WHERE table_name = 'account_tax_code'"
-            )
-            res = self.env.cr.fetchone()
-            if not res:
-                wiz_dict["check_tax_code"] = False
-                return aml
-
         raise NotImplementedError  # TODO
