@@ -11,6 +11,7 @@
             <field name="date_from"/>
             <field name="date_to"/>
             <field name="company_id"
+                   domain="[('id', 'in', allowed_company_ids)]"
                    options="{'no_create': True, 'no_open': True}"/>
           </group>
           <group name="right">
@@ -54,12 +55,5 @@
     <field name="view_id" ref="account_move_tax_sync_view_form"/>
     <field name="target">new</field>
   </record>
-
-  <menuitem id="account_move_tax_sync_menu"
-            name="Sync Journal Entry Taxes"
-            parent="account.menu_finance_configuration"
-            action="account_move_tax_sync_action"
-            groups="base.group_no_one"
-            sequence="100"/>
 
 </odoo>
