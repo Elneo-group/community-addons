@@ -203,7 +203,6 @@ class AccountMoveTaxSync(models.TransientModel):
     def _sync_invoice_taxes(self, am_dict, wiz_dict):
         am = am_dict["am"]
         is_zero = am.company_id.currency_id.is_zero
-        to_create = am_dict["to_create"]
 
         tax_match_fields = self._get_tax_match_fields()
 
@@ -224,20 +223,7 @@ class AccountMoveTaxSync(models.TransientModel):
                 return True
 
             origin = aml_new._origin
-            aml_new_dict = {
-                "account_id": aml_new.account_id.id,
-                "name": aml_new.name,
-                "tax_repartition_line_id": aml_new.tax_repartition_line_id.id,
-                "tax_line_id": aml_new.tax_line_id.id,
-                "debit": aml_new.debit,
-                "credit": aml_new.credit,
-                "balance": aml_new.balance,
-                "currency_id": aml_new.currency_id.id,
-                "amount_currency": aml_new.amount_currency,
-                "tax_base_amount": aml_new.tax_base_amount,
-                "tag_ids": aml_new.tag_ids.ids,
-                "tax_audit": aml_new.tax_audit,
-            }
+            aml_new_dict = self._get_aml_new_dict(aml_new)
             if origin in am.line_ids and _check_match(origin, tax_match_fields):
                 aml = am.line_ids.filtered(lambda r: r == origin)
             else:
@@ -291,38 +277,14 @@ class AccountMoveTaxSync(models.TransientModel):
                 am_dict["aml_done"] |= aml
                 aml_new_done += aml_new
                 self._calc_aml_updates(aml_new_dict, aml, am_dict, wiz_dict)
+            elif not wiz_dict["check_account_invoice"]:
+                am_dict["to_create"].append(aml_new_dict)
+                aml_new_done += aml_new
+
         # lookup remaining entries via legacy account_invoice_tax table
-        for aml_new in am_new.line_ids - aml_new_done:
-            aml_new_dict = {
-                "account_id": aml_new.account_id.id,
-                "name": aml_new.name,
-                "tax_repartition_line_id": aml_new.tax_repartition_line_id.id,
-                "tax_line_id": aml_new.tax_line_id.id,
-                "debit": aml_new.debit,
-                "credit": aml_new.credit,
-                "balance": aml_new.balance,
-                "currency_id": aml_new.currency_id.id,
-                "amount_currency": aml_new.amount_currency,
-                "tax_base_amount": aml_new.tax_base_amount,
-                "tag_ids": aml_new.tag_ids.ids,
-                "tax_audit": aml_new.tax_audit,
-            }
-            if wiz_dict["check_account_invoice"]:
-                aml = self._check_account_invoice(aml_new_dict, am_dict, wiz_dict)
-            else:
-                aml = False
-            if not aml:
-                to_create.append(aml_new_dict)
-            else:
-                am_dict["aml_done"] |= aml
-                self._calc_aml_updates(aml_new_dict, aml, am_dict, wiz_dict)
-        # post-process remaining entries to recuperate tax data, e.g.
-        # via Odoo 8.0 tax_code_id field
-        aml_todo = am.line_ids - am_dict["aml_done"]
-        for aml in aml_todo.filtered(lambda r: r.balance == 0.0):
-            if not wiz_dict["check_tax_code"]:
-                break
-            am_dict["aml_done"] |= self._handle_zero_aml(aml, am_dict, wiz_dict)
+        aml_new_todo = am_new.line_ids - aml_new_done
+        if wiz_dict["check_account_invoice"] and aml_new_todo:
+            self._check_account_invoice(aml_new_todo, am_dict, wiz_dict)
 
     def _sync_pos_taxes(self, pos, am_dict, wiz_dict):
         am = am_dict["am"]
@@ -372,7 +334,7 @@ class AccountMoveTaxSync(models.TransientModel):
                         raise UserError(
                             _("Error detected during tax recalc of %s") % aml
                         )
-                    tax_base_amount = amounts["base_amount_converted"]
+                    tax_base_amount = -amounts["base_amount_converted"]
                 else:
                     tax_base_amount = self._get_tax_base_amount(aml, am_dict, wiz_dict)
                 aml_new_dict["tax_base_amount"] = tax_base_amount
@@ -382,6 +344,8 @@ class AccountMoveTaxSync(models.TransientModel):
             account_id, sign, tax_keys, tag_ids = key
             tax_ids = {tax[0] for tax in tax_keys}
             aml_new_dict = {
+                "tax_repartition_line_id": False,
+                "tax_line_id": False,
                 "tax_ids": tax_ids,
                 "tag_ids": tag_ids,
                 "tax_base_amount": 0.0,
@@ -412,9 +376,20 @@ class AccountMoveTaxSync(models.TransientModel):
         am_dict["aml_done"] = am.line_ids
 
     def _get_tax_sync_fields(self):
+        """
+        We include tax_line_id and tax_repartion_line_id since these
+        could be wrongly set for entries created from Odoo <= 8.0
+        invoices.
+        The Odoo OE migration scripts put these fields equal to one of the
+        tax objects with matching tax codes.
+        As a consequence Odoo 8.0 tax llines created from VAT-OUT-21-S
+        may show up with e.g. tax_line_id VAT-OUT-21-G in the migrated database.
+        """
         return [
             "tax_base_amount",
             "tag_ids",
+            "tax_line_id",
+            "tax_repartition_line_id",
         ]
 
     def _get_tax_match_fields(self):
@@ -426,14 +401,18 @@ class AccountMoveTaxSync(models.TransientModel):
         tax_sync_fields = self._get_tax_sync_fields()
         aml_updates = {}
         for fld in tax_sync_fields:
-            if hasattr(aml[fld], "ids"):
+            if aml._fields[fld].type == "many2one":
+                diff_check = aml_new_dict[fld] != aml[fld].id
+            elif hasattr(aml[fld], "ids"):
                 diff_check = set(aml_new_dict[fld]) != set(aml[fld].ids)
             elif isinstance(aml[fld], float):
                 diff_check = not is_zero(aml_new_dict[fld] - aml[fld])
             else:
                 diff_check = aml_new_dict[fld] != aml[fld]
             if diff_check:
-                if hasattr(aml[fld], "ids"):
+                if aml._fields[fld].type == "many2one":
+                    aml_updates[fld] = aml_new_dict[fld]
+                elif hasattr(aml[fld], "ids"):
                     aml_updates[fld] = [(6, 0, aml_new_dict[fld])]
                 else:
                     aml_updates[fld] = aml_new_dict[fld]
@@ -447,9 +426,25 @@ class AccountMoveTaxSync(models.TransientModel):
         if aml_updates:
             to_update.append((aml, aml_updates))
 
+    def _get_aml_new_dict(self, aml_new):
+        return {
+            "account_id": aml_new.account_id.id,
+            "name": aml_new.name,
+            "tax_repartition_line_id": aml_new.tax_repartition_line_id.id,
+            "tax_line_id": aml_new.tax_line_id.id,
+            "debit": aml_new.debit,
+            "credit": aml_new.credit,
+            "balance": aml_new.balance,
+            "currency_id": aml_new.currency_id.id,
+            "amount_currency": aml_new.amount_currency,
+            "tax_base_amount": aml_new.tax_base_amount,
+            "tag_ids": aml_new.tag_ids.ids,
+            "tax_audit": aml_new.tax_audit,
+        }
+
     def _get_pos_objects(self, am):
         self.env.cr.execute(
-            "SELECT ps.id FROM pos_order po "
+            "SELECT DISTINCT(ps.id) FROM pos_order po "
             "INNER JOIN pos_session ps on po.session_id = ps.id "
             "WHERE ps.move_id = %s",
             (am.id,),
@@ -480,12 +475,13 @@ class AccountMoveTaxSync(models.TransientModel):
             pos_order_ids = [x[0] for x in res]
             return self.env["pos.order"].browse(pos_order_ids)
 
-    def _check_account_invoice(self, aml_new_dict, am_dict, wiz_dict):
+    def _check_account_invoice(self, aml_new_todo, am_dict, wiz_dict):
         """
         Find match via account_invoice table for databases which have been
         created prior to Odoo 13.0
         """
         am = am_dict["am"]
+        to_create = am_dict["to_create"]
         self.env.cr.execute(
             "SELECT id FROM account_invoice WHERE move_id = %s", (am.id,)
         )
@@ -498,42 +494,113 @@ class AccountMoveTaxSync(models.TransientModel):
             "SELECT * FROM account_invoice_tax WHERE invoice_id = %s", (inv_id,)
         )
         res = self.env.cr.dictfetchall()
+        if any([ait.get("tax_code_id") for ait in res]):
+            # Odoo <= 8.0 entry
+            return self._check_account_invoice_tax_code(
+                res, aml_new_todo, am_dict, wiz_dict
+            )
 
+        # Entry created by eOdoo > 8.0 and < 13.0
         aml_todo = am.line_ids - am_dict["aml_done"]
         sign = am.type in ("in_refund", "out_invoice") and -1 or 1
-        tax_line_id = aml_new_dict["tax_line_id"]
-        account_id = aml_new_dict["account_id"]
-        tag_ids = aml_new_dict["tag_ids"]
-        for ait in res:
+        for aml_new in aml_new_todo:
+            aml_new_dict = self._get_aml_new_dict(aml_new)
             if aml_new_dict["currency_id"]:
                 amt_fld = "amount_currency"
                 is_zero = am.currency_id.is_zero
             else:
                 amt_fld = "balance"
                 is_zero = am.company_id.currency_id.is_zero
-            if ait["account_id"] != account_id:
-                continue
-            aml = aml_todo.filtered(
-                lambda r: r.account_id.id == account_id
-                and is_zero(r[amt_fld] - sign * ait["amount"])
+            tax_line_id = aml_new_dict["tax_line_id"]
+            account_id = aml_new_dict["account_id"]
+            for ait in res:
+                if ait["account_id"] != account_id or ait["tax_id"] != tax_line_id:
+                    continue
+                aml = aml_todo.filtered(
+                    lambda r: r.account_id.id == account_id
+                    and r.tax_line_id.id == tax_line_id
+                    and is_zero(r[amt_fld] - sign * ait["amount"])
+                )
+                if len(aml) == 1:
+                    am_dict["aml_done"] |= aml
+                    aml_todo -= aml
+                    self._calc_aml_updates(aml_new_dict, aml, am_dict, wiz_dict)
+                    break
+                else:
+                    if aml_new_dict not in to_create:
+                        to_create.append(aml_new_dict)
+
+    def _check_account_invoice_tax_code(self, aits, aml_new_todo, am_dict, wiz_dict):
+        am = am_dict["am"]
+        to_create = am_dict["to_create"]
+        aml_todo = am.line_ids - am_dict["aml_done"]
+        sign = am.type in ("in_refund", "out_invoice") and -1 or 1
+        if am.line_ids == am_dict["aml_done"]:
+            # We observe missing 'tax_line_id' in Journal Items converted by the
+            # Odoo OE migration service in case of legacy entries created from
+            # tax children.
+            # The _recompute_tax_lines creates new Journal Items in such cases
+            # in stead of updating the existing ones.
+            # We have added logic here to find and update the existing Journal Items.
+            aml_todo = am.line_ids.filtered(
+                lambda r: r.exclude_from_invoice_tab
+                and not r.tax_line_id
+                and r.account_internal_type not in ("receivable", "payable")
             )
-            if ait.get("tax_code_id"):
-                tax_code = wiz_dict["tax_codes"][ait["tax_code_id"]]
-                if len(tag_ids) != 1:
-                    continue
-                tax_tag = wiz_dict["tax_tags"][tag_ids[0]]
-                if tax_code not in tax_tag.name:
-                    continue
+        for aml_new in aml_new_todo:
+            done = False
+            aml_new_dict = self._get_aml_new_dict(aml_new)
+            if aml_new_dict["currency_id"]:
+                amt_fld = "amount_currency"
+                is_zero = am.currency_id.is_zero
             else:
-                # check also on tax_id for entries created > Odoo 8.0
-                if ait["tax_id"] != tax_line_id:
-                    continue
-                aml = aml.filtered(lambda r: r.tax_line_id.id == tax_line_id)
+                amt_fld = "balance"
+                is_zero = am.company_id.currency_id.is_zero
+            tag_ids = aml_new_dict["tag_ids"]
+            for ait in aits:
+                if ait.get("tax_code_id"):
+                    tax_code = wiz_dict["tax_codes"][ait["tax_code_id"]]
+                    if len(tag_ids) != 1:
+                        continue
+                    tax_tag = wiz_dict["tax_tags"][tag_ids[0]]
+                    if tax_code not in tax_tag.name:
+                        continue
+                if len(aml_todo) == 1:
+                    aml = aml_todo
+                    if (
+                        is_zero(aml[amt_fld] - sign * ait["amount"])
+                        and aml.account_id.id == ait["account_id"]
+                    ):
+                        self._calc_aml_updates(aml_new_dict, aml, am_dict, wiz_dict)
+                        am_dict["aml_done"] |= aml
+                        aml_todo -= aml
+                        done = True
+                        break
+                else:
+                    aits_group = [
+                        x
+                        for x in aits
+                        if x["tax_code_id"] == ait["tax_code_id"]
+                        and x["base_code_id"] == ait["base_code_id"]
+                        and x["account_id"] == ait["account_id"]
+                    ]
+                    aits_amount = sum([x["amount"] for x in aits_group])
+                    aml = aml_todo.filtered(
+                        lambda r: is_zero(r[amt_fld] - sign * aits_amount)
+                        and r.account_id.id == ait["account_id"]
+                    )
+                    if aml:
+                        base_amount = sum([x["base_amount"] for x in aits_group])
+                        aml_new_dict["tax_base_amount"] = base_amount
+                        for l in aml:
+                            self._calc_aml_updates(aml_new_dict, l, am_dict, wiz_dict)
+                        am_dict["aml_done"] |= aml
+                        aml_todo -= aml
+                        done = True
+                        break
 
-            if len(aml) == 1:
-                return aml
-
-        return self.env["account.move.line"]
+            if not done and aml_new_dict not in to_create:
+                to_create.append(aml_new_dict)
 
     def _get_tax_base_amount(self, aml, am_dict, wiz_dict):
         """
