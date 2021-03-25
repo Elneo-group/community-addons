@@ -6,6 +6,7 @@ from odoo.exceptions import UserError
 
 class MergePurchaseOrder(models.TransientModel):
     _name = 'merge.purchase.order'
+    _description = "Merge Purchase Orders"
 
     merge_type = \
         fields.Selection([

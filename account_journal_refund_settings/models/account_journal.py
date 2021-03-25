@@ -20,10 +20,3 @@ class AccountJournal(models.Model):
         help="Use this field to restrict the use of a Sale/Purchase "
         "to only refunds or only regular invoices.",
     )
-
-    @api.onchange("refund_usage")
-    def _onchange_refund_usage(self):
-        if self.refund_usage == "refund":
-            self.refund_sequence = True
-        elif self.refund_usage == "regular":
-            self.refund_sequence = False

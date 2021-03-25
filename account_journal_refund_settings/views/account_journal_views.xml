@@ -22,9 +22,6 @@
           {'invisible': ['|', ('type', 'not in', ['sale', 'purchase']), ('refund_usage', '=', 'regular')], 'readonly': [('refund_usage', '=', 'refund')]}
         </attribute>
       </field>
-      <field name="sequence_id" position="attributes">
-        <attribute name="attrs">{'invisible': [('refund_usage', '=', 'refund')]}</attribute>
-      </field>
       <field name="refund_sequence_id" position="attributes">
         <attribute name="attrs">{'invisible': ['|', '|', ('type', 'not in', ['sale', 'purchase']), ('refund_sequence', '!=', True), ('refund_usage', '=', 'regular')]}</attribute>
       </field>
