@@ -45,7 +45,7 @@ class AccountMove(models.Model):
                 ("company_id", "=", company_id),
             ]
             journals = self.env["account.journal"].search(j_dom)
-            if journals:
+            if len(journals) == 1:
                 return journals
             else:
                 if not self.env.context.get("active_model"):
@@ -53,7 +53,7 @@ class AccountMove(models.Model):
                     return super()._get_default_journal()
                 elif self.env.context.get("active_model") == "sale.order":
                     journals = self._guess_sale_order_journals(journals)
-                    if journals:
+                    if len(journals) == 1:
                         return journals
         return super()._get_default_journal()
 
