@@ -3,7 +3,7 @@
 
 {
     "name": "Sync taxes on Journal Items with Tax objects",
-    "version": "13.0.1.1.5",
+    "version": "13.0.1.1.6",
     "license": "AGPL-3",
     "author": "Noviat",
     "website": "http://www.noviat.com",
