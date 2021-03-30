@@ -196,7 +196,7 @@ class L10nBeIntrastatProductDeclaration(models.Model):
 
     def _get_intrastat_fpos(self):
         fpos = self.env["account.fiscal.position"]
-        module = self.env["ir.module.module"].search(
+        module = self.env["ir.module.module"].sudo().search(
             [
                 ("name", "in", ("l10n_be", "l10n_be_coa_multilang")),
                 ("state", "=", "installed"),
