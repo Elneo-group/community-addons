@@ -1885,11 +1885,11 @@ class AccountCodaImport(models.TransientModel):
             return reconcile_note
 
         # match on sale order
-        # reconcile_note = self._match_sale_order(
-        #     st_line, cba, transaction, reconcile_note
-        # )
-        # if match_status in ["break", "done"]:
-        #     return reconcile_note
+        reconcile_note = self._match_sale_order(
+            st_line, cba, transaction, reconcile_note
+        )
+        if match_status in ["break", "done"]:
+            return reconcile_note
 
         # match on open accounting entries
         reconcile_note = self._match_account_move_line(
