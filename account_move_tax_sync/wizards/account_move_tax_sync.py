@@ -137,21 +137,46 @@ class AccountMoveTaxSync(models.TransientModel):
             res = self.env.cr.fetchall()
             wiz_dict["tax_codes"] = {x[0]: x[1] for x in res}
 
+        coa_ml = self.env.ref(
+            "l10n_be_coa_multilang.l10n_be_coa_multilang_template",
+            raise_if_not_found=False,
+        )
+        if self.company_id.chart_template_id == coa_ml and wiz_dict["check_tax_code"]:
+            atc_2_tax = self._get_legacy_l10n_be_coa_multilang_tax_code_mappings()
+            wiz_dict["atc_2_tax"] = {}
+            for tc in atc_2_tax:
+                tax = self.env["account.tax"].search(
+                    [
+                        ("code", "=", atc_2_tax[tc]),
+                        ("company_id", "=", self.company_id.id),
+                    ]
+                )
+                wiz_dict["atc_2_tax"][tc] = tax
+
+    def _get_legacy_l10n_be_coa_multilang_tax_code_mappings(self):
+        return {
+            "59": "VAT-V59",
+            "61": "VAT-V61",
+            "62": "VAT-V62",
+            "82": "VAT-V82",
+        }
+
     def _sync_taxes(self, am, wiz_dict):
         error_cnt = 0
         error_log = []
-        tax_amls = am.line_ids.filtered(lambda r: r.tax_ids)
-        tax_line_amls = am.line_ids.filtered(lambda r: r.tax_line_id)
-        amls_taxes = tax_amls.mapped("tax_ids") | tax_line_amls.mapped("tax_line_id")
-        if not amls_taxes or (self.tax_id and self.tax_id not in amls_taxes):
-            return
-
         am_dict = {
             "am": am,
             "to_update": [],
             "to_create": [],
             "aml_done": self.env["account.move.line"],
         }
+        if wiz_dict["check_tax_code"] and am.journal_id.type in ("bank", "general"):
+            self._update_legacy_bank_general_entries(am_dict, wiz_dict)
+        tax_amls = am.line_ids.filtered(lambda r: r.tax_ids)
+        tax_line_amls = am.line_ids.filtered(lambda r: r.tax_line_id)
+        amls_taxes = tax_amls.mapped("tax_ids") | tax_line_amls.mapped("tax_line_id")
+        if not amls_taxes or (self.tax_id and self.tax_id not in amls_taxes):
+            return
 
         if am.type == "entry":
             pos = False
@@ -745,6 +770,26 @@ class AccountMoveTaxSync(models.TransientModel):
             if aml_group:
                 continue
             am_dict["to_create"].append(self._get_aml_new_dict(entry))
+
+    def _update_legacy_bank_general_entries(self, am_dict, wiz_dict):
+        """
+        Add tax object to legacy entries with tax codes in financial
+        and general journals.
+        """
+        upd_ctx = dict(self.env.context, sync_taxes=True)
+        am = am_dict["am"]
+        self.env.cr.execute(
+            "SELECT id, tax_code_id FROM account_move_line " "WHERE move_id = %s",
+            (am.id,),
+        )
+        res = self.env.cr.dictfetchall()
+        for entry in res:
+            aml = am.line_ids.filtered(lambda r: r.id == entry["id"])
+            tc = wiz_dict["tax_codes"].get(entry["tax_code_id"])
+            tax = wiz_dict["atc_2_tax"].get(tc)
+            if tax and aml.tax_ids != tax:
+                aml.with_context(upd_ctx).tax_ids = tax
+                wiz_dict["updates"] |= am
 
     def _get_tax_base_amount(self, aml, am_dict, wiz_dict):
         """
