@@ -194,6 +194,8 @@ class AccountMoveTaxSync(models.TransientModel):
         to_update = am_dict["to_update"]
         to_create = am_dict["to_create"]
         to_unlink = am.line_ids - am_dict["aml_done"]
+        # ignore zero lines
+        to_unlink = to_unlink.filtered(lambda r: r.balance)
         if to_unlink:
             error_cnt += 1
             error_log.append(
@@ -324,12 +326,12 @@ class AccountMoveTaxSync(models.TransientModel):
             ctx = dict(self.env.context, account_move_tax_sync=True)
             ps_new = self.env["pos.session"].with_context(ctx).new(origin=ps)
             ps_new.order_ids = pos
-            ps_new.order_ids = pos
             # Legacy entries are incorrectly computed as invoiced
             # hence we need to set the account_move field to False
             ps_new.order_ids.update({"account_move": False})
             data = ps_new._accumulate_amounts({})
         aml_todo = am.line_ids - am_dict["aml_done"]
+        aml_todo = aml_todo.filtered(lambda r: r.balance)
 
         for key in data["taxes"]:
             account_id, repartition_line_id, tax_id, tag_ids = key
@@ -544,12 +546,11 @@ class AccountMoveTaxSync(models.TransientModel):
                 amt_fld = "balance"
                 is_zero = am.company_id.currency_id.is_zero
             tax_line_id = aml_new_dict["tax_line_id"]
-            account_id = aml_new_dict["account_id"]
             for ait in res:
-                if ait["account_id"] != account_id or ait["tax_id"] != tax_line_id:
+                if ait["tax_id"] != tax_line_id:
                     continue
                 aml = aml_todo.filtered(
-                    lambda r: r.account_id.id == account_id
+                    lambda r: r.account_id.id == ait["account_id"]
                     and r.tax_line_id.id == tax_line_id
                     and is_zero(r[amt_fld] - sign * ait["amount"])
                 )
@@ -567,8 +568,21 @@ class AccountMoveTaxSync(models.TransientModel):
         We observe that the OE migration service sometimes copies the
         invoice_line_tax_id to the wrong Journal Item tax_ids for 8.0 legacy invoices.
         This method repairs these mistakes.
+
+        We also observe that sometimes non-invoice lines have not been marked as
+        such (e.g. account receivable/payable).
         """
         am = am_dict["am"]
+        upd_ctx = dict(self.env.context, sync_taxes=True)
+        arap_to_fix = am.line_ids.filtered(
+            lambda r: r.account_internal_type in ("payable", "receivable")
+            and not r.exclude_from_invoice_tab
+        )
+        for aml in arap_to_fix:
+            aml.with_context(upd_ctx)["exclude_from_invoice_tab"] = True
+            wiz_dict["updates"] |= am
+            aml.flush(["exclude_from_invoice_tab"])
+
         self.env.cr.execute(
             "SELECT id FROM account_invoice WHERE move_id = %s", (am.id,)
         )
@@ -601,9 +615,13 @@ class AccountMoveTaxSync(models.TransientModel):
             else:
                 [matched_amls.append(x) for x in matches if x not in matched_amls]
 
+        unmatched_amls = [x for x in amls if x not in matched_amls]
+        unmatched_ails = self._update_unmatched_amls_from_unmatched_ails_hook(
+            unmatched_ails, unmatched_amls, am_dict, wiz_dict
+        )
+
         if unmatched_ails:
             # Fallback to match without product_id
-            unmatched_amls = [x for x in amls if x not in matched_amls]
             match_fields_no_product = match_fields.copy()
             del match_fields_no_product["product_id"]
             for ail in unmatched_ails:
@@ -628,10 +646,18 @@ class AccountMoveTaxSync(models.TransientModel):
             wiz_dict["error_log"] += "\n"
 
         elif am_dict["to_update"]:
-            upd_ctx = dict(self.env.context, sync_taxes=True)
             [x[0].with_context(upd_ctx).update(x[1]) for x in am_dict["to_update"]]
+            [x[0].flush(x[1].keys()) for x in am_dict["to_update"]]
             am_dict["to_update"] = []
             wiz_dict["updates"] |= am
+
+    def _update_unmatched_amls_from_unmatched_ails_hook(
+        self, unmatched_ails, unmatched_amls, am_dict, wiz_dict
+    ):
+        """
+        hook to allow custom specific logic to refine matching
+        """
+        return unmatched_ails
 
     def _update_aml_from_ail(self, ail, amls, match_fields, am_dict, wiz_dict):
         am = am_dict["am"]
@@ -743,7 +769,9 @@ class AccountMoveTaxSync(models.TransientModel):
                         if is_zero(tax_amount_new - sign * tax_amount):
                             aml_new_done |= aml_new_group
                         else:
-                            diff = 0.01
+                            # we observe high rounding differences for invoices
+                            # with many lines -> diff of 10 cent
+                            diff = 0.10
                             if (
                                 tax_amount_new - diff
                                 <= sign * tax_amount
