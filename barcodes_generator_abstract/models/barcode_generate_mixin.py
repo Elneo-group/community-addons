@@ -64,13 +64,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
             str_base = str(item.barcode_base).rjust(padding, "0")
             custom_code = self._get_custom_barcode(item)
             if custom_code:
-                _logger.warning("custom code")
                 custom_code = custom_code.replace("." * padding, str_base)
-                _logger.warning(custom_code)
-                _logger.warning(item.barcode_rule_id.encoding)
                 barcode_class = barcode.get_barcode_class(item.barcode_rule_id.encoding)
-                _logger.warning(barcode_class)
-                _logger.warning(barcode_class(custom_code))
                 item.barcode = barcode_class(custom_code)
 
     # Custom Section
