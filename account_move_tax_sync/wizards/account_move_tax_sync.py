@@ -630,13 +630,16 @@ class AccountMoveTaxSync(models.TransientModel):
             # Fallback to match without product_id
             match_fields_no_product = match_fields.copy()
             del match_fields_no_product["product_id"]
+            matched_ails = []
             for ail in unmatched_ails:
                 matches = self._update_aml_from_ail(
                     ail, unmatched_amls, match_fields_no_product, am_dict, wiz_dict
                 )
                 if matches:
-                    unmatched_ails.remove(ail)
+                    matched_ails.append(ail)
                     [matched_amls.append(x) for x in matches if x not in matched_amls]
+            if matched_ails:
+                unmatched_ails = [x for x in unmatched_ails if x not in matched_ails]
 
         if unmatched_ails:
             wiz_dict["error_cnt"] += 1
@@ -701,7 +704,9 @@ class AccountMoveTaxSync(models.TransientModel):
             "account_analytic_id": "analytic_account_id",
         }
 
-    def _check_account_invoice_tax_code(self, aits, aml_new_todo, am_dict, wiz_dict):
+    def _check_account_invoice_tax_code(  # noqa: C901
+        self, aits, aml_new_todo, am_dict, wiz_dict
+    ):
         am = am_dict["am"]
         am_new = aml_new_todo.mapped("move_id")
         to_create = []
