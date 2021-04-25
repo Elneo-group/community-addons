@@ -808,7 +808,7 @@ class AccountMoveTaxSync(models.TransientModel):
             )
             if aml_group:
                 continue
-            am_dict["to_create"].append(self._get_aml_new_dict(entry))
+            am_dict["to_create"].append(entry)
 
     def _update_legacy_bank_general_entries(self, am_dict, wiz_dict):
         """
