@@ -802,7 +802,7 @@ class AccountMoveTaxSync(models.TransientModel):
         # if the tag_ids have been set already on an existing entry.
         for entry in to_create:
             acc_group = wiz_dict["accounts"][entry["account_id"]].code[:2]
-            aml_group = am.line_ids.filtered(
+            aml_group = am_new.line_ids.filtered(
                 lambda r: r.tag_ids.ids == entry["tag_ids"]
                 and r.account_id.code[:2] == acc_group
             )
