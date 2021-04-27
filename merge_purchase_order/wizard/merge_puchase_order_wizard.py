@@ -121,7 +121,6 @@ class MergePurchaseOrder(models.TransientModel):
                 _('Please select Purchase orders whose Vendors are same to '
                     ' perform the Merge Operation.'))
         if self.merge_type == 'new_cancel':
-<<<<<<< HEAD
             po = self.env['purchase.order'].with_context({
                 'trigger_onchange': True,
                 'onchange_fields_to_trigger': [partner]
@@ -179,13 +178,11 @@ class MergePurchaseOrder(models.TransientModel):
                             [(6, 0, po_taxes)]
                     else:
                         line.copy(default=default)
-=======
             self.create_new_po(partner,purchase_orders)
             for order in purchase_orders:
                 order.button_cancel()
         elif self.merge_type == 'new_delete':
             self.create_new_po(partner, purchase_orders)
->>>>>>> 35a8fb97c22a0e0504f2e6ac5e4d043c2e423e77
             for order in purchase_orders:
                 order.sudo().button_cancel()
                 order.sudo().unlink()
