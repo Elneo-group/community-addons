@@ -59,7 +59,7 @@ class MergePurchaseOrder(models.TransientModel):
                 'onchange_fields_to_trigger': [partner]
             }).create({'partner_id': partner})
             po.onchange_partner_id()
-            po.origin = ' / '.join((p.origin for p in purchase_orders))
+            po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p:p.origin)))
             default = {'order_id': po.id}
             for order in purchase_orders:
                 for sale in order.sale_ids:
@@ -89,7 +89,7 @@ class MergePurchaseOrder(models.TransientModel):
                 'onchange_fields_to_trigger': [partner]
             }).create({'partner_id': partner})
             po.onchange_partner_id()
-            po.origin = ' / '.join((p.origin for p in purchase_orders))
+            po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p:p.origin)))
             default = {'order_id': po.id}
             for order in purchase_orders:
                 for sale in order.sale_ids:
