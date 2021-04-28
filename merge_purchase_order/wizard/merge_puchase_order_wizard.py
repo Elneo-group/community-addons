@@ -42,7 +42,7 @@ class MergePurchaseOrder(models.TransientModel):
             'onchange_fields_to_trigger': [partner]
         }).create({'partner_id': partner})
         po.onchange_partner_id()
-        po.origin = ' / '.join((p.origin for p in purchase_orders))
+        po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p: p.origin)))
         default = {'order_id': po.id}
         for order in purchase_orders:
             for sale in order.sale_ids:
@@ -73,7 +73,7 @@ class MergePurchaseOrder(models.TransientModel):
                     line.copy(default=default)
 
     def merge_into_po(self,purchase_orders,po,default):
-        po.origin = ' / '.join((p.origin for p in purchase_orders))
+        po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p: p.origin)))
         for order in purchase_orders:
             if order == po:
                 continue
@@ -121,63 +121,6 @@ class MergePurchaseOrder(models.TransientModel):
                 _('Please select Purchase orders whose Vendors are same to '
                     ' perform the Merge Operation.'))
         if self.merge_type == 'new_cancel':
-            po = self.env['purchase.order'].with_context({
-                'trigger_onchange': True,
-                'onchange_fields_to_trigger': [partner]
-            }).create({'partner_id': partner})
-            po.onchange_partner_id()
-            po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p:p.origin)))
-            default = {'order_id': po.id}
-            for order in purchase_orders:
-                for sale in order.sale_ids:
-                    po.sale_ids = [(4,sale.id)]
-                for line in order.order_line:
-                    if po.order_line:
-                        for poline in po.order_line:
-                            if line.product_id == poline.product_id and\
-                                    line.price_unit == poline.price_unit:
-                                existing_po_line = poline
-                                break
-                    if existing_po_line:
-                        existing_po_line.product_qty += line.product_qty
-                        po_taxes = [
-                            tax.id for tax in existing_po_line.taxes_id]
-                        [po_taxes.append((tax.id))
-                         for tax in line.taxes_id]
-                        existing_po_line.taxes_id = \
-                            [(6, 0, po_taxes)]
-                    else:
-                        line.copy(default=default)
-            for order in purchase_orders:
-                order.button_cancel()
-        elif self.merge_type == 'new_delete':
-            po = self.env['purchase.order'].with_context({
-                'trigger_onchange': True,
-                'onchange_fields_to_trigger': [partner]
-            }).create({'partner_id': partner})
-            po.onchange_partner_id()
-            po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p:p.origin)))
-            default = {'order_id': po.id}
-            for order in purchase_orders:
-                for sale in order.sale_ids:
-                    po.sale_ids = [(4,sale.id)]
-                for line in order.order_line:
-                    if po.order_line:
-                        for po_line in po.order_line:
-                            if line.product_id == po_line.product_id and \
-                                    line.price_unit == po_line.price_unit:
-                                existing_po_line = po_line
-                                break
-                    if existing_po_line:
-                        existing_po_line.product_qty += line.product_qty
-                        po_taxes = [
-                            tax.id for tax in existing_po_line.taxes_id]
-                        [po_taxes.append((tax.id))
-                         for tax in line.taxes_id]
-                        existing_po_line.taxes_id = \
-                            [(6, 0, po_taxes)]
-                    else:
-                        line.copy(default=default)
             self.create_new_po(partner,purchase_orders)
             for order in purchase_orders:
                 order.button_cancel()
