@@ -71,6 +71,7 @@ class MergePurchaseOrder(models.TransientModel):
                         [(6, 0, move_dests)]
                 else:
                     line.copy(default=default)
+        return po
 
     def merge_into_po(self,purchase_orders,po,default):
         po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p: p.origin)))
@@ -121,14 +122,16 @@ class MergePurchaseOrder(models.TransientModel):
                 _('Please select Purchase orders whose Vendors are same to '
                     ' perform the Merge Operation.'))
         if self.merge_type == 'new_cancel':
-            self.create_new_po(partner,purchase_orders)
+            new_po = self.create_new_po(partner,purchase_orders)
             for order in purchase_orders:
                 order.button_cancel()
+            return self.action_open_new_po(new_po)
         elif self.merge_type == 'new_delete':
-            self.create_new_po(partner, purchase_orders)
+            new_po = self.create_new_po(partner, purchase_orders)
             for order in purchase_orders:
                 order.sudo().button_cancel()
                 order.sudo().unlink()
+            return self.action_open_new_po(new_po)
         elif self.merge_type == 'merge_cancel':
             default = {'order_id': self.purchase_order_id.id}
             po = self.purchase_order_id
@@ -136,6 +139,7 @@ class MergePurchaseOrder(models.TransientModel):
             for order in purchase_orders:
                 if order != po:
                     order.sudo().button_cancel()
+            return self.action_open_new_po(po)
         else:
             default = {'order_id': self.purchase_order_id.id}
             po = self.purchase_order_id
@@ -144,3 +148,14 @@ class MergePurchaseOrder(models.TransientModel):
                 if order != po:
                     order.sudo().button_cancel()
                     order.sudo().unlink()
+            return self.action_open_new_po(po)
+                    
+    def action_open_new_po(self, purchase_order_id):
+        action = self.env.ref('purchase.purchase_rfq').read()[0]
+        form_view = [(self.env.ref('purchase.purchase_order_form').id, 'form')]
+        if 'views' in action:
+            action['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
+        else:
+            action['views'] = form_view
+        action['res_id'] = purchase_order_id.id
+        return action
