@@ -46,6 +46,8 @@ class AccountMoveTaxSync(models.TransientModel):
         return res
 
     def tax_sync(self):
+        if not self._uid == self.env.ref("base.user_admin").id:
+            raise UserError(_("You are not allowed to execute this Operation."))
         tax_tags = self.env["account.account.tag"].search(
             [
                 ("applicability", "=", "taxes"),
@@ -68,9 +70,6 @@ class AccountMoveTaxSync(models.TransientModel):
             "tax_tags": {x.id: x for x in tax_tags},
             "accounts": {x.id: x for x in accounts},
         }
-        self._check_legacy_tables(wiz_dict)
-        if not self._uid == self.env.ref("base.user_admin").id:
-            raise UserError(_("You are not allowed to execute this Operation."))
         ams = self.move_id
         if not ams:
             am_dom = [("company_id", "=", self.company_id.id)]
@@ -81,6 +80,8 @@ class AccountMoveTaxSync(models.TransientModel):
             if self.journal_id:
                 am_dom.append(("journal_id", "=", self.journal_id.id))
             ams = self.env["account.move"].search(am_dom)
+        wiz_dict["selected_ams"] = ams
+        self._check_legacy_tables(wiz_dict)
         for am in ams:
             self._sync_taxes(am, wiz_dict)
 
