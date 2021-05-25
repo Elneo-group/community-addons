@@ -85,7 +85,6 @@ class AccountMove(models.Model):
         partner = self.partner_id.commercial_partner_id
         if self.type == "out_invoice":
             if partner.out_inv_comm_type == "bba":
-                self.reference_type = 'structured'
                 self.invoice_payment_ref = self.generate_bbacomm(partner)
         return res
 
