@@ -46,11 +46,18 @@ class AccountMoveTaxSync(models.TransientModel):
         return res
 
     def tax_sync(self):
+        if not self._uid == self.env.ref("base.user_admin").id:
+            raise UserError(_("You are not allowed to execute this Operation."))
         tax_tags = self.env["account.account.tag"].search(
             [
                 ("applicability", "=", "taxes"),
                 ("country_id", "=", self.company_id.country_id.id),
             ]
+        )
+        accounts = (
+            self.with_context(dict(self.env.context, active_test=False))
+            .env["account.account"]
+            .search([("company_id", "=", self.company_id.id)])
         )
         wiz_dict = {
             "error_log": "",
@@ -61,10 +68,8 @@ class AccountMoveTaxSync(models.TransientModel):
             "check_account_invoice": False,
             "check_tax_code": False,
             "tax_tags": {x.id: x for x in tax_tags},
+            "accounts": {x.id: x for x in accounts},
         }
-        self._check_legacy_tables(wiz_dict)
-        if not self._uid == self.env.ref("base.user_admin").id:
-            raise UserError(_("You are not allowed to execute this Operation."))
         ams = self.move_id
         if not ams:
             am_dom = [("company_id", "=", self.company_id.id)]
@@ -75,6 +80,8 @@ class AccountMoveTaxSync(models.TransientModel):
             if self.journal_id:
                 am_dom.append(("journal_id", "=", self.journal_id.id))
             ams = self.env["account.move"].search(am_dom)
+        wiz_dict["selected_ams"] = ams
+        self._check_legacy_tables(wiz_dict)
         for am in ams:
             self._sync_taxes(am, wiz_dict)
 
@@ -624,13 +631,16 @@ class AccountMoveTaxSync(models.TransientModel):
             # Fallback to match without product_id
             match_fields_no_product = match_fields.copy()
             del match_fields_no_product["product_id"]
+            matched_ails = []
             for ail in unmatched_ails:
                 matches = self._update_aml_from_ail(
                     ail, unmatched_amls, match_fields_no_product, am_dict, wiz_dict
                 )
                 if matches:
-                    unmatched_ails.remove(ail)
+                    matched_ails.append(ail)
                     [matched_amls.append(x) for x in matches if x not in matched_amls]
+            if matched_ails:
+                unmatched_ails = [x for x in unmatched_ails if x not in matched_ails]
 
         if unmatched_ails:
             wiz_dict["error_cnt"] += 1
@@ -695,7 +705,9 @@ class AccountMoveTaxSync(models.TransientModel):
             "account_analytic_id": "analytic_account_id",
         }
 
-    def _check_account_invoice_tax_code(self, aits, aml_new_todo, am_dict, wiz_dict):
+    def _check_account_invoice_tax_code(  # noqa: C901
+        self, aits, aml_new_todo, am_dict, wiz_dict
+    ):
         am = am_dict["am"]
         am_new = aml_new_todo.mapped("move_id")
         to_create = []
@@ -781,7 +793,7 @@ class AccountMoveTaxSync(models.TransientModel):
                     break
 
             if not done and not aml_new._origin and aml_new_dict not in to_create:
-                to_create.append(aml_new)
+                to_create.append(aml_new_dict)
 
         # When running this wizard for the second time we may come to different
         # sum(balance) between the am_new.line_ids and the am.line_ids.
@@ -790,14 +802,14 @@ class AccountMoveTaxSync(models.TransientModel):
         # We do not need to create a new entry in such cases hence we only check
         # if the tag_ids have been set already on an existing entry.
         for entry in to_create:
-            acc_group = entry.account_id.code[:2]
-            aml_group = am.line_ids.filtered(
-                lambda r: r.tag_ids.ids == entry.tag_ids.ids
+            acc_group = wiz_dict["accounts"][entry["account_id"]].code[:2]
+            aml_group = am_new.line_ids.filtered(
+                lambda r: r.tag_ids.ids == entry["tag_ids"]
                 and r.account_id.code[:2] == acc_group
             )
             if aml_group:
                 continue
-            am_dict["to_create"].append(self._get_aml_new_dict(entry))
+            am_dict["to_create"].append(entry)
 
     def _update_legacy_bank_general_entries(self, am_dict, wiz_dict):
         """
