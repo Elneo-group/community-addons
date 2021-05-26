@@ -281,7 +281,7 @@ class AccountMoveTaxSync(models.TransientModel):
                     )
                 if len(aml) != 1:
                     # fallback to lookup with rounding diffs
-                    diff = 0.01
+                    diff = 0.01001
                     match_fields_no_balance = tax_match_fields[:]
                     match_fields_no_balance.remove("balance")
                     aml_no_balance = aml_todo.filtered(
@@ -294,7 +294,7 @@ class AccountMoveTaxSync(models.TransientModel):
                     )
                 if len(aml) != 1:
                     # fallback to lookup without account_id with rounding diffs
-                    diff = 0.01
+                    diff = 0.01001
                     match_fields_no_account_balance = match_fields_no_account[:]
                     match_fields_no_account_balance.remove("balance")
                     aml_no_account_balance = aml_todo.filtered(
