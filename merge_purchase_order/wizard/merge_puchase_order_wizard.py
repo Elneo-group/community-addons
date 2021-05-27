@@ -69,6 +69,12 @@ class MergePurchaseOrder(models.TransientModel):
                      for move in line.move_dest_ids]
                     existing_po_line.move_dest_ids = \
                         [(6, 0, move_dests)]
+                    moves = [
+                        move.id for move in existing_po_line.move_ids]
+                    [moves.append((move.id))
+                     for move in line.move_ids]
+                    existing_po_line.move_ids = \
+                        [(6, 0, move_dests)]
                 else:
                     line.copy(default=default)
         return po
@@ -101,6 +107,12 @@ class MergePurchaseOrder(models.TransientModel):
                     [move_dests.append((move.id))
                      for move in line.move_dest_ids]
                     existing_po_line.move_dest_ids = \
+                        [(6, 0, move_dests)]
+                    moves = [
+                        move.id for move in existing_po_line.move_ids]
+                    [moves.append((move.id))
+                     for move in line.move_ids]
+                    existing_po_line.move_ids = \
                         [(6, 0, move_dests)]
                 else:
                     line.copy(default=default)
