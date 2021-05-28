@@ -51,8 +51,6 @@ class MergePurchaseOrder(models.TransientModel):
                 po.intervention_ids = [(4, intervention.id)]
             for line in order.order_line:
                 existing_po_line = self.env['purchase.order.line']
-                move_dests = line.move_dest_ids
-                moves = line.move_ids
                 if po.order_line:
                     for poline in po.order_line:
                         if line.product_id == poline.product_id and \
@@ -67,26 +65,16 @@ class MergePurchaseOrder(models.TransientModel):
                      for tax in line.taxes_id]
                     existing_po_line.taxes_id = \
                         [(6, 0, po_taxes)]
-                    move_dests |= existing_po_line.move_dest_ids
-                    moves |= existing_po_line.move_ids
-                    move_dest_ids = []
-                    move_ids = []
-                    for move in move_dest_ids:
-                        move_dest_ids += [(4,move.id)]
-                    for move in move_ids:
-                        move_ids += [(4,move.id)]
-                    existing_po_line.move_dest_ids = move_dest_ids
-                    existing_po_line.move_ids = move_ids
+                    for move_dest in line.move_dest_ids:
+                        move_dest.write({'created_purchase_line_id':existing_po_line.id})
+                    for move in line.move_ids:
+                        move.write({'purchase_line_id':existing_po_line.id})
                 else:
-                    line.copy(default=default)
-                    move_dest_ids = []
-                    move_ids = []
-                    for move in move_dest_ids:
-                        move_dest_ids += [(4,move.id)]
-                    for move in move_ids:
-                        move_ids += [(4,move.id)]
-                    line.write({'move_dest_ids':move_dest_ids})
-                    line.write({'move_ids':move_ids})
+                    new_line = line.copy(default=default)
+                    for move_dest in line.move_dest_ids:
+                        move_dest.write({'created_purchase_line_id':new_line.id})
+                    for move in line.move_ids:
+                        move.write({'purchase_line_id':new_line.id})
         return po
 
     def merge_into_po(self,purchase_orders,po,default):
@@ -100,8 +88,6 @@ class MergePurchaseOrder(models.TransientModel):
                 po.intervention_ids = [(4, intervention.id)]
             for line in order.order_line:
                 existing_po_line = self.env['purchase.order.line']
-                move_dests = line.move_dest_ids
-                moves = line.move_ids
                 if po.order_line:
                     for po_line in po.order_line:
                         if line.product_id == po_line.product_id and \
@@ -116,26 +102,16 @@ class MergePurchaseOrder(models.TransientModel):
                      for tax in line.taxes_id]
                     existing_po_line.taxes_id = \
                         [(6, 0, po_taxes)]
-                    move_dests |= existing_po_line.move_dest_ids
-                    moves |= existing_po_line.move_ids
-                    move_dest_ids = []
-                    move_ids = []
-                    for move in move_dest_ids:
-                        move_dest_ids += [(4,move.id)]
-                    for move in move_ids:
-                        move_ids += [(4,move.id)]
-                    existing_po_line.move_dest_ids = move_dest_ids
-                    existing_po_line.move_ids = move_ids
+                    for move_dest in line.move_dest_ids:
+                        move_dest.write({'created_purchase_line_id':existing_po_line.id})
+                    for move in line.move_ids:
+                        move.write({'purchase_line_id':existing_po_line.id})
                 else:
-                    line.copy(default=default)
-                    move_dest_ids = []
-                    move_ids = []
-                    for move in move_dest_ids:
-                        move_dest_ids += [(4,move.id)]
-                    for move in move_ids:
-                        move_ids += [(4,move.id)]
-                    line.write({'move_dest_ids':move_dest_ids})
-                    line.write({'move_ids':move_ids})
+                    new_line = line.copy(default=default)
+                    for move_dest in line.move_dest_ids:
+                        move_dest.write({'created_purchase_line_id':new_line.id})
+                    for move in line.move_ids:
+                        move.write({'purchase_line_id':new_line.id})
 
     def merge_orders(self):
         purchase_orders = self.env['purchase.order'].browse(
