@@ -235,7 +235,8 @@ msgstr ""
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__creditor_reference_type
 msgid ""
-"Creditor Reference Type. For SEPA (SCT) transactions, the <CdtrRefInf> type is recorded in this field.\n"
+"Creditor Reference Type. For SEPA (SCT) transactions, the <CdtrRefInf> type "
+"is recorded in this field.\n"
 "E.g. 'BBA' for belgian structured communication (Code 'SCOR', Issuer 'BBA'"
 msgstr ""
 
@@ -453,7 +454,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Operation not allowed ! \n"
-"You cannot delete an Accounting Entry that is linked to a Confirmed Bank Statement."
+"You cannot delete an Accounting Entry that is linked to a Confirmed Bank "
+"Statement."
 msgstr ""
 
 #. module: account_bank_statement_advanced
@@ -461,7 +463,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Operation not allowed ! \n"
-"You cannot modify an Accounting Entry that is linked to a Confirmed Bank Statement. \n"
+"You cannot modify an Accounting Entry that is linked to a Confirmed Bank "
+"Statement. \n"
 "Statement = %s\n"
 "Move = %s (id:%s)\n"
 "Update Values = %s"
@@ -472,7 +475,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Operation not allowed ! \n"
-"You cannot unpost an Accounting Entry that is linked to a Confirmed Bank Statement."
+"You cannot unpost an Accounting Entry that is linked to a Confirmed Bank "
+"Statement."
 msgstr ""
 
 #. module: account_bank_statement_advanced
@@ -499,8 +503,8 @@ msgstr ""
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__payment_reference
 msgid ""
-"Payment Reference. For SEPA (SCT or SDD) transactions, the EndToEndReference"
-" is recorded in this field."
+"Payment Reference. For SEPA (SCT or SDD) transactions, the EndToEndReference "
+"is recorded in this field."
 msgstr ""
 
 #. module: account_bank_statement_advanced
