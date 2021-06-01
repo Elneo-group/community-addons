@@ -21,8 +21,10 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"The CODA parsing detected a payment reference ambiguity while processing movement data record 2.3, ref %s!\n"
-"Please check your Payment Gateway configuration or contact your Odoo support channel."
+"The CODA parsing detected a payment reference ambiguity while processing "
+"movement data record 2.3, ref %s!\n"
+"Please check your Payment Gateway configuration or contact your Odoo support "
+"channel."
 msgstr ""
 
 #. module: l10n_be_coda_pain
