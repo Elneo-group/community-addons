@@ -28,16 +28,16 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_in
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_method_in
 msgid ""
-"If checked, this Journal becomes a Payment Method for the 'Register Payment'"
-" button on Customer Invoices and Supplier Credit Notes."
+"If checked, this Journal becomes a Payment Method for the 'Register Payment' "
+"button on Customer Invoices and Supplier Credit Notes."
 msgstr ""
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_out
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_method_out
 msgid ""
-"If checked, this Journal becomes a Payment Method for the 'Register Payment'"
-" button on Supplier Invoices and Customer Credit Notes."
+"If checked, this Journal becomes a Payment Method for the 'Register Payment' "
+"button on Supplier Invoices and Customer Credit Notes."
 msgstr ""
 
 #. module: account_invoice_pay_filter
