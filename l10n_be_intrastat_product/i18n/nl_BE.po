@@ -59,8 +59,8 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__amount_company_currency
 msgid ""
 "Amount in company currency to write in the declaration. Amount in company "
-"currency = amount in invoice currency converted to company currency with the"
-" rate of the invoice date."
+"currency = amount in invoice currency converted to company currency with the "
+"rate of the invoice date."
 msgstr ""
 
 #. module: l10n_be_intrastat_product
@@ -578,8 +578,8 @@ msgstr ""
 #: code:addons/l10n_be_intrastat_product/models/l10n_be_intrastat_product_declaration.py:0
 #, python-format
 msgid ""
-"The Belgian Intrastat Declaration requires the Company's Country to be equal"
-" to 'Belgium'."
+"The Belgian Intrastat Declaration requires the Company's Country to be equal "
+"to 'Belgium'."
 msgstr ""
 
 #. module: l10n_be_intrastat_product
