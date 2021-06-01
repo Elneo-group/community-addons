@@ -607,7 +607,10 @@ class AccountMoveTaxSync(models.TransientModel):
         )
         amls = self.env.cr.dictfetchall()
         self.env.cr.execute(
-            "SELECT * FROM account_invoice_line WHERE invoice_id = %s", (inv_id,)
+            "SELECT * FROM account_invoice_line "
+            "WHERE invoice_id = %s "
+            "AND display_type IS NULL",
+            (inv_id,),
         )
         ails = self.env.cr.dictfetchall()
         match_fields = self._get_ail_2_aml_match_fields()
