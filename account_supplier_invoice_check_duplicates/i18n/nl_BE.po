@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 08:57+0000\n"
+"POT-Creation-Date: 2021-06-01 06:19+0000\n"
 "PO-Revision-Date: 2021-06-01 08:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -17,8 +18,7 @@ msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates
 #: model:ir.model.fields,help:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
-msgid ""
-"Accept the encoding of this invoice although it looks like a duplicate."
+msgid "Accept the encoding of this invoice although it looks like a duplicate."
 msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates
