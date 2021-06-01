@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tax_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-01 06:19+0000\n"
+"PO-Revision-Date: 2021-06-01 06:19+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: account_move_tax_sync
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
+msgid "Close"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__company_id
+msgid "Company"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
+#, python-format
+msgid ""
+"Data Error - multiple POS sessions linked to a single Journal Entry.\n"
+"Journal Entry: %s (ID: %s)"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_from
+msgid "Date From"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_to
+msgid "Date To"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
+#, python-format
+msgid "Error detected during tax recalc of %s"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
+#, python-format
+msgid ""
+"Error during tax recalc of '%s' (ID: %s).\n"
+"Non-handled taxes in %s"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__move_id
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model,name:account_move_tax_sync.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__note
+msgid "Notes"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.ui.menu,name:account_move_tax_sync.wizard_update_charts_accounts_menu
+msgid "Resync Account Chart Template"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
+#: model:ir.actions.act_window,name:account_move_tax_sync.account_move_tax_sync_action
+#: model:ir.ui.menu,name:account_move_tax_sync.account_move_tax_sync_menu
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
+#, python-format
+msgid "Sync Journal Entry Taxes"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
+msgid "Sync Taxes"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model,name:account_move_tax_sync.model_account_move_tax_sync
+msgid "Sync taxes on Journal Items with Tax objects"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model:ir.model,name:account_move_tax_sync.model_account_tax
+#: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__tax_id
+msgid "Tax"
+msgstr ""
+
+#. module: account_move_tax_sync
+#: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
+#, python-format
+msgid "You are not allowed to execute this Operation."
+msgstr ""
+
+#. module: account_move_tax_sync
+#: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
+msgid "or"
+msgstr ""
