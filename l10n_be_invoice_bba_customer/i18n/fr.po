@@ -76,7 +76,8 @@ msgstr ""
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
 #, python-format
 msgid ""
-"The Partner should have a 3-7 digit Reference Number for the generation of BBA Structured Communications!'                       '\n"
+"The Partner should have a 3-7 digit Reference Number for the generation of "
+"BBA Structured Communications!'                       '\n"
 "Please correct the Partner record."
 msgstr ""
 
@@ -84,7 +85,8 @@ msgstr ""
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
 #, python-format
 msgid ""
-"The daily maximum of outgoing invoices with an automatically generated BBA Structured Communication has been exceeded!\n"
+"The daily maximum of outgoing invoices with an automatically generated BBA "
+"Structured Communication has been exceeded!\n"
 "Please create manually a unique BBA Structured Communication."
 msgstr ""
 
@@ -92,7 +94,8 @@ msgstr ""
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
 #, python-format
 msgid ""
-"The daily maximum of outgoing invoices with an automatically generated BBA Structured Communications has been exceeded!\n"
+"The daily maximum of outgoing invoices with an automatically generated BBA "
+"Structured Communications has been exceeded!\n"
 "Please create manually a uniqueBBA Structured Communication."
 msgstr ""
 
