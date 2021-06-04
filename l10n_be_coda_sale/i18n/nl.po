@@ -34,6 +34,8 @@ msgstr ""
 #. module: l10n_be_coda_sale
 #: model:ir.model.fields,help:l10n_be_coda_sale.field_coda_bank_account__find_so_number
 msgid ""
-"Partner lookup and reconciliation via the Sales Order when a communication in free format is used.\n"
-"A reconciliation will only be created in case of exact match between the Sales Order Invoice and Bank Transaction amounts."
+"Partner lookup and reconciliation via the Sales Order when a communication "
+"in free format is used.\n"
+"A reconciliation will only be created in case of exact match between the "
+"Sales Order Invoice and Bank Transaction amounts."
 msgstr ""

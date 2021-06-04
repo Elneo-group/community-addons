@@ -18,8 +18,7 @@ msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates
 #: model:ir.model.fields,help:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
-msgid ""
-"Accept the encoding of this invoice although it looks like a duplicate."
+msgid "Accept the encoding of this invoice although it looks like a duplicate."
 msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates

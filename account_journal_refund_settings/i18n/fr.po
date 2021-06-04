@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-01 06:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-06-04 12:01+0000\n"
+"Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
+"Language-Team: French <https://translation.elneo.com/projects/noviat/account-"
+"journal-refund-settings/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: account_journal_refund_settings
 #: model_terms:ir.ui.view,arch_db:account_journal_refund_settings.account_journal_dashboard_kanban_view
@@ -40,7 +42,7 @@ msgstr ""
 #: model:ir.model,name:account_journal_refund_settings.model_account_journal
 #: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_move__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: account_journal_refund_settings
 #: model:ir.model,name:account_journal_refund_settings.model_account_move
