@@ -223,16 +223,6 @@ msgstr "Vue globale"
 
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.actions.act_window,help:account_partner_open_items_xlsx.wiz_partner_open_items_action
-msgid "All Posted Entries"
-msgstr "Toutes les écritures comptabilisées"
-
-#. module: account_partner_open_items_xlsx
-#: model_terms:ir.actions.act_window,help:account_partner_open_items_xlsx.wiz_partner_open_items_action
-msgid "All Entries"
-msgstr "Toutes les écritures"
-
-#. module: account_partner_open_items_xlsx
-#: model_terms:ir.actions.act_window,help:account_partner_open_items_xlsx.wiz_partner_open_items_action
 msgid "No Open Items found for your selection"
 msgstr "Aucune écriture non léttrée"
 

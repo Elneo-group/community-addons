@@ -27,19 +27,9 @@ msgid "No records found for your selection!"
 msgstr "Aucun enregistrement trouvé pour votre sélection!"
 
 #. module: l10n_be_coa_multilang
-#: code:addons/l10n_be_coa_multilang/wizard/nov_print_fiscalyear.py:11
-msgid "No Data Available"
-msgstr "Aucune donnée disponible"
-
-#. module: l10n_be_coa_multilang
 #: code:addons/l10n_be_coa_multilang/wizard/nov_print_journal.py:10
 msgid "No records found for your selection!"
 msgstr "Aucun enregistrement trouvé pour votre sélection!"
-
-#. module: l10n_be_coa_multilang
-#: code:addons/l10n_be_coa_multilang/wizard/nov_print_journal.py:11
-msgid "No Data Available"
-msgstr "Aucune donnée disponible"
 
 #. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.l10n_be_legal_report_menu
@@ -57,22 +47,7 @@ msgid "Belgian Legal Financial Report Scheme"
 msgstr "Plan rapport légale belge"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.actions.act_window,name:l10n_be_coa_multilang.action_be_legal_financial_reportscheme
-msgid "Belgian Legal Financial Report Scheme"
-msgstr "Plan rapport légale belge"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.l10n_be_vat_declaration_menu
-msgid "Periodical VAT Declaration"
-msgstr "Déclaration périodique à la TVA"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.actions.act_window,name:l10n_be_coa_multilang.l10n_be_vat_declaration_action
-msgid "Periodical VAT Declaration"
-msgstr "Déclaration périodique à la TVA"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_declaration_view_form_declaration
 msgid "Periodical VAT Declaration"
 msgstr "Déclaration périodique à la TVA"
 
@@ -103,11 +78,6 @@ msgstr "Dernière déclaration"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_declaration_view_form
-msgid "View Declaration"
-msgstr "Voir la déclaration"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_intracom_view_form
 msgid "View Declaration"
 msgstr "Voir la déclaration"
 
@@ -222,11 +192,6 @@ msgid "Period"
 msgstr "Période"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_intracom__period
-msgid "Period"
-msgstr "Période"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_declaration__ask_restitution
 msgid "Ask Restitution"
 msgstr "Demande de restitution"
@@ -262,76 +227,6 @@ msgid "Quarter"
 msgstr "Trimestre"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__period_length__month
-msgid "Month"
-msgstr "Mois"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__period_length__quarter
-msgid "Quarter"
-msgstr "Trimestre"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__01
-msgid "January"
-msgstr "Janvier"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__02
-msgid "February"
-msgstr "Février"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__03
-msgid "March"
-msgstr "Mars"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__04
-msgid "April"
-msgstr "Avril"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__05
-msgid "May"
-msgstr "Mai"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__06
-msgid "June"
-msgstr "Juin"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__07
-msgid "July"
-msgstr "Juillet"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__08
-msgid "August"
-msgstr "Août"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__09
-msgid "September"
-msgstr "Septembre"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__10
-msgid "October"
-msgstr "Octobre"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__11
-msgid "November"
-msgstr "Novembre"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields.selection,name:l10n_be_coa_multilang.selection__l10n_be_vat_intracom__month__12
-msgid "November"
-msgstr "Décembre"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_intracom_client__vat
 msgid "VAT Number"
 msgstr "Numéro TVA"
@@ -347,19 +242,9 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_listing__year
-msgid "Year"
-msgstr "Année"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_listing__limit_amount
 msgid "Limit Amount"
 msgstr "Montant Limite"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_listing_client__vat
-msgid "VAT Number"
-msgstr "Numéro TVA"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.report_l10nbevatdeclaration
