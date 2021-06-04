@@ -137,19 +137,9 @@ msgid "Entry Date"
 msgstr "Date de comptabilisation"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_amount
-msgid "Glob. Amount"
-msgstr "Montant glob."
-
-#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_id
 msgid "Globalisation ID"
 msgstr "ID de globalisation"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__journal_id
-msgid "Journal"
-msgstr "Journal"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__val_date
@@ -167,11 +157,6 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__bank_statement_line_ids
-msgid "Bank Statement Lines"
-msgstr "Transactions bancaires"
-
-#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__child_ids
 msgid "Child Codes"
 msgstr "Codes fils"
@@ -185,11 +170,6 @@ msgstr "Code"
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__name
 msgid "Name"
 msgstr "Nom"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__payment_reference
-msgid "Payment Reference"
-msgstr "Référence paiement"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__parent_id
@@ -238,18 +218,8 @@ msgstr "Soldes relevés bancaires"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Name"
-msgstr "Nom"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
 msgid "Date"
 msgstr "Date"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Journal"
-msgstr "Journal"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
