@@ -5,179 +5,253 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
-"Report-Msgid-Bugs-To: support@noviat.com\n"
-"POT-Creation-Date: 2020-10-06 18:14:04.562000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-01 06:19+0000\n"
 "PO-Revision-Date: 2020-10-06 18:14:04.562000\n"
 "Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
 "Language-Team: \n"
+"Language: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: Dutch\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Journal Items"
-msgstr "Boekingsregels"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Entry"
-msgstr "Boeking"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Name"
-msgstr "Naam"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Reference"
-msgstr "Referentie"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Effective Date"
-msgstr "Datum"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Period"
-msgstr "Periode"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Partner"
-msgstr "Partner"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Partner Reference"
-msgstr "Ref. Partner"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Account"
 msgstr "Rekening"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Maturity Date"
-msgstr "Vervaldatum"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Debit"
-msgstr "Debet"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Credit"
-msgstr "Credit"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Balance"
-msgstr "Saldo"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Rec."
-msgstr "Rec."
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Part. Rec."
-msgstr "Rec. Part."
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Tax Code"
-msgstr "BTW vak"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Tax/Base Amount"
-msgstr "Bedrag BTW/Mvh"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Am. Currency"
 msgstr "Bedrag valuta"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Curr."
-msgstr "Val."
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Journal"
-msgstr "Dagboek"
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Comp. Curr."
-msgstr "Bedr. Val."
-
-#. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Analytic Account"
 msgstr "Kostenplaats"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Analytic Account Reference"
 msgstr "Kostenplaats referentie"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Product"
-msgstr "Product"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Balance"
+msgstr "Saldo"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Product Reference"
-msgstr "Ref. Product"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Comp. Curr."
+msgstr "Bedr. Val."
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Unit of Measure"
-msgstr "Maateenheid"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Credit"
+msgstr "Credit"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Qty"
-msgstr "HvH"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Curr."
+msgstr "Val."
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Statement"
-msgstr "Uitreksel"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Debit"
+msgstr "Debet"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: model:ir.model.fields,field_description:account_move_line_report_xls.field_report_account_move_line_report_xls_account_move_line_xlsx__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Effective Date"
+msgstr "Datum"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Entry"
+msgstr "Boeking"
+
+#. module: account_move_line_report_xls
+#: model:ir.actions.report,name:account_move_line_report_xls.action_account_move_line_xlsx
+msgid "Export Selected Lines"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: model:ir.model.fields,field_description:account_move_line_report_xls.field_report_account_move_line_report_xls_account_move_line_xlsx__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Id"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Invoice"
 msgstr "Factuur"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Residual Amount"
-msgstr "Restbedrag"
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Journal"
+msgstr "Dagboek"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Res. Am. in Curr."
-msgstr "Restbedrag in val."
+#: model:ir.model,name:account_move_line_report_xls.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Journal Items"
+msgstr "Boekingsregels"
+
+#. module: account_move_line_report_xls
+#: model:ir.model,name:account_move_line_report_xls.model_report_account_move_line_report_xls_account_move_line_xlsx
+msgid "Journal Items XLSX export"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: model:ir.model.fields,field_description:account_move_line_report_xls.field_report_account_move_line_report_xls_account_move_line_xlsx____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Lit."
+msgstr "Lit."
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Matched Credits"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Matched Debits"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Maturity Date"
+msgstr "Vervaldatum"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Name"
+msgstr "Naam"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
 msgid "Notes"
 msgstr "Notities"
 
 #. module: account_move_line_report_xls
-#: model_terms:ir.actions.report,help:account_move_line_report_xls.action_account_move_line_xlsx
-msgid "Lit."
-msgstr "Lit."
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Partner"
+msgstr "Partner"
 
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Partner Reference"
+msgstr "Ref. Partner"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Product"
+msgstr "Product"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Product Reference"
+msgstr "Ref. Product"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Qty"
+msgstr "HvH"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Rec."
+msgstr "Rec."
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Reconcile Amount"
+msgstr ""
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referentie"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Res. Am. in Curr."
+msgstr "Restbedrag in val."
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Residual Amount"
+msgstr "Restbedrag"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Statement"
+msgstr "Uitreksel"
+
+#. module: account_move_line_report_xls
+#: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
+#, python-format
+msgid "Unit of Measure"
+msgstr "Maateenheid"
+
+#~ msgid "Period"
+#~ msgstr "Periode"
+
+#~ msgid "Part. Rec."
+#~ msgstr "Rec. Part."
+
+#~ msgid "Tax Code"
+#~ msgstr "BTW vak"
+
+#~ msgid "Tax/Base Amount"
+#~ msgstr "Bedrag BTW/Mvh"
