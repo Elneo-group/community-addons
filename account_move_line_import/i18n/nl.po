@@ -225,7 +225,6 @@ msgstr ""
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
-#: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Boolean !"
 msgstr ""
@@ -239,8 +238,7 @@ msgstr ""
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
-msgid ""
-"Incorrect value '%s' for field '%s' of type Date ! should be YYYY-MM-DD"
+msgid "Incorrect value '%s' for field '%s' of type Date ! should be YYYY-MM-DD"
 msgstr ""
 
 #. module: account_move_line_import
