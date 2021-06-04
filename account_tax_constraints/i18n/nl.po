@@ -51,8 +51,8 @@ msgstr ""
 #. module: account_tax_constraints
 #: model:ir.model.fields,help:account_tax_constraints.field_account_tax_repartition_line__refund_tax_id
 msgid ""
-"The tax set to apply this repartition on refund invoices. Mutually exclusive"
-" with invoice_tax_id"
+"The tax set to apply this repartition on refund invoices. Mutually exclusive "
+"with invoice_tax_id"
 msgstr ""
 
 #. module: account_tax_constraints
@@ -84,7 +84,6 @@ msgid ""
 msgstr ""
 
 #. module: account_tax_constraints
-#: code:addons/account_tax_constraints/models/account_account.py:0
 #: code:addons/account_tax_constraints/models/account_account.py:0
 #, python-format
 msgid ""
