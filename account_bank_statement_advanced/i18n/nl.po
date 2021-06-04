@@ -137,19 +137,9 @@ msgid "Entry Date"
 msgstr "Boekingsdatum"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_amount
-msgid "Glob. Amount"
-msgstr "Glob. bedrag"
-
-#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_id
 msgid "Globalisation ID"
 msgstr "Globalisatie ID"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__journal_id
-msgid "Journal"
-msgstr "Dagboek"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__val_date
@@ -187,11 +177,6 @@ msgid "Name"
 msgstr "Naam"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__payment_reference
-msgid "Payment Reference"
-msgstr "Betaalreferte"
-
-#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__parent_id
 msgid "Parent Code"
 msgstr "Bovenliggende code"
@@ -217,11 +202,6 @@ msgid "ISO 20022"
 msgstr "ISO 20022"
 
 #. module: account_bank_statement_advanced
-#: model:ir.actions.act_window,name:account_bank_statement_advanced.action_bank_statement_line
-msgid "Bank Statement Lines"
-msgstr "Bank transacties"
-
-#. module: account_bank_statement_advanced
 #: model:ir.ui.menu,name:account_bank_statement_advanced.account_bank_statement_line_menu
 msgid "Bank Transactions"
 msgstr "Bank transacties"
@@ -238,18 +218,8 @@ msgstr "Saldi bankafschriften"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Name"
-msgstr "Naam"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
 msgid "Date"
 msgstr "Datum"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Journal"
-msgstr "Dagboek"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
