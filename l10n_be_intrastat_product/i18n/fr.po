@@ -9,8 +9,8 @@ msgstr ""
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
 "PO-Revision-Date: 2021-06-04 12:01+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
-"Language-Team: French <https://translation.elneo.com/projects/noviat/"
-"l10n-be-intrastat-product/fr/>\n"
+"Language-Team: French <https://translation.elneo.com/projects/noviat/l10n-be-"
+"intrastat-product/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,8 +61,8 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__amount_company_currency
 msgid ""
 "Amount in company currency to write in the declaration. Amount in company "
-"currency = amount in invoice currency converted to company currency with the"
-" rate of the invoice date."
+"currency = amount in invoice currency converted to company currency with the "
+"rate of the invoice date."
 msgstr ""
 
 #. module: l10n_be_intrastat_product
@@ -580,8 +580,8 @@ msgstr ""
 #: code:addons/l10n_be_intrastat_product/models/l10n_be_intrastat_product_declaration.py:0
 #, python-format
 msgid ""
-"The Belgian Intrastat Declaration requires the Company's Country to be equal"
-" to 'Belgium'."
+"The Belgian Intrastat Declaration requires the Company's Country to be equal "
+"to 'Belgium'."
 msgstr ""
 
 #. module: l10n_be_intrastat_product
