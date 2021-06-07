@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-04 12:01+0000\n"
+"PO-Revision-Date: 2021-06-08 09:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
-"Language-Team: French <https://translation.elneo.com/projects/noviat/l10n-be-"
-"intrastat-product/fr/>\n"
+"Language-Team: French <https://translation.elneo.com/projects/noviat/"
+"l10n-be-intrastat-product/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,12 +88,12 @@ msgstr ""
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_region__code
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model,name:l10n_be_intrastat_product.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Sociétés"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_installer__company_id
@@ -102,7 +102,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__company_id
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__company_id
 msgid "Company"
-msgstr ""
+msgstr "Société"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__company_country_code
@@ -152,7 +152,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__create_uid
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_installer__create_date
@@ -161,12 +161,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__create_date
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Devise"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_computation_line__declaration_line_id
@@ -181,7 +181,7 @@ msgstr ""
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_region__description
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_installer__display_name
@@ -190,7 +190,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__display_name
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Afficher le nom"
 
 #. module: l10n_be_intrastat_product
 #: code:addons/l10n_be_intrastat_product/wizards/intrastat_installer.py:0
@@ -249,7 +249,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__id
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__activity_exception_icon
@@ -375,7 +375,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration____last_update
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_installer__write_uid
@@ -384,7 +384,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__write_uid
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière mise à jour par"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_installer__write_date
@@ -393,7 +393,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__write_date
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Dernière mise à jour le"
 
 #. module: l10n_be_intrastat_product
 #: model_terms:ir.ui.view,arch_db:l10n_be_intrastat_product.intrastat_installer_view_form
@@ -435,7 +435,7 @@ msgstr ""
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_intrastat_region__name
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,help:l10n_be_intrastat_product.field_l10n_be_intrastat_product_computation_line__weight
@@ -617,7 +617,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__type
 #: model:ir.model.fields,field_description:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration_line__type
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #. module: l10n_be_intrastat_product
 #: model:ir.model.fields,help:l10n_be_intrastat_product.field_l10n_be_intrastat_product_declaration__activity_exception_decoration
