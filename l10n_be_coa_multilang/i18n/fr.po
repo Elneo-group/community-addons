@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: support@noviat.com\n"
 "POT-Creation-Date: 2020-12-21 23:10:25.074000\n"
-"PO-Revision-Date: 2020-12-21 23:10:25.074000\n"
-"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
+"Language-Team: French <https://translation.elneo.com/projects/noviat/"
+"l10n-be-coa-multilang/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: French\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: l10n_be_coa_multilang
 #: model:account.chart.template,name:l10n_be_coa_multilang.l10n_be_coa_multilang_template
@@ -29,7 +31,7 @@ msgstr "Aucun enregistrement trouvé pour votre sélection!"
 #. module: l10n_be_coa_multilang
 #: code:addons/l10n_be_coa_multilang/wizard/nov_print_journal.py:10
 msgid "No records found for your selection!"
-msgstr "Aucun enregistrement trouvé pour votre sélection!"
+msgstr "Pas d'enregistrements trouvés pour votre sélection!"
 
 #. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.l10n_be_legal_report_menu
@@ -2280,4 +2282,3 @@ msgstr "TVA déductible grille 59"
 #: model:account.tax.template,description:l10n_be_coa_multilang.attn_VAT-V82
 msgid "VAT base case 82"
 msgstr "TVA base grille 82"
-
