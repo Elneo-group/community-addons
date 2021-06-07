@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-04 12:01+0000\n"
+"PO-Revision-Date: 2021-06-08 09:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
-"Language-Team: French <https://translation.elneo.com/projects/noviat/account-"
-"invoice-pay-filter/fr/>\n"
+"Language-Team: French <https://translation.elneo.com/projects/noviat/"
+"account-invoice-pay-filter/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_date_in
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_date_out
 msgid "Default date for the Payment."
-msgstr ""
+msgstr "Date de paiement par défaut."
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_in
@@ -46,19 +46,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_date_in
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_date_in
 msgid "Incoming Payment Date"
-msgstr ""
+msgstr "Date du paiement entrant"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_in
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_method_in
 msgid "Incoming Payment Method"
-msgstr ""
+msgstr "Méthode du paiement entrant"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_in__invoice_date
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_out__invoice_date
 msgid "Invoice Date"
-msgstr ""
+msgstr "Date de facture"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model,name:account_invoice_pay_filter.model_account_journal
@@ -69,26 +69,26 @@ msgstr "Journal"
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_in__current_date
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_out__current_date
 msgid "Now"
-msgstr ""
+msgstr "Maintenant"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_date_out
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_date_out
 msgid "Outgoing Payment Date"
-msgstr ""
+msgstr "Date du paiement sortant"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_out
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_method_out
 msgid "Outgoing Payment Method"
-msgstr ""
+msgstr "Méthode du paiement sortant"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model,name:account_invoice_pay_filter.model_account_payment
 msgid "Payments"
-msgstr ""
+msgstr "Paiements"
 
 #. module: account_invoice_pay_filter
 #: model_terms:ir.ui.view,arch_db:account_invoice_pay_filter.view_account_journal_form
 msgid "Register Payment Button Settings"
-msgstr ""
+msgstr "Enregistrer les paramètres du bouton de paiement"
