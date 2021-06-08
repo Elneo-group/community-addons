@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-move-line-report-xls/fr/>\n"
@@ -92,7 +92,7 @@ msgstr "Écriture"
 #. module: account_move_line_report_xls
 #: model:ir.actions.report,name:account_move_line_report_xls.action_account_move_line_xlsx
 msgid "Export Selected Lines"
-msgstr ""
+msgstr "Exporter les lignes sélectionnées"
 
 #. module: account_move_line_report_xls
 #: model:ir.model.fields,field_description:account_move_line_report_xls.field_report_account_move_line_report_xls_account_move_line_xlsx__id
@@ -103,7 +103,7 @@ msgstr "ID"
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
 #, python-format
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #. module: account_move_line_report_xls
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
@@ -131,7 +131,7 @@ msgstr "Écritures comptables"
 #. module: account_move_line_report_xls
 #: model:ir.model,name:account_move_line_report_xls.model_report_account_move_line_report_xls_account_move_line_xlsx
 msgid "Journal Items XLSX export"
-msgstr ""
+msgstr "Eléments de journal export XLSX"
 
 #. module: account_move_line_report_xls
 #: model:ir.model.fields,field_description:account_move_line_report_xls.field_report_account_move_line_report_xls_account_move_line_xlsx____last_update
@@ -148,13 +148,13 @@ msgstr "Lit."
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
 #, python-format
 msgid "Matched Credits"
-msgstr ""
+msgstr "Crédits réconciliés"
 
 #. module: account_move_line_report_xls
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
 #, python-format
 msgid "Matched Debits"
-msgstr ""
+msgstr "Débits réconciliés"
 
 #. module: account_move_line_report_xls
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
@@ -190,7 +190,7 @@ msgstr "Réf. Partenaire"
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
 #, python-format
 msgid "Product"
-msgstr "Article"
+msgstr "Produit"
 
 #. module: account_move_line_report_xls
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
@@ -214,7 +214,7 @@ msgstr "Let."
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
 #, python-format
 msgid "Reconcile Amount"
-msgstr ""
+msgstr "Réconcilier le montant"
 
 #. module: account_move_line_report_xls
 #: code:addons/account_move_line_report_xls/report/account_move_line_xlsx.py:0
