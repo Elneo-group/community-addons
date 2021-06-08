@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-tax-constraints/fr/>\n"
@@ -26,12 +26,12 @@ msgstr "Compte"
 #. module: account_tax_constraints
 #: model:ir.model.fields,field_description:account_tax_constraints.field_account_tax_repartition_line__invoice_tax_id
 msgid "Invoice Tax"
-msgstr ""
+msgstr "Taxe de facture"
 
 #. module: account_tax_constraints
 #: model:ir.model.fields,field_description:account_tax_constraints.field_account_tax_repartition_line__refund_tax_id
 msgid "Refund Tax"
-msgstr ""
+msgstr "Taxe de note de crédit"
 
 #. module: account_tax_constraints
 #: model:ir.model,name:account_tax_constraints.model_account_tax
@@ -41,7 +41,7 @@ msgstr "Taxe"
 #. module: account_tax_constraints
 #: model:ir.model,name:account_tax_constraints.model_account_tax_repartition_line
 msgid "Tax Repartition Line"
-msgstr ""
+msgstr "Ligne de répartition de taxe"
 
 #. module: account_tax_constraints
 #: model:ir.model.fields,help:account_tax_constraints.field_account_tax_repartition_line__invoice_tax_id
@@ -49,6 +49,8 @@ msgid ""
 "The tax set to apply this repartition on invoices. Mutually exclusive with "
 "refund_tax_id"
 msgstr ""
+"La taxe fixée pour appliquer cette répartition sur les factures. "
+"Incompatible avec refund_tax_id"
 
 #. module: account_tax_constraints
 #: model:ir.model.fields,help:account_tax_constraints.field_account_tax_repartition_line__refund_tax_id
@@ -56,6 +58,8 @@ msgid ""
 "The tax set to apply this repartition on refund invoices. Mutually exclusive "
 "with invoice_tax_id"
 msgstr ""
+"La taxe fixée pour appliquer cette répartition sur les notes de crédit. "
+"Incompatible avec invoice_tax_id"
 
 #. module: account_tax_constraints
 #: code:addons/account_tax_constraints/models/account_tax.py:0
@@ -65,6 +69,10 @@ msgid ""
 "\n"
 "Journal Item IDs: %s"
 msgstr ""
+"Vous ne pouvez pas supprimer une taxe qui a été fixée sur des éléments de "
+"journal.\n"
+"\n"
+"Eléments de journal IDs: %s"
 
 #. module: account_tax_constraints
 #: code:addons/account_tax_constraints/models/account_tax.py:0
@@ -74,6 +82,10 @@ msgid ""
 "\n"
 "Invoice Line IDs: %s"
 msgstr ""
+"Vous ne pouvez pas supprimer une taxe qui a été fixée sur des lignes de "
+"facture.\n"
+"\n"
+"Lignes de factures IDs: %s"
 
 #. module: account_tax_constraints
 #: code:addons/account_tax_constraints/models/account_tax.py:0
@@ -84,6 +96,11 @@ msgid ""
 "\n"
 "Product Template records: %s"
 msgstr ""
+"Vous ne pouvez pas supprimer une taxe qui a été fixée sur des "
+"enregistrements de produits.\n"
+"Une solution est de désactiver la taxe via le bouton 'actif'.\n"
+"\n"
+"Enregistrements du modèle de produit: %s"
 
 #. module: account_tax_constraints
 #: code:addons/account_tax_constraints/models/account_account.py:0
@@ -93,3 +110,7 @@ msgid ""
 "Account ID: %s\n"
 "Tax Object IDs: %s"
 msgstr ""
+"Vous ne pouvez pas supprimer un compte qui a été fixé sur des objets de "
+"taxes.\n"
+"Compte ID: %s\n"
+"Objet de taxe IDs: %s"
