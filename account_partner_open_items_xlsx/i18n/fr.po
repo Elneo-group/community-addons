@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-partner-open-items-xlsx/fr/>\n"
@@ -22,13 +22,13 @@ msgstr ""
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "AP"
-msgstr ""
+msgstr "Compte créditeur"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "AR"
-msgstr ""
+msgstr "Compte débiteur"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -118,7 +118,7 @@ msgstr "Date"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__date_at
 msgid "Date At"
-msgstr ""
+msgstr "Date au"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -153,7 +153,7 @@ msgstr "Echéance"
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.ui.view,arch_db:account_partner_open_items_xlsx.wiz_partner_open_items_view_form
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__result_selection
@@ -163,7 +163,7 @@ msgstr "Filtrer sur"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__accounts
 msgid "Filter on selected accounts"
-msgstr ""
+msgstr "Filtrer sur les comptes sélectionnés"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_report_account_partner_open_items_xlsx_partner_open_items_xlsx__id
@@ -196,7 +196,7 @@ msgstr "Dernière mise à jour le"
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.ui.view,arch_db:account_partner_open_items_xlsx.wiz_partner_open_items_view_form
 msgid "Leave blank to select Receivable/Payable accounts"
-msgstr ""
+msgstr "Laisser vide pour sélectionner les comptes débiteurs/créditeurs"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,help:account_partner_open_items_xlsx.field_wiz_partner_open_items__account_ids
@@ -204,6 +204,9 @@ msgid ""
 "Leave blank to select all Receivable/Payable accountsYou can use this field "
 "to select any general account that can be reconciled."
 msgstr ""
+"Laisser vide pour sélectionner les comptes débiteurs/créditeurs.Vous pouvez "
+"utiliser ce champ pour sélectionner n'importe quel compte général qui peut "
+"être réconcilié."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -238,12 +241,12 @@ msgstr "Écritures non léttrées par partenaire"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model,name:account_partner_open_items_xlsx.model_wiz_partner_open_items
 msgid "Open Items per partner at a given date"
-msgstr ""
+msgstr "Ouvrir les éléments par partenaire à une date donnée"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model,name:account_partner_open_items_xlsx.model_report_account_partner_open_items_xlsx_partner_open_items_xlsx
 msgid "Open Journal Items per partner"
-msgstr ""
+msgstr "Ouvrir les éléments de journal par partenaire"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -326,7 +329,7 @@ msgstr "Avec devise"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,help:account_partner_open_items_xlsx.field_wiz_partner_open_items__add_currency
 msgid "Show Foreign Currency"
-msgstr ""
+msgstr "Montrer la devise étrangère"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__add_reconcile
@@ -344,6 +347,13 @@ msgid ""
 "full reconcile reference will also be added as a value between brackets at "
 "the end of the Reconcile Details string."
 msgstr ""
+"Montrer les détails de la réconciliation:\n"
+"Les identifiants des éléments de journal réconciliés sont ajoutés au rapport "
+"pour montrer quelles entrées ont été partiellement réconciliées à la date "
+"sélectionnée.\n"
+"Si l'entrée a été entièrement réconciliée après la date sélectionnée, la "
+"référence de réconciliation sera également ajoutée comme valeur entre "
+"parenthèses à la fin de la chaîne des détails de réconciliation."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -357,6 +367,8 @@ msgid ""
 "Specify a date in order to retrieve the Open Items at a certain moment in "
 "the past."
 msgstr ""
+"Spécifier une date pour retrouver les éléments ouverts à un moment déterminé "
+"dans le passé."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
