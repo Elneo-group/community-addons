@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-supplier-invoice-check-duplicates/fr/>\n"
@@ -22,11 +22,12 @@ msgstr ""
 #: model:ir.model.fields,help:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
 msgid "Accept the encoding of this invoice although it looks like a duplicate."
 msgstr ""
+"Accepter l'encodage de cette facture même si elle semble être en doublon."
 
 #. module: account_supplier_invoice_check_duplicates
 #: model:ir.model.fields,field_description:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
 msgid "Force Encoding"
-msgstr ""
+msgstr "Forcer l'encodage"
 
 #. module: account_supplier_invoice_check_duplicates
 #: model:ir.model,name:account_supplier_invoice_check_duplicates.model_account_move
@@ -40,3 +41,5 @@ msgid ""
 "This Vendor Bill has already been encoded !\n"
 "Duplicate Journal Entry: %s"
 msgstr ""
+"Cette facture fournisseur a déjà été encodée !\n"
+"Entrée de journal doublon : %s"
