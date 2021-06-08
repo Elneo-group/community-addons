@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-move-tax-sync/fr/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__company_id
@@ -46,16 +46,19 @@ msgid ""
 "Data Error - multiple POS sessions linked to a single Journal Entry.\n"
 "Journal Entry: %s (ID: %s)"
 msgstr ""
+"Erreur de données - multiples sessions POS liées à une seule entrée de "
+"journal.\n"
+"Entrée de journal: %s (ID: %s)"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_from
 msgid "Date From"
-msgstr ""
+msgstr "Date à partir de"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_to
 msgid "Date To"
-msgstr ""
+msgstr "Date jusqu'au"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__display_name
@@ -66,7 +69,7 @@ msgstr "Afficher le nom"
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
 #, python-format
 msgid "Error detected during tax recalc of %s"
-msgstr ""
+msgstr "Erreur détectée au cours du calcul de taxe de %s"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
@@ -75,6 +78,8 @@ msgid ""
 "Error during tax recalc of '%s' (ID: %s).\n"
 "Non-handled taxes in %s"
 msgstr ""
+"Erreur au cours du calcul de taxe de '%s' (ID: %s).\n"
+"Taxes non traitées dans %s"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__id
@@ -89,7 +94,7 @@ msgstr "Journal"
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__move_id
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrée de journal"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_move_line
@@ -119,7 +124,7 @@ msgstr "Notes"
 #. module: account_move_tax_sync
 #: model:ir.ui.menu,name:account_move_tax_sync.wizard_update_charts_accounts_menu
 msgid "Resync Account Chart Template"
-msgstr ""
+msgstr "Resynchronisation du modèle de plan comptable"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
@@ -129,17 +134,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
 #, python-format
 msgid "Sync Journal Entry Taxes"
-msgstr ""
+msgstr "Synchronisation des taxes des entrées de journal"
 
 #. module: account_move_tax_sync
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
 msgid "Sync Taxes"
-msgstr ""
+msgstr "Synchronisation des taxes"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_move_tax_sync
 msgid "Sync taxes on Journal Items with Tax objects"
-msgstr ""
+msgstr "Synchroniser les taxes sur les éléments de journal avec objets de taxes"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_tax
@@ -151,7 +156,7 @@ msgstr "Taxe"
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
 #, python-format
 msgid "You are not allowed to execute this Operation."
-msgstr ""
+msgstr "Vous n'êtes pas autorisé à exécuter cette opération."
 
 #. module: account_move_tax_sync
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
