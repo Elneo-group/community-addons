@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-move-line-import/fr/>\n"
@@ -22,29 +22,29 @@ msgstr ""
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "%s, field '%s', the import of ORM fields of type '%s' is not supported"
-msgstr ""
+msgstr "%s, champ '%s', l'import de champs ORM de type '%s' n'est pas supporté"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "%s, undefined field '%s' found while importing move lines"
-msgstr ""
+msgstr "%s, champ indéfini '%s' trouvé lors de l'import des lignes"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__csv_separator__,
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__decimal_separator__,
 msgid ", (comma)"
-msgstr ""
+msgstr ", (virgule)"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__decimal_separator___
 msgid ". (dot)"
-msgstr ""
+msgstr ". (point)"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__csv_separator__;
 msgid "; (semicolon)"
-msgstr ""
+msgstr "; (point-virgule)"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
@@ -53,22 +53,24 @@ msgid ""
 "<b>Incorrect file format !</b><br>Only files of type csv and xls(x) are "
 "supported."
 msgstr ""
+"<b>Format de fichier incorrect !</b><br>Seuls les fichiers de type csv et "
+"xls(x) sont supportés."
 
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form
 msgid "<span attrs=\"{'invisible': [('warning', '!=', False)]}\">or</span>"
-msgstr ""
+msgstr "<span attrs=\"{'invisible': [('warning', '!=', False)]}\">or</span>"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Account with code '%s' not found !"
-msgstr ""
+msgstr "Compte avec code '%s' non trouvé !"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__csv_separator
 msgid "CSV Separator"
-msgstr ""
+msgstr "Séparateur CSV"
 
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form
@@ -78,12 +80,12 @@ msgstr "Annuler"
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form_result
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__codepage
 msgid "Code Page"
-msgstr ""
+msgstr "Page de code"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,help:account_move_line_import.field_aml_import__codepage
@@ -91,6 +93,8 @@ msgid ""
 "Code Page of the system that has generated the csv file.\n"
 "E.g. Windows-1252, utf-8"
 msgstr ""
+"Page de code du système ayant généré le fichier csv.\n"
+"Ex. Windows-1252, utf-8"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__create_uid
@@ -106,17 +110,17 @@ msgstr "Créé le"
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Currency '%s' not found !"
-msgstr ""
+msgstr "Devise '%s' non trouvée !"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__decimal_separator
 msgid "Decimal Separator"
-msgstr ""
+msgstr "Séparateur de décimale"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__dialect
 msgid "Dialect"
-msgstr ""
+msgstr "Dialecte"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__display_name
@@ -130,6 +134,8 @@ msgid ""
 "Duplicate header field '%s' found !\n"
 "Please correct the input file."
 msgstr ""
+"Double champ à en-tête '%s' trouvé !\n"
+"Veuillez corriger le fichier source."
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
@@ -137,33 +143,35 @@ msgstr ""
 msgid ""
 "Error in input file, Total Debit (%s) is different from Total Credit (%s) !"
 msgstr ""
+"Erreur dans le fichier source, total débit (%s) est différent du total "
+"crédit (%s) !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Error when processing line '%s'"
-msgstr ""
+msgstr "Erreur lors du traitement de la ligne '%s'"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Error while reading Excel sheet: <br>{}"
-msgstr ""
+msgstr "Erreur lors de la lecture de la feuille Excel: <br>{}"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__aml_data
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__file_type
 msgid "File Type"
-msgstr ""
+msgstr "Type de fichier"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__aml_fname
 msgid "Filename"
-msgstr ""
+msgstr "Nom du fichier"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__id
@@ -173,7 +181,7 @@ msgstr "ID"
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.view_move_form
 msgid "Import Entry Lines from xlsx or csv File"
-msgstr ""
+msgstr "Importer les lignes d'un fichier xlsx ou csv"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/models/account_move.py:0
@@ -182,23 +190,23 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form_result
 #, python-format
 msgid "Import File"
-msgstr ""
+msgstr "Importer fichier"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Import File result"
-msgstr ""
+msgstr "Importer le résultat du fichier"
 
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.view_move_form
 msgid "Import Lines"
-msgstr ""
+msgstr "Importer les lignes"
 
 #. module: account_move_line_import
 #: model:ir.model,name:account_move_line_import.model_aml_import
 msgid "Import account move lines"
-msgstr ""
+msgstr "Importer les lignes comptables"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
@@ -206,71 +214,75 @@ msgstr ""
 msgid ""
 "Incorrect data format for field '%s' with value '%s',  should be YYYY-MM-DD"
 msgstr ""
+"Erreur dans le format de date du champ '%s' avec la valeur '%s',  devrait "
+"être YYYY-MM-DD"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect debit/credit values !"
-msgstr ""
+msgstr "Valeurs débit/crédit incorrectes !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' !"
-msgstr ""
+msgstr "Valeur incorrecte '%s' pour le champ '%s' !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type %s !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type %s !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Boolean !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type booléen !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Date !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type Date !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Date ! should be YYYY-MM-DD"
 msgstr ""
+"Valeur '%s' incorrecte pour le champ '%s' de type Date ! Devrait être YYYY-"
+"MM-DD"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Integer !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type nombre entier !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Many2one !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type Many2one !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Incorrect value '%s' for field '%s' of type Numeric !"
-msgstr ""
+msgstr "Valeur '%s' incorrecte pour le champ '%s' de type numérique !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Invalid Analytic Account '%s' !"
-msgstr ""
+msgstr "Compte analytique '%s' invalide !"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,help:account_move_line_import.field_aml_import__dialect
 msgid "JSON dictionary to store the csv dialect"
-msgstr ""
+msgstr "Dictionnaire JSON pour sauver le dialecte csv"
 
 #. module: account_move_line_import
 #: model:ir.model,name:account_move_line_import.model_account_move
@@ -295,43 +307,43 @@ msgstr "Dernière mise à jour le"
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__note
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Multiple Analytic Accounts found that match with '%s' !"
-msgstr ""
+msgstr "Multiples comptes analytiques trouvés correspondant à '%s' !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Multiple partners with Reference or Name '%s' found !"
-msgstr ""
+msgstr "Multiples partenaires trouvés avec Référence ou Nom '%s' !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Multiple products with Internal Reference or Name '%s' found !"
-msgstr ""
+msgstr "Multiple produits trouvés avec Référence interne ou Nom '%s' !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "No header line found in the input file !"
-msgstr ""
+msgstr "Pas de ligne d'en-tête trouvée dans le fichier source !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Partner '%s' not found !"
-msgstr ""
+msgstr "Partenaire '%s' non trouvé !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "Product '%s' not found !"
-msgstr ""
+msgstr "Produit '%s' non trouvé !"
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
@@ -340,6 +352,8 @@ msgid ""
 "Programming Error:\n"
 "Missing formatting info for column '%s'."
 msgstr ""
+"Erreur de programmation:\n"
+"Information de format manquante pour la colonne '%s'."
 
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form_result
@@ -349,12 +363,12 @@ msgstr "Résultats:"
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form
 msgid "Select your file :"
-msgstr ""
+msgstr "Sélectionnez votre fichier:"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__sheet
 msgid "Sheet"
-msgstr ""
+msgstr "Feuille"
 
 #. module: account_move_line_import
 #: model:ir.model.fields,help:account_move_line_import.field_aml_import__sheet
@@ -362,34 +376,36 @@ msgid ""
 "Specify the Excel sheet.\n"
 "If not specified the first sheet will be retrieved."
 msgstr ""
+"Spécifiez la feuille Excel.\n"
+"Par défaut la première feuille sera retenue."
 
 #. module: account_move_line_import
 #: code:addons/account_move_line_import/wizards/import_move_line_wizard.py:0
 #, python-format
 msgid "The '%s' field is a required field that must be correctly set."
-msgstr ""
+msgstr "Le champ '%s' est obligatoire et doit être correctement défini."
 
 #. module: account_move_line_import
 #: model:ir.model.fields,field_description:account_move_line_import.field_aml_import__warning
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 #. module: account_move_line_import
 #: model_terms:ir.ui.view,arch_db:account_move_line_import.aml_import_view_form
 msgid "_Import"
-msgstr ""
+msgstr "_Importer"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__file_type__csv
 msgid "csv"
-msgstr ""
+msgstr "csv"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__file_type__xls
 msgid "xls"
-msgstr ""
+msgstr "xls"
 
 #. module: account_move_line_import
 #: model:ir.model.fields.selection,name:account_move_line_import.selection__aml_import__file_type__xlsx
 msgid "xlsx"
-msgstr ""
+msgstr "xlsx"
