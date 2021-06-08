@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-bank-statement-advanced/fr/>\n"
@@ -141,7 +141,7 @@ msgstr "Annuler les lignes sélectionnées"
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.account_bank_statement_line_global_view_form
 msgid "Child Batch Payments"
-msgstr ""
+msgstr "Paiements groupés enfants"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__child_ids
@@ -652,13 +652,11 @@ msgstr "ou"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_advanced_report_statement_balances
-#, fuzzy
 msgid "report.account_bank_statement_advanced.report_statement_balances"
 msgstr "report.account_bank_statement_advanced.report_statement_balances"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_extensions_report_bankstatementbalance
-#, fuzzy
 msgid "report.account_bank_statement_extensions.report_bankstatementbalance"
 msgstr "report.account_bank_statement_extensions.report_bankstatementbalance"
 
