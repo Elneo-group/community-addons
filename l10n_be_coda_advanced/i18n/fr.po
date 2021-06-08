@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: support@noviat.com\n"
 "POT-Creation-Date: 2020-09-19 20:32:54.775000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "l10n-be-coda-advanced/fr/>\n"
@@ -301,7 +301,7 @@ msgstr "Résultats:"
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Close"
-msgstr "Clôturer"
+msgstr "Fermer"
 
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
@@ -1031,7 +1031,7 @@ msgstr "Importer le fichier CODA"
 #. module: l10n_be_coda_advanced
 #: model:ir.actions.wizard,name:l10n_be_coda_advanced.wizard_account_coda_action_ac
 msgid "Import CODA File"
-msgstr "Importer le fichier CODA"
+msgstr "Importer fichier CODA"
 
 #. module: l10n_be_coda_advanced
 #: model:ir.ui.menu,name:l10n_be_coda_advanced.menu_coda_processing
