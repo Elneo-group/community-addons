@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-08 09:53+0000\n"
+"PO-Revision-Date: 2021-06-09 11:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/"
 "account-move-line-search-extension/fr/>\n"
@@ -33,19 +33,19 @@ msgstr "Compte :"
 #. module: account_move_line_search_extension
 #: model:ir.model.fields.selection,name:account_move_line_search_extension.selection__ir_ui_view__type__amlse
 msgid "AccountMoveLineSearchExtension"
-msgstr ""
+msgstr "AccountMoveLineSearchExtension"
 
 #. module: account_move_line_search_extension
 #: model:ir.model,name:account_move_line_search_extension.model_ir_actions_act_window
 msgid "Action Window"
-msgstr ""
+msgstr "Fenêtre d'action"
 
 #. module: account_move_line_search_extension
 #. openerp-web
 #: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
 #, python-format
 msgid "Amount :"
-msgstr ""
+msgstr "Montant :"
 
 #. module: account_move_line_search_extension
 #. openerp-web
@@ -64,7 +64,7 @@ msgstr "Contact"
 #: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
 #, python-format
 msgid "Date Range :"
-msgstr ""
+msgstr "Plage de date :"
 
 #. module: account_move_line_search_extension
 #. openerp-web
@@ -101,41 +101,41 @@ msgstr "Partenaire :"
 #: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
 #, python-format
 msgid "Reconcile :"
-msgstr ""
+msgstr "Réconcilier :"
 
 #. module: account_move_line_search_extension
 #. openerp-web
 #: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
 #, python-format
 msgid "Tags :"
-msgstr ""
+msgstr "Etiquettes :"
 
 #. module: account_move_line_search_extension
 #. openerp-web
 #: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
 #, python-format
 msgid "Taxes :"
-msgstr ""
+msgstr "Taxes :"
 
 #. module: account_move_line_search_extension
 #: model_terms:ir.ui.view,arch_db:account_move_line_search_extension.account_move_line_view_amlse
 msgid "Total Credit"
-msgstr ""
+msgstr "Total crédit"
 
 #. module: account_move_line_search_extension
 #: model_terms:ir.ui.view,arch_db:account_move_line_search_extension.account_move_line_view_amlse
 msgid "Total Debit"
-msgstr ""
+msgstr "Total débit"
 
 #. module: account_move_line_search_extension
 #: model:ir.model,name:account_move_line_search_extension.model_ir_ui_view
 msgid "View"
-msgstr ""
+msgstr "Vue"
 
 #. module: account_move_line_search_extension
 #: model:ir.model.fields,field_description:account_move_line_search_extension.field_ir_ui_view__type
 msgid "View Type"
-msgstr ""
+msgstr "Type de vue"
 
 #~ msgid "Partner"
 #~ msgstr "Partenaire"
