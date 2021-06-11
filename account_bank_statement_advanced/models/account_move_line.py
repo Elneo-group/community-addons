@@ -25,15 +25,18 @@ class AccountMoveLine(models.Model):
                 )
         return super().unlink()
 
-    def write(self, vals, **kwargs):
+    def write(self, vals):
         for move_line in self:
             st = move_line.statement_id
             if st and st.state == "confirm":
                 for k in vals:
                     if k not in [
+                        "reconciled",
                         "full_reconcile_id",
                         "matched_debit_ids",
                         "matched_credit_ids",
+                        "amount_residual",
+                        "amount_residual_currency",
                     ]:
                         raise UserError(
                             _(
