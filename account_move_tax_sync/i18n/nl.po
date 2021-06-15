@@ -7,35 +7,37 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-01 06:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-06-16 08:53+0000\n"
+"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
+"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/"
+"account-move-tax-sync/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: account_move_tax_sync
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__company_id
 msgid "Company"
-msgstr ""
+msgstr "Bedrijf"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
@@ -44,27 +46,29 @@ msgid ""
 "Data Error - multiple POS sessions linked to a single Journal Entry.\n"
 "Journal Entry: %s (ID: %s)"
 msgstr ""
+"Gegevensfout - meerdere POS-sessies gekoppeld aan één journaalpost.\n"
+"Journaalpost: %s (ID: %s)"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_from
 msgid "Date From"
-msgstr ""
+msgstr "Datum van"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__date_to
 msgid "Date To"
-msgstr ""
+msgstr "Datum tot"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Naam weergeven"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
 #, python-format
 msgid "Error detected during tax recalc of %s"
-msgstr ""
+msgstr "Fout ontdekt tijdens herberekening belastingf %s"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
@@ -73,51 +77,53 @@ msgid ""
 "Error during tax recalc of '%s' (ID: %s).\n"
 "Non-handled taxes in %s"
 msgstr ""
+"Fout bij herberekening belasting van '%s' (ID: %s).\n"
+"Niet-verwerkte belastingen in %s"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "Journaal"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__move_id
 msgid "Journal Entry"
-msgstr ""
+msgstr "Journaalpost"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Journaalitem"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_move_tax_sync
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__note
 msgid "Notes"
-msgstr ""
+msgstr "Notities"
 
 #. module: account_move_tax_sync
 #: model:ir.ui.menu,name:account_move_tax_sync.wizard_update_charts_accounts_menu
 msgid "Resync Account Chart Template"
-msgstr ""
+msgstr "Resync Rekeningoverzicht Template"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
@@ -127,31 +133,31 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form_result
 #, python-format
 msgid "Sync Journal Entry Taxes"
-msgstr ""
+msgstr "Synchroniseer journaalpost belastingen"
 
 #. module: account_move_tax_sync
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
 msgid "Sync Taxes"
-msgstr ""
+msgstr "Sync belastingen"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_move_tax_sync
 msgid "Sync taxes on Journal Items with Tax objects"
-msgstr ""
+msgstr "Synchroniseer belastingen op journaalposten met belastingobjecten"
 
 #. module: account_move_tax_sync
 #: model:ir.model,name:account_move_tax_sync.model_account_tax
 #: model:ir.model.fields,field_description:account_move_tax_sync.field_account_move_tax_sync__tax_id
 msgid "Tax"
-msgstr ""
+msgstr "BTW"
 
 #. module: account_move_tax_sync
 #: code:addons/account_move_tax_sync/wizards/account_move_tax_sync.py:0
 #, python-format
 msgid "You are not allowed to execute this Operation."
-msgstr ""
+msgstr "Je bent niet bevoegd om deze actie uit te voeren."
 
 #. module: account_move_tax_sync
 #: model_terms:ir.ui.view,arch_db:account_move_tax_sync.account_move_tax_sync_view_form
 msgid "or"
-msgstr ""
+msgstr "of"
