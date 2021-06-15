@@ -7,48 +7,50 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-01 06:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-06-16 08:53+0000\n"
+"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
+"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/"
+"l10n-be-invoice-bba-customer/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/res_partner.py:0
 #, python-format
 msgid "Belgian OGM-VCS Structured Communication"
-msgstr ""
+msgstr "Belgische gestructureerde communicatie OGM-VCS"
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model.fields,field_description:l10n_be_invoice_bba_customer.field_res_partner__out_inv_comm_algorithm
 #: model:ir.model.fields,field_description:l10n_be_invoice_bba_customer.field_res_users__out_inv_comm_algorithm
 msgid "Communication Algorithm"
-msgstr ""
+msgstr "Communicatie Algoritme"
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model.fields,field_description:l10n_be_invoice_bba_customer.field_res_partner__out_inv_comm_type
 #: model:ir.model.fields,field_description:l10n_be_invoice_bba_customer.field_res_users__out_inv_comm_type
 msgid "Communication Type"
-msgstr ""
+msgstr "Communicatie type"
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model,name:l10n_be_invoice_bba_customer.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/res_partner.py:0
 #, python-format
 msgid "Free Communication"
-msgstr ""
+msgstr "Vrije mededeling"
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model,name:l10n_be_invoice_bba_customer.model_account_move
 msgid "Journal Entries"
-msgstr ""
+msgstr "Journaalposten"
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model.fields,help:l10n_be_invoice_bba_customer.field_res_partner__out_inv_comm_algorithm
@@ -57,12 +59,14 @@ msgid ""
 "Select Algorithm to generate the Structured Communication on Outgoing "
 "Invoices."
 msgstr ""
+"Selecteer een algoritme om de gestructureerde mededeling op uitgaande "
+"facturen te genereren."
 
 #. module: l10n_be_invoice_bba_customer
 #: model:ir.model.fields,help:l10n_be_invoice_bba_customer.field_res_partner__out_inv_comm_type
 #: model:ir.model.fields,help:l10n_be_invoice_bba_customer.field_res_users__out_inv_comm_type
 msgid "Select Default Communication Type for Outgoing Invoices."
-msgstr ""
+msgstr "Selecteer een standaard communicatietype voor uitgaande facturen."
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
@@ -71,6 +75,8 @@ msgid ""
 "The BBA Structured Communication has already been used!\n"
 "Please use a unique BBA Structured Communication."
 msgstr ""
+"De BBA gestructureerde mededeling is al gebruikt!\n"
+"Gelieve een unieke BBA gestructureerde mededeling te gebruiken."
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
@@ -80,6 +86,9 @@ msgid ""
 "BBA Structured Communications!'                       '\n"
 "Please correct the Partner record."
 msgstr ""
+"De partner moet een referentienummer van 3-7 cijfers hebben voor het "
+"genereren van BBA gestructureerde mededeling!\n"
+"Corrigeer het partnerrecord."
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
@@ -89,6 +98,9 @@ msgid ""
 "Structured Communication has been exceeded!\n"
 "Please create manually a unique BBA Structured Communication."
 msgstr ""
+"Het dagelijkse maximum aantal uitgaande facturen met een automatisch "
+"gegenereerde BBA gestructureerde mededeling is overschreden!\n"
+"Gelieve handmatig een unieke BBA gestructureerde mededeling aan te maken."
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
@@ -98,6 +110,9 @@ msgid ""
 "Structured Communications has been exceeded!\n"
 "Please create manually a uniqueBBA Structured Communication."
 msgstr ""
+"Het dagelijkse maximum van uitgaande facturen met een automatisch "
+"gegenereerde BBA gestructureerde mededeling is overschreden!\n"
+"Gelieve handmatig een unieke BBA gestructureerde mededeling aan te maken."
 
 #. module: l10n_be_invoice_bba_customer
 #: code:addons/l10n_be_invoice_bba_customer/models/account_move.py:0
@@ -106,3 +121,5 @@ msgid ""
 "Unsupported Structured Communication Type Algorithm '%s' !\n"
 "Please contact your Odoo support channel."
 msgstr ""
+"Niet-ondersteund gestructureerd communicatie type algoritme '%s' !\n"
+"Neem contact op met uw Odoo ondersteuningskanaal."
