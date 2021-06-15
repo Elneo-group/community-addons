@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-01 06:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-06-16 08:53+0000\n"
+"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
+"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/"
+"account-invoice-pay-filter/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_date_in
@@ -22,7 +24,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_date_in
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_journal__payment_date_out
 msgid "Default date for the Payment."
-msgstr ""
+msgstr "Standaard datum voor de betaling."
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_in
@@ -31,6 +33,8 @@ msgid ""
 "If checked, this Journal becomes a Payment Method for the 'Register Payment' "
 "button on Customer Invoices and Supplier Credit Notes."
 msgstr ""
+"Indien aangevinkt, wordt dit journaal een betaalmethode voor de knop \""
+"Betaling registreren\" op klantenfacturen en creditnota's van leveranciers."
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,help:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_out
@@ -39,54 +43,56 @@ msgid ""
 "If checked, this Journal becomes a Payment Method for the 'Register Payment' "
 "button on Supplier Invoices and Customer Credit Notes."
 msgstr ""
+"Indien aangevinkt, wordt dit journaal een betaalmethode voor de knop \""
+"Betaling registreren\" op leveranciersfacturen en klantencreditnota's."
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_date_in
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_date_in
 msgid "Incoming Payment Date"
-msgstr ""
+msgstr "Inkomende betaling Datum"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_in
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_method_in
 msgid "Incoming Payment Method"
-msgstr ""
+msgstr "Inkomende betalingsmethode"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_in__invoice_date
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_out__invoice_date
 msgid "Invoice Date"
-msgstr ""
+msgstr "Factuurdatum"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model,name:account_invoice_pay_filter.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journaal"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_in__current_date
 #: model:ir.model.fields.selection,name:account_invoice_pay_filter.selection__account_journal__payment_date_out__current_date
 msgid "Now"
-msgstr ""
+msgstr "Nu"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_date_out
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_date_out
 msgid "Outgoing Payment Date"
-msgstr ""
+msgstr "Uitgaande betalingsdatum"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_bank_statement_import_journal_creation__payment_method_out
 #: model:ir.model.fields,field_description:account_invoice_pay_filter.field_account_journal__payment_method_out
 msgid "Outgoing Payment Method"
-msgstr ""
+msgstr "Uitgaande betalingsmethode"
 
 #. module: account_invoice_pay_filter
 #: model:ir.model,name:account_invoice_pay_filter.model_account_payment
 msgid "Payments"
-msgstr ""
+msgstr "Betalingen"
 
 #. module: account_invoice_pay_filter
 #: model_terms:ir.ui.view,arch_db:account_invoice_pay_filter.view_account_journal_form
 msgid "Register Payment Button Settings"
-msgstr ""
+msgstr "Registreer Betalingsknop Instellingen"
