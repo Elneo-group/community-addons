@@ -7,32 +7,34 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2020-10-06 12:14:04.562000\n"
-"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
-"Language-Team: \n"
-"Language: Dutch\n"
+"PO-Revision-Date: 2021-06-16 08:53+0000\n"
+"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
+"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/"
+"account-partner-open-items-xlsx/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "AP"
-msgstr ""
+msgstr "AP"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "AR"
-msgstr ""
+msgstr "AR"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "Account"
-msgstr "Rekening"
+msgstr "Account"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__account_ids
@@ -67,7 +69,7 @@ msgstr "Saldo"
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.ui.view,arch_db:account_partner_open_items_xlsx.wiz_partner_open_items_view_form
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__company_id
@@ -77,17 +79,17 @@ msgstr "Bedrijf"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model,name:account_partner_open_items_xlsx.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -116,7 +118,7 @@ msgstr "Datum"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__date_at
 msgid "Date At"
-msgstr ""
+msgstr "Datum op"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -134,7 +136,7 @@ msgstr "Details"
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_report_account_partner_open_items_xlsx_partner_open_items_xlsx__display_name
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Naam weergeven"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -151,7 +153,7 @@ msgstr "Vervaldatum"
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.ui.view,arch_db:account_partner_open_items_xlsx.wiz_partner_open_items_view_form
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__result_selection
@@ -161,40 +163,40 @@ msgstr "Filter op"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__accounts
 msgid "Filter on selected accounts"
-msgstr ""
+msgstr "Filter op geselecteerde accounts"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_report_account_partner_open_items_xlsx_partner_open_items_xlsx__id
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "Journal"
-msgstr "Dagboek"
+msgstr "Journaal"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_report_account_partner_open_items_xlsx_partner_open_items_xlsx____last_update
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_partner_open_items_xlsx
 #: model_terms:ir.ui.view,arch_db:account_partner_open_items_xlsx.wiz_partner_open_items_view_form
 msgid "Leave blank to select Receivable/Payable accounts"
-msgstr ""
+msgstr "Leeg laten om ontvangsten/betalingen te selecteren"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,help:account_partner_open_items_xlsx.field_wiz_partner_open_items__account_ids
@@ -202,6 +204,9 @@ msgid ""
 "Leave blank to select all Receivable/Payable accountsYou can use this field "
 "to select any general account that can be reconciled."
 msgstr ""
+"Laat leeg om alle debiteuren- en crediteurenrekeningen te selecteren. U kunt "
+"dit veld gebruiken om elke algemene rekening te selecteren die kan worden "
+"gekoppeld."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -236,12 +241,12 @@ msgstr "Openstaande posten per partner"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model,name:account_partner_open_items_xlsx.model_wiz_partner_open_items
 msgid "Open Items per partner at a given date"
-msgstr ""
+msgstr "Openstaande posten per partner op een bepaalde datum"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model,name:account_partner_open_items_xlsx.model_report_account_partner_open_items_xlsx_partner_open_items_xlsx
 msgid "Open Journal Items per partner"
-msgstr ""
+msgstr "Open journaalposten per partner"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -324,12 +329,12 @@ msgstr "Met valuta"
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,help:account_partner_open_items_xlsx.field_wiz_partner_open_items__add_currency
 msgid "Show Foreign Currency"
-msgstr ""
+msgstr "Toon Vreemde Valuta"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__add_reconcile
 msgid "Show Reconcile"
-msgstr "Met aflettering"
+msgstr "Toon Reconcile"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,help:account_partner_open_items_xlsx.field_wiz_partner_open_items__add_reconcile
@@ -342,6 +347,13 @@ msgid ""
 "full reconcile reference will also be added as a value between brackets at "
 "the end of the Reconcile Details string."
 msgstr ""
+"Toon Afstemmingsdetails:\n"
+"De identificaties van de overeenstemmende Journaalposten worden aan het "
+"rapport toegevoegd om te tonen welke boekingen op de geselecteerde datum "
+"gedeeltelijk zijn afgestemd.\n"
+"In het geval dat de boeking volledig gereconcilieerd is na de geselecteerde "
+"datum, zal de volledige reconciliatiereferentie ook toegevoegd worden als "
+"een waarde tussen haakjes op het einde van de Reconcile Details string."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
@@ -355,17 +367,19 @@ msgid ""
 "Specify a date in order to retrieve the Open Items at a certain moment in "
 "the past."
 msgstr ""
+"Specificeer een datum om de Open Items op een bepaald moment in het verleden "
+"op te halen."
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
 #, python-format
 msgid "Supplier Invoice No"
-msgstr "Inkoopfactuur Nr"
+msgstr "Aankoopfactuur Nr"
 
 #. module: account_partner_open_items_xlsx
 #: model:ir.model.fields,field_description:account_partner_open_items_xlsx.field_wiz_partner_open_items__target_move
 msgid "Target Moves"
-msgstr "Welke boekingen"
+msgstr "Doelwit verplaatsen"
 
 #. module: account_partner_open_items_xlsx
 #: code:addons/account_partner_open_items_xlsx/report/account_partner_open_items_xlsx.py:0
