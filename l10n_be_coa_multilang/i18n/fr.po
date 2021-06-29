@@ -39,11 +39,6 @@ msgid "Belgium Balance Sheet and P&L"
 msgstr "Bilan et Compte de résultats Belge"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.actions.act_window,name:l10n_be_coa_multilang.l10n_be_legal_report_action
-msgid "Belgium Balance Sheet and P&L"
-msgstr "Bilan et Compte de résultats Belge"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.menu_be_legal_financial_reportscheme
 msgid "Belgian Legal Financial Report Scheme"
 msgstr "Plan rapport légale belge"
@@ -209,11 +204,6 @@ msgid "Last Declaration"
 msgstr "Dernière déclaration"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_intracom__year
-msgid "Year"
-msgstr "Année"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_intracom__period_length
 msgid "Period Length"
 msgstr "Durée de la période"
@@ -239,19 +229,9 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_intracom_client__amount
-msgid "Amount"
-msgstr "Montant"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.model.fields,field_description:l10n_be_coa_multilang.field_l10n_be_vat_listing__limit_amount
 msgid "Limit Amount"
 msgstr "Montant Limite"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.report_l10nbevatdeclaration
-msgid "Periodical VAT Declaration"
-msgstr "Déclaration périodique à la TVA"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.report_l10nbevatdeclaration
@@ -269,32 +249,12 @@ msgid "<strong>Period</strong>"
 msgstr "<strong>Période</strong>"
 
 #. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.report_l10nbevatdeclaration
-msgid "Amount"
-msgstr "Montant"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.l10n_be_vat_intracom_menu
 msgid "Intracom VAT Declaration"
 msgstr "Déclaration intracommunautaire à la TVA"
 
 #. module: l10n_be_coa_multilang
-#: model:ir.actions.act_window,name:l10n_be_coa_multilang.l10n_be_vat_intracom_action
-msgid "Intracom VAT Declaration"
-msgstr "Déclaration intracommunautaire à la TVA"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_intracom_view_form_declaration
-msgid "Intracom VAT Declaration"
-msgstr "Déclaration intracommunautaire à la TVA"
-
-#. module: l10n_be_coa_multilang
 #: model:ir.ui.menu,name:l10n_be_coa_multilang.l10n_be_vat_listing_menu
-msgid "Annual Listing of VAT subjected Customers"
-msgstr "Listing annuel des clients assujettis à la TVA"
-
-#. module: l10n_be_coa_multilang
-#: model:ir.actions.act_window,name:l10n_be_coa_multilang.l10n_be_vat_listing_action
 msgid "Annual Listing of VAT subjected Customers"
 msgstr "Listing annuel des clients assujettis à la TVA"
 
@@ -365,11 +325,6 @@ msgstr "Code"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_intracom_view_form_declaration
-msgid "Amount"
-msgstr "Montant"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_intracom_view_form_declaration
 msgid "Company"
 msgstr "Société"
 
@@ -392,11 +347,6 @@ msgstr "Numéro TVA"
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_declaration_view_form
 msgid "Description"
 msgstr "Description"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_declaration_view_form
-msgid "Amount"
-msgstr "Montant"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.ui.view,arch_db:l10n_be_coa_multilang.l10n_be_vat_declaration_view_form
@@ -482,11 +432,6 @@ msgstr "Montant TVA"
 #: model_terms:ir.actions.report,help:l10n_be_coa_multilang.action_report_l10nbelegalreport
 msgid "Periodical VAT Declaration"
 msgstr "Déclaration périodique à la TVA"
-
-#. module: l10n_be_coa_multilang
-#: model_terms:ir.actions.report,help:l10n_be_coa_multilang.action_report_l10nbelegalreport
-msgid "Intracom VAT Declaration"
-msgstr "Déclaration intracommunautaire à la TVA"
 
 #. module: l10n_be_coa_multilang
 #: model_terms:ir.actions.report,help:l10n_be_coa_multilang.action_report_l10nbelegalreport
