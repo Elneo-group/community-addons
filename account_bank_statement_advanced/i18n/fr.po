@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-09 11:53+0000\n"
+"PO-Revision-Date: 2021-07-10 04:53+0000\n"
 "Last-Translator: Virginie Meunier <virginie.meunier@elneo.com>\n"
 "Language-Team: French <https://translation.elneo.com/projects/noviat/account-"
 "bank-statement-advanced/fr/>\n"
@@ -89,7 +89,7 @@ msgstr "Relevé bancaire"
 #: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_advanced_statement_balance_report
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
 msgid "Bank Statement Balances Report"
-msgstr "Soldes relevés bancaires"
+msgstr "Rapport des soldes de relevés bancaires"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model,name:account_bank_statement_advanced.model_account_bank_statement_line
@@ -99,7 +99,7 @@ msgstr "Ligne de relevé bancaire"
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__bank_statement_line_ids
 msgid "Bank Statement Lines"
-msgstr "Transactions bancaires"
+msgstr "Lignes de relevé bancaire"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
@@ -146,12 +146,12 @@ msgstr "Paiements groupés enfants"
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__child_ids
 msgid "Child Codes"
-msgstr "Codes fils"
+msgstr "Codes enfants"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
 msgid "Closing Balance"
-msgstr "Solde"
+msgstr "Solde de clôture"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__code

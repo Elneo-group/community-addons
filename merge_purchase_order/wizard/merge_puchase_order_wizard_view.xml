@@ -13,7 +13,7 @@
                 </group>
                 <footer>
                     <button name="merge_orders" string="Merge Orders" type="object"
-                        class="btn-primary"/>
+                        class="btn-primary" context="{'mail_activity_automation_skip':True}"/>
                     <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
