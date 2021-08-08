@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
@@ -28,13 +28,13 @@ class AccountMoveLine(models.Model):
     @api.model
     def _get_excluded_fields(self):
         return [
-                "reconciled",
-                "full_reconcile_id",
-                "matched_debit_ids",
-                "matched_credit_ids",
-                "amount_residual",
-                "amount_residual_currency",
-                ]
+            "reconciled",
+            "full_reconcile_id",
+            "matched_debit_ids",
+            "matched_credit_ids",
+            "amount_residual",
+            "amount_residual_currency",
+        ]
 
     def write(self, vals):
         for move_line in self:
