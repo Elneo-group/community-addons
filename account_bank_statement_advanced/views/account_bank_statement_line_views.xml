@@ -110,7 +110,6 @@
         <field name="amount"/>
         <field name="globalisation_id" string="Glob. Id"/>
         <field name="globalisation_amount" string="Glob. Amount"/>
-        <field name="note"/>
         <separator/>
         <filter name="debit" string="Debit"
                 domain="[('amount', '&gt;', 0)]"
