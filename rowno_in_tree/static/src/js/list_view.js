@@ -3,6 +3,8 @@ odoo.define('rowno_in_tree.ListNumber', function (require) {
 
 var core = require('web.core');
 var ListRenderer = require('web.ListRenderer');
+require('account.section_and_note_backend');
+var SectionAndNoteFieldOne2Many = fieldRegistry.get('section_and_note_one2many');
 var _t = core._t;
 
 ListRenderer.include({
@@ -92,5 +94,32 @@ ListRenderer.include({
     },
     
 }); 
+
+SectionAndNoteFieldOne2Many.include({
+        _renderBodyCell: function (record, node, index, options) {
+	    var $cell = this._super.apply(this, arguments);
+	    var isSection = record.data.display_type === 'line_section';
+        var isNote = record.data.display_type === 'line_note';
+        if (isSection || isNote) {
+            if (node.attrs.widget === "handle") {
+                return $cell;
+            } else if (node.attrs.name === "name") {
+                var nbrColumns = this._getNumberOfCols();
+                nbrColumns--;
+                if (this.handleField) {
+                    nbrColumns--;
+                }
+                if (this.addTrashIcon) {
+                    nbrColumns--;
+                }
+                $cell.attr('colspan', nbrColumns);
+            } else {
+                $cell.removeClass('o_invisible_modifier');
+                return $cell.addClass('o_hidden');
+            }
+        }
+        return $cell;
+    },
+})
 
 });
