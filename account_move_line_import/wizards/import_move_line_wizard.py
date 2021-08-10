@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat
+# Copyright 2009-2021 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import base64
@@ -165,7 +165,7 @@ class AccountMoveLineImport(models.TransientModel):
                     if cell.ctype == xlrd.XL_CELL_ERROR:
                         if err_msg:
                             err_msg += "\n"
-                        err_msg += _("Incorrect value '%s' " "for field '%s' !") % (
+                        err_msg += _("Incorrect value '%s' for field '%s' !") % (
                             cell.value,
                             hf,
                         )
@@ -221,7 +221,7 @@ class AccountMoveLineImport(models.TransientModel):
                         else:
                             is_int = cell.value % 1 == 0.0
                             if is_int:
-                                val = 1 and True or False
+                                val = val == 1 and True or False
                             else:
                                 val = None
                         if val is None:
@@ -241,8 +241,8 @@ class AccountMoveLineImport(models.TransientModel):
                                         err_msg += "\n"
                                     err_msg += _(
                                         "Incorrect value '%s' "
-                                        "for field '%s' of type Date !"
-                                        " should be YYYY-MM-DD"
+                                        "for field '%s' of type Date, "
+                                        "it should be YYYY-MM-DD !"
                                     ) % (cell.value, hf)
                         elif cell.ctype in [xlrd.XL_CELL_NUMBER, xlrd.XL_CELL_DATE]:
                             val = xlrd.xldate.xldate_as_tuple(cell.value, wb.datemode)
@@ -251,7 +251,19 @@ class AccountMoveLineImport(models.TransientModel):
                             if err_msg:
                                 err_msg += "\n"
                             err_msg += _(
-                                "Incorrect value '%s' " "for field '%s' of type Date !"
+                                "Incorrect value '%s' for field '%s' of type Date !"
+                            ) % (cell.value, hf)
+
+                    elif fmt == "many2many":
+                        if cell.ctype == xlrd.XL_CELL_TEXT:
+                            val = cell.value
+                        else:
+                            if err_msg:
+                                err_msg += "\n"
+                            err_msg += _(
+                                "Incorrect value '%s' "
+                                "for field '%s', "
+                                "it should be a comma separated string !"
                             ) % (cell.value, hf)
 
                     else:
@@ -313,7 +325,12 @@ class AccountMoveLineImport(models.TransientModel):
 
             # process input fields
             for i, hf in enumerate(self._header_fields):
-                if i == 0 and line[hf] and line[hf][0] == "#":
+                if (
+                    i == 0
+                    and isinstance(line[hf], str)
+                    and line[hf]
+                    and line[hf][0] == "#"
+                ):
                     # lines starting with # are considered as comment lines
                     break
                 if hf in self._skip_fields:
@@ -402,6 +419,7 @@ class AccountMoveLineImport(models.TransientModel):
                 "method": self._handle_analytic_account,
                 "field_type": "char",
             },
+            "tax grids": {"method": self._handle_tax_grids, "field_type": "many2many"},
         }
         return res
 
@@ -461,7 +479,7 @@ class AccountMoveLineImport(models.TransientModel):
                 self._orm_fields[f]["string"].lower() for f in self._orm_fields
             ]:
                 _logger.error(
-                    _("%s, undefined field '%s' found " "while importing move lines"),
+                    _("%s, undefined field '%s' found while importing move lines"),
                     self._name,
                     hf,
                 )
@@ -531,9 +549,10 @@ class AccountMoveLineImport(models.TransientModel):
                     else:
                         val = False
                 if val is False:
-                    msg = _(
-                        "Incorrect value '%s' " "for field '%s' of type Integer !"
-                    ) % (line[field], field)
+                    msg = _("Incorrect value '%s' for field '%s' of type Integer !") % (
+                        line[field],
+                        field,
+                    )
                     self._log_line_error(line, msg)
                 else:
                     aml_vals[orm_field] = val
@@ -555,7 +574,7 @@ class AccountMoveLineImport(models.TransientModel):
                     val = str2float(line[field], self.decimal_separator)
                     if val is False:
                         msg = _(
-                            "Incorrect value '%s' " "for field '%s' of type Numeric !"
+                            "Incorrect value '%s' for field '%s' of type Numeric !"
                         ) % (line[field], field)
                         self._log_line_error(line, msg)
                 else:
@@ -572,9 +591,10 @@ class AccountMoveLineImport(models.TransientModel):
                 elif val in ["1", "True"]:
                     val = True
                 if isinstance(val, str):
-                    msg = _(
-                        "Incorrect value '%s' " "for field '%s' of type Boolean !"
-                    ) % (line[field], field)
+                    msg = _("Incorrect value '%s' for field '%s' of type Boolean !") % (
+                        line[field],
+                        field,
+                    )
                     self._log_line_error(line, msg)
             aml_vals[orm_field] = val
 
@@ -593,7 +613,7 @@ class AccountMoveLineImport(models.TransientModel):
                         val = False
                 if val is False:
                     msg = _(
-                        "Incorrect value '%s' " "for field '%s' of type Many2one !"
+                        "Incorrect value '%s' for field '%s' of type Many2one !"
                     ) % (line[field], field)
                     self._log_line_error(line, msg)
                 else:
@@ -640,7 +660,7 @@ class AccountMoveLineImport(models.TransientModel):
                 return
             elif len(partners) > 1:
                 msg = (
-                    _("Multiple partners with Reference " "or Name '%s' found !")
+                    _("Multiple partners with Reference or Name '%s' found !")
                     % input_val
                 )
                 self._log_line_error(line, msg)
@@ -719,10 +739,29 @@ class AccountMoveLineImport(models.TransientModel):
                 self._log_line_error(line, msg)
             elif len(analytic_accounts) > 1:
                 msg = (
-                    _("Multiple Analytic Accounts found " "that match with '%s' !")
-                    % input
+                    _("Multiple Analytic Accounts found that match with '%s' !") % input
                 )
                 self._log_line_error(line, msg)
+
+    def _handle_tax_grids(self, field, line, move, aml_vals):
+        if not aml_vals.get("tag_ids"):
+            tag_list = line[field].split(",")
+            tags = self.env["account.account.tag"]
+            for tag_name in tag_list:
+                tag = tags.search(
+                    [
+                        ("name", "=", tag_name.strip()),
+                        ("applicability", "=", "taxes"),
+                        ("country_id", "=", move.company_id.country_id.id),
+                    ]
+                )
+                if len(tag) == 1:
+                    tags |= tag
+                else:
+                    msg = _("Tax Grid '%s' not found !") % tag_name
+                    self._log_line_error(line, msg)
+            if tags:
+                aml_vals["tag_ids"] = [(6, 0, tags.ids)]
 
     def _process_line_vals(self, line, move, aml_vals):
         """

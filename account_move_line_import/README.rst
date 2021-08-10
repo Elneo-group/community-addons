@@ -69,10 +69,14 @@ This module has implemented specific support for the following fields:
 
   Specify currency code, e.g. 'USD', 'EUR', ... )
 
-- Analytic Account (or analytic_account)
+- Analytic Account
 
   Lookup logic : exact match on code,
   if not found exact match on name.
+
+- Tax Grids
+
+  Comma separated list of the Tax Grids, e.g. +81D, +86
 
 A blank column header indicates the end of the columns that will be
 processed. This allows 'comment' columns on the input lines.
