@@ -3,7 +3,7 @@
 
 {
     "name": "Belgium - Multilingual Chart of Accounts (en/nl/fr)",
-    "version": "13.0.1.0.6",
+    "version": "13.0.1.1.0",
     "license": "AGPL-3",
     "author": "Noviat",
     "website": "http://www.noviat.com",
@@ -17,12 +17,14 @@
         "base_iban",
         "account_move_line_tax_editable",
         "report_xlsx_helper",
-        #"web_tree_decoration_underline",
+        "web_tree_decoration_underline",
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/account_group_security.xml",
         "data/account_chart_template_create_data.xml",
         "data/account_tax_report_line_data.xml",
+        "data/account_group_data.xml",
         "data/account_account_template_data.xml",
         "data/account_chart_template_update_data.xml",
         "data/account_tax_group_data.xml",
