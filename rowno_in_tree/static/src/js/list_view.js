@@ -4,6 +4,7 @@ odoo.define('rowno_in_tree.ListNumber', function (require) {
 var core = require('web.core');
 var ListRenderer = require('web.ListRenderer');
 require('account.section_and_note_backend');
+var fieldRegistry = require('web.field_registry');
 var SectionAndNoteFieldOne2Many = fieldRegistry.get('section_and_note_one2many');
 var _t = core._t;
 
