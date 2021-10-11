@@ -5,137 +5,64 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 12.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-16 08:53+0000\n"
-"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
-"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/account-"
-"move-line-search-extension/nl/>\n"
-"Language: nl\n"
+"Report-Msgid-Bugs-To: support@noviat.com\n"
+"POT-Creation-Date: 2019-12-07 10:51:08.136000\n"
+"PO-Revision-Date: 2019-12-07 10:51:08.136000\n"
+"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: French\n
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 4.0.4\n"
-
-#. module: account_move_line_search_extension
-#: model:ir.model,name:account_move_line_search_extension.model_account_account
-msgid "Account"
-msgstr "Account"
 
 #. module: account_move_line_search_extension
 #. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
+#: code:addons/account_move_line_search_extension/static/src/xml/account_move_line_search_extension.xml:7
 #, python-format
 msgid "Account :"
-msgstr "Account:"
-
-#. module: account_move_line_search_extension
-#: model:ir.model.fields.selection,name:account_move_line_search_extension.selection__ir_ui_view__type__amlse
-msgid "AccountMoveLineSearchExtension"
-msgstr "AccountMoveLineSearchExtension"
-
-#. module: account_move_line_search_extension
-#: model:ir.model,name:account_move_line_search_extension.model_ir_actions_act_window
-msgid "Action Window"
-msgstr "Actie venster"
+msgstr ""
 
 #. module: account_move_line_search_extension
 #. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
-#, python-format
-msgid "Amount :"
-msgstr "Bedrag:"
-
-#. module: account_move_line_search_extension
-#. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
+#: code:addons/account_move_line_search_extension/static/src/xml/account_move_line_search_extension.xml:12
 #, python-format
 msgid "Analytic Account :"
-msgstr "Analytische rekening :"
-
-#. module: account_move_line_search_extension
-#: model:ir.model,name:account_move_line_search_extension.model_res_partner
-msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
 #. module: account_move_line_search_extension
 #. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
-#, python-format
-msgid "Date Range :"
-msgstr "Datumbereik :"
-
-#. module: account_move_line_search_extension
-#. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
+#: code:addons/account_move_line_search_extension/static/src/xml/account_move_line_search_extension.xml:21
 #, python-format
 msgid "Journal :"
-msgstr "Journaal:"
+msgstr ""
 
 #. module: account_move_line_search_extension
 #: model:ir.model,name:account_move_line_search_extension.model_account_move_line
-msgid "Journal Item"
-msgstr "Journaalitem"
-
-#. module: account_move_line_search_extension
-#: model_terms:ir.ui.view,arch_db:account_move_line_search_extension.account_move_line_view_amlse
 msgid "Journal Items"
-msgstr "Journaalitems"
+msgstr ""
 
 #. module: account_move_line_search_extension
-#: model:ir.actions.act_window,name:account_move_line_search_extension.account_move_line_action_search_extension
-#: model:ir.ui.menu,name:account_move_line_search_extension.account_move_line_menu_search_extension
+#: model:ir.actions.act_window,name:account_move_line_search_extension.action_account_move_line_search_extension
+#: model:ir.ui.menu,name:account_move_line_search_extension.menu_account_move_line_search_extension
 msgid "Journal Items Search All"
-msgstr "Journal Items Alles zoeken"
+msgstr ""
+
+#. module: account_move_line_search_extension
+#: model:ir.model,name:account_move_line_search_extension.model_res_partner
+msgid "Partner"
+msgstr "Relatie"
 
 #. module: account_move_line_search_extension
 #. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
+#: code:addons/account_move_line_search_extension/static/src/xml/account_move_line_search_extension.xml:17
 #, python-format
 msgid "Partner :"
-msgstr "Partner:"
+msgstr ""
 
 #. module: account_move_line_search_extension
 #. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
+#: code:addons/account_move_line_search_extension/static/src/xml/account_move_line_search_extension.xml:25
 #, python-format
-msgid "Reconcile :"
-msgstr "Reconcileer :"
-
-#. module: account_move_line_search_extension
-#. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
-#, python-format
-msgid "Tags :"
-msgstr "Tags:"
-
-#. module: account_move_line_search_extension
-#. openerp-web
-#: code:addons/account_move_line_search_extension/static/src/xml/amlse.xml:0
-#, python-format
-msgid "Taxes :"
-msgstr "Belastingen:"
-
-#. module: account_move_line_search_extension
-#: model_terms:ir.ui.view,arch_db:account_move_line_search_extension.account_move_line_view_amlse
-msgid "Total Credit"
-msgstr "Totaal credit"
-
-#. module: account_move_line_search_extension
-#: model_terms:ir.ui.view,arch_db:account_move_line_search_extension.account_move_line_view_amlse
-msgid "Total Debit"
-msgstr "Totaal debit"
-
-#. module: account_move_line_search_extension
-#: model:ir.model,name:account_move_line_search_extension.model_ir_ui_view
-msgid "View"
-msgstr "Bekijken"
-
-#. module: account_move_line_search_extension
-#: model:ir.model.fields,field_description:account_move_line_search_extension.field_ir_ui_view__type
-msgid "View Type"
-msgstr "Bekijk type"
-
-#~ msgid "Partner"
-#~ msgstr "Relatie"
+msgid "Period :"
+msgstr ""
