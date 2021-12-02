@@ -43,6 +43,11 @@ class MergePurchaseOrder(models.TransientModel):
         }).create({'partner_id': partner})
         po.onchange_partner_id()
         po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p: p.origin)))
+        pick_type_id = purchase_orders.mapped('picking_type_id')
+        dest_address_id = purchase_orders.mapped('dest_address_id')
+        if len(pick_type_id) == 1 and len(dest_address_id) == 1:
+            po.picking_type_id = pick_type_id.id
+            po.dest_address_id = dest_address_id.id
         default = {'order_id': po.id}
         for order in purchase_orders:
             for sale in order.sale_ids:
