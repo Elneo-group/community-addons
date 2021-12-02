@@ -5,182 +5,81 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-16 08:53+0000\n"
-"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
-"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/account-"
-"bank-statement-advanced/nl/>\n"
-"Language: nl\n"
+"Report-Msgid-Bugs-To: support@noviat.com\n"
+"POT-Creation-Date: 2021-09-21 21:52:00.364000\n"
+"PO-Revision-Date: 2021-09-21 21:52:00.364000\n"
+"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: Dutch\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 4.0.4\n"
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "&amp;nbsp;"
-msgstr "&amp;nbsp;"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "<span>Bank Statement Balances Report</span>"
-msgstr "<span>Rapport bankafschriften</span>"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "<span>Total</span>"
-msgstr "<span>Totaal</span>"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__amount
-msgid "Amount"
-msgstr "Bedrag"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Amount < 0"
-msgstr "Bedrag < 0"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Amount > 0"
-msgstr "Bedrag > 0"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_move_line__asset_profile_id
-msgid "Asset Profile"
-msgstr "Vermogensprofiel"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_tree
+msgid "Total Amount"
+msgstr "Totaal bedrag"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_form
-msgid "Automatic Reconcile"
-msgstr "Automatische reconciliatie"
+msgid "Glob. Id"
+msgstr "Glob. Id"
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_automatic_reconcile_result_view_form
-msgid "Automatic Reconcile Result View"
-msgstr "Automatische reconciliatie - weergeven resultaat"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/models/account_bank_statement.py:0
-#: code:addons/account_bank_statement_advanced/models/account_bank_statement_line.py:0
-#, python-format
-msgid "Automatic Reconcile remarks:"
-msgstr "Automatische reconciliatie opmerkingen:"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_res_partner_bank
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_res_company__bank_ids
-msgid "Bank Accounts"
-msgstr "Bankrekeningen"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_account_bank_statement
-msgid "Bank Statement"
-msgstr "Bank transacties"
-
-#. module: account_bank_statement_advanced
-#: model:ir.actions.act_window,name:account_bank_statement_advanced.bank_statement_balance_print_action
-#: model:ir.actions.report,name:account_bank_statement_advanced.statement_balance_report_action
-#: model:ir.model,name:account_bank_statement_advanced.model_bank_statement_balance_print
-#: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_advanced_statement_balance_report
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "Bank Statement Balances Report"
-msgstr "Saldi bankafschriften"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_account_bank_statement_line
-msgid "Bank Statement Line"
-msgstr "Bank transacties"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__bank_statement_line_ids
-msgid "Bank Statement Lines"
-msgstr "Bank transacties"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
+msgid "Glob. Am."
+msgstr "Glob. bedrag"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Bank Transaction"
-msgstr "Bank transactie"
+msgid "Glob. Amount"
+msgstr "Glob. bedrag"
 
 #. module: account_bank_statement_advanced
-#: model:ir.ui.menu,name:account_bank_statement_advanced.account_bank_statement_line_menu
-msgid "Bank Transactions"
-msgstr "Bank transacties"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Notes"
+msgstr "Notities"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_res_company__bank_ids
-msgid "Bank accounts related to this company"
-msgstr "Bank accounts in relatie tot dit bedrijf"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Search Bank Transactions"
+msgstr "Transacties zoeken"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_account_bank_statement_line_global
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.account_bank_statement_line_global_view_form
-msgid "Batch Payment Info"
-msgstr "Batch betalingsinfo"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Debit"
+msgstr "Debet"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__coda
-msgid "CODA"
-msgstr "CODA"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Credit"
+msgstr "Credit"
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-msgid "Cancel"
-msgstr "Annuleren"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Debit Transactions."
+msgstr "Debet transacties."
 
 #. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_cancel_statement_line
-msgid "Cancel selected statement lines"
-msgstr "Annuleer geselecteerde overzichtregels"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Credit Transactions."
+msgstr "Credit transacties."
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.account_bank_statement_line_global_view_form
-msgid "Child Batch Payments"
-msgstr "Subbatch betalingen"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Extended Filters..."
+msgstr "Uitgebreide filters..."
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__child_ids
-msgid "Child Codes"
-msgstr "Subcodes"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Group By..."
+msgstr "Groepeer op..."
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Closing Balance"
-msgstr "Saldo"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__code
-msgid "Code"
-msgstr "Code"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_id
-msgid ""
-"Code to identify transactions belonging to the same globalisation level "
-"within a batch payment"
-msgstr ""
-"Code om transacties te identificeren die tot hetzelfde globalisatieniveau "
-"behoren binnen een batchbetaling"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_res_company
-msgid "Companies"
-msgstr "Bedrijven"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__company_id
-msgid "Company"
-msgstr "Bedrijf"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_confirm_statement_line
-msgid "Confirm selected statement lines"
-msgstr "Bevestig geselecteerde afschriftregels"
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Draft"
+msgstr "Concept"
 
 #. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
@@ -188,9 +87,29 @@ msgid "Confirmed"
 msgstr "Bevestigd"
 
 #. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
+msgid "Journal"
+msgstr "Dagboek"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
+msgid "Statement"
+msgstr "Uitreksel"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
+msgid "Fin.Account"
+msgstr "Grootboekrekening"
+
+#. module: account_bank_statement_advanced
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Confirmed Statement Lines"
-msgstr "Bevestigde afschriftregels"
+msgid "Draft Statement Lines."
+msgstr "Concept transacties."
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
+msgid "Confirmed Statement Lines."
+msgstr "Bevestigde transacties."
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__counterparty_bic
@@ -203,93 +122,14 @@ msgid "Counterparty Currency"
 msgstr "Munteenheid tegenpartij"
 
 #. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__counterparty_name
+msgid "Counterparty Name"
+msgstr "Naam tegenpartij"
+
+#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__counterparty_number
 msgid "Counterparty Number"
 msgstr "Nummer tegenpartij"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__create_uid
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__create_uid
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__create_uid
-msgid "Created by"
-msgstr "Aangemaakt door"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__create_date
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__create_date
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__create_date
-msgid "Created on"
-msgstr "Aangemaakt op"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Credit"
-msgstr "Credit"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__creditor_reference
-msgid "Creditor Reference"
-msgstr "Crediteur referentie"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__creditor_reference_type
-msgid "Creditor Reference Type"
-msgstr "Crediteur referentie type"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__creditor_reference_type
-msgid ""
-"Creditor Reference Type. For SEPA (SCT) transactions, the <CdtrRefInf> type "
-"is recorded in this field.\n"
-"E.g. 'BBA' for belgian structured communication (Code 'SCOR', Issuer 'BBA'"
-msgstr ""
-"Crediteur referentie type.  Voor SEPA-transacties (SCT) wordt het type "
-"<CdtrRefInf> in dit veld geregistreerd.\n"
-"Bijv. \"BBA\" voor Belgische gestructureerde mededeling (Code \"SCOR\", "
-"emittent \"BBA\")."
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__creditor_reference
-msgid ""
-"Creditor Reference. For SEPA (SCT) transactions, the <CdtrRefInf> reference "
-"is recorded in this field."
-msgstr ""
-"Crediteur referentie. Voor SEPA (SCT) transacties, de <CdtrRefInf> "
-"referentie wordt geregistreerd in dit veld."
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__currency_id
-msgid "Currency"
-msgstr "Valuta"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__date_balance
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Date"
-msgstr "Datum"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Debit"
-msgstr "Debet"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__display_name
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__display_name
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__display_name
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_report_account_bank_statement_advanced_statement_balance_report__display_name
-msgid "Display Name"
-msgstr "Naam weergeven"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Draft"
-msgstr "Concept"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Draft Statement Lines"
-msgstr "Concept afschriftregels"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__date
@@ -297,26 +137,9 @@ msgid "Entry Date"
 msgstr "Boekingsdatum"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__journal_ids
-msgid "Financial Journal(s)"
-msgstr "Journa(a)l(en) - financieel"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement__foreign_currency
-msgid "Foreign Currency"
-msgstr "Vreemde valuta"
-
-#. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_amount
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
 msgid "Glob. Amount"
 msgstr "Glob. bedrag"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Glob. Id"
-msgstr "Glob. Id"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__globalisation_id
@@ -324,321 +147,9 @@ msgid "Globalisation ID"
 msgstr "Globalisatie ID"
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Group By"
-msgstr "Groepeer per"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__id
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__id
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__id
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_report_account_bank_statement_advanced_statement_balance_report__id
-msgid "ID"
-msgstr "ID"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__iso20022
-msgid "ISO 20022"
-msgstr "ISO 20022"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_tree
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__journal_id
 msgid "Journal"
-msgstr "Journaal"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__journal_code
-msgid "Journal Code"
-msgstr "Journaal code"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/models/account_bank_statement_line.py:0
-#: model:ir.model,name:account_bank_statement_advanced.model_account_move
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_form
-#, python-format
-msgid "Journal Entries"
-msgstr "Journaalposten"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_account_move_line
-msgid "Journal Item"
-msgstr "Journaalitem"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "Keep empty for using all journals"
-msgstr "Leeg houden voor gebruik van alle journaals"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global____last_update
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view____last_update
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print____last_update
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_report_account_bank_statement_advanced_statement_balance_report____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__write_uid
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__write_uid
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__write_uid
-msgid "Last Updated by"
-msgstr "Laatst bijgewerkt door"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__write_date
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__write_date
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_balance_print__write_date
-msgid "Last Updated on"
-msgstr "Laatst bijgewerkt op"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__manual
-msgid "Manual"
-msgstr "Manueel"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_form
-msgid "Manual Reconcile"
-msgstr "Manueel Reconciliëren"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_move_line__move_state
-msgid "Move State"
-msgstr "Verplaatsing status"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-msgid "Moves"
-msgstr "Verplaatsingen"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__moves_state
-msgid "Moves State"
-msgstr "Verplaatsing status"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
-msgid "Name"
-msgstr "Naam"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "No Moves"
-msgstr "Geen verplaatsingen"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/report/statement_balance_report.py:0
-#, python-format
-msgid "No financial journals found for your company!"
-msgstr "Geen financiële journalen gevonden voor dit bedrijf!"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/report/statement_balance_report.py:0
-#, python-format
-msgid "No records found for your selection!"
-msgstr "Geen records gevonden voor deze selectie!"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_bank_statement_automatic_reconcile_result_view__note
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_form
-msgid "Notes"
-msgstr "Notities"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__name
-msgid "OBI"
-msgstr "OBI"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_automatic_reconcile_result_view_form
-msgid "Ok"
-msgstr "OK"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/models/account_move_line.py:0
-#, python-format
-msgid ""
-"Operation not allowed ! \n"
-"You cannot delete an Accounting Entry that is linked to a Confirmed Bank "
-"Statement."
-msgstr ""
-"Verrichting niet toegestaan ! \n"
-"U kunt een boekingsitem dat gekoppeld is aan een bevestigd bankafschrift "
-"niet verwijderen."
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/models/account_move_line.py:0
-#, python-format
-msgid ""
-"Operation not allowed ! \n"
-"You cannot modify an Accounting Entry that is linked to a Confirmed Bank "
-"Statement. \n"
-"Statement = %s\n"
-"Move = %s (id:%s)\n"
-"Update Values = %s"
-msgstr ""
-"Verrichting niet toegestaan ! \n"
-"U kunt een boekingsitem dat gekoppeld is aan een bevestigd bankafschrift "
-"niet wijzigen. \n"
-"Bankafschrift = %s\n"
-"Verplaatsing = %s (id:%s)\n"
-"Waarden bijwerken = %s"
-
-#. module: account_bank_statement_advanced
-#: code:addons/account_bank_statement_advanced/models/account_move.py:0
-#, python-format
-msgid ""
-"Operation not allowed ! \n"
-"You cannot unpost an Accounting Entry that is linked to a Confirmed Bank "
-"Statement."
-msgstr ""
-"Verrichting niet toegestaan ! \n"
-"U kunt een boeking die gekoppeld is aan een bevestigd bankafschrift niet "
-"ongedaan maken."
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line_global__name
-msgid "Originator to Beneficiary Information"
-msgstr "Informatie tussen opdrachtgever en begunstigde"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__parent_id
-msgid "Parent Code"
-msgstr "Bovenliggende code"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__partner_id
-msgid "Partner"
-msgstr "Partner"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__payment_reference
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__payment_reference
-msgid "Payment Reference"
-msgstr "Betaalreferte"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__payment_reference
-msgid ""
-"Payment Reference. For SEPA (SCT or SDD) transactions, the EndToEndReference "
-"is recorded in this field."
-msgstr ""
-"Betalingsreferentie. Voor SEPA (SCT of SDD) transacties wordt de "
-"EndToEndReference in dit veld geregistreerd."
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line_global__payment_reference
-msgid ""
-"Payment Reference. For SEPA (SCT or SDD) transactions, the "
-"PaymentInformationIdentification is recorded in this field."
-msgstr ""
-"Betalingsreferentie. Voor SEPA (SCT of SDD) transacties wordt in dit veld de "
-"Betalingsinformatie-identificatie opgenomen."
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line__moves_state__posted
-msgid "Posted"
-msgstr "Geplaatst"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "Print"
-msgstr "Printen"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_automatic_reconcile_result_view_form
-msgid "Results :"
-msgstr "Resultaten:"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_form
-msgid "Revert reconciliation"
-msgstr "Reconciliatie terugdraaien"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "Select Balance Date"
-msgstr "Kies de balansdatum"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "Select Financial Journals"
-msgstr "Selecteer financiële journaals"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_bank_statement_balance_print__journal_ids
-msgid ""
-"Select here the Financial Journal(s) you want to include in your Bank "
-"Statement Balances Report."
-msgstr ""
-"Selecteer hier het (de) Financieel(e) Journaal(s) dat (die) u wilt opnemen "
-"in uw Rapport Balans Bankafschriften."
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Statement"
-msgstr "Uitreksel"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__statement_date
-msgid "Statement Date"
-msgstr "Datum uitreksel"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_form
-msgid "Statement Line"
-msgstr "Uitreksellijn"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_search
-msgid "Statement Lines without Journal Entreis"
-msgstr "Uitreksels zonder journaalposten"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__state
-msgid "Status"
-msgstr "Status"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.constraint,message:account_bank_statement_advanced.constraint_account_bank_statement_line_global_code_uniq
-msgid "The code must be unique !"
-msgstr "De code moet uniek zijn!"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,help:account_bank_statement_advanced.field_account_bank_statement_line__journal_code
-msgid "The journal entries of this journal will be named using this prefix."
-msgstr ""
-"De journaalposten van dit journaal zullen met deze prefix worden benoemd."
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.view_bank_statement_line_tree
-msgid "Total Amount"
-msgstr "Totaal bedrag"
-
-#. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.account_bank_statement_line_global_view_form
-msgid "Transactions"
-msgstr "Transacties"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_bank_statement_automatic_reconcile_result_view
-msgid "Transient Model to display Automatic Reconcile results"
-msgstr "Model om automatisch de resultaten te tonen"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__type
-msgid "Type"
-msgstr "Type"
-
-#. module: account_bank_statement_advanced
-#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line__moves_state__draft
-msgid "Unposted"
-msgstr "Niet gepost"
+msgstr "Dagboek"
 
 #. module: account_bank_statement_advanced
 #: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__val_date
@@ -646,52 +157,107 @@ msgid "Value Date"
 msgstr "Valutadatum"
 
 #. module: account_bank_statement_advanced
-#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.bank_statement_balance_print_view_form
-msgid "or"
-msgstr "of"
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line__payment_reference
+msgid "Payment Reference"
+msgstr "Betaalreferte"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_advanced_report_statement_balances
-msgid "report.account_bank_statement_advanced.report_statement_balances"
-msgstr "report.account_bank_statement_advanced.report_statement_balances"
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__amount
+msgid "Amount"
+msgstr "Bedrag"
 
 #. module: account_bank_statement_advanced
-#: model:ir.model,name:account_bank_statement_advanced.model_report_account_bank_statement_extensions_report_bankstatementbalance
-msgid "report.account_bank_statement_extensions.report_bankstatementbalance"
-msgstr "report.account_bank_statement_extensions.report_bankstatementbalance"
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__bank_statement_line_ids
+msgid "Bank Statement Lines"
+msgstr "Bank transacties"
 
-#~ msgid "Glob. Am."
-#~ msgstr "Glob. bedrag"
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__child_ids
+msgid "Child Codes"
+msgstr "Subcodes"
 
-#~ msgid "Search Bank Transactions"
-#~ msgstr "Transacties zoeken"
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__code
+msgid "Code"
+msgstr "Code"
 
-#~ msgid "Debit Transactions."
-#~ msgstr "Debet transacties."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__name
+msgid "Name"
+msgstr "Naam"
 
-#~ msgid "Credit Transactions."
-#~ msgstr "Credit transacties."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__payment_reference
+msgid "Payment Reference"
+msgstr "Betaalreferte"
 
-#~ msgid "Extended Filters..."
-#~ msgstr "Uitgebreide filters..."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__parent_id
+msgid "Parent Code"
+msgstr "Bovenliggende code"
 
-#~ msgid "Group By..."
-#~ msgstr "Groepeer op..."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_account_bank_statement_line_global__type
+msgid "Type"
+msgstr "Type"
 
-#~ msgid "Fin.Account"
-#~ msgstr "Grootboekrekening"
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__manual
+msgid "Manual"
+msgstr "Manueel"
 
-#~ msgid "Draft Statement Lines."
-#~ msgstr "Concept transacties."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__coda
+msgid "CODA"
+msgstr "CODA"
 
-#~ msgid "Confirmed Statement Lines."
-#~ msgstr "Bevestigde transacties."
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields.selection,name:account_bank_statement_advanced.selection__account_bank_statement_line_global__type__iso20022
+msgid "ISO 20022"
+msgstr "ISO 20022"
 
-#~ msgid "Counterparty Name"
-#~ msgstr "Naam tegenpartij"
+#. module: account_bank_statement_advanced
+#: model:ir.actions.act_window,name:account_bank_statement_advanced.action_bank_statement_line
+msgid "Bank Statement Lines"
+msgstr "Bank transacties"
 
-#~ msgid "Company Banks"
-#~ msgstr "Bankrekeningen"
+#. module: account_bank_statement_advanced
+#: model:ir.ui.menu,name:account_bank_statement_advanced.account_bank_statement_line_menu
+msgid "Bank Transactions"
+msgstr "Bank transacties"
 
-#~ msgid "Total"
-#~ msgstr "Totaal"
+#. module: account_bank_statement_advanced
+#: model:ir.model.fields,field_description:account_bank_statement_advanced.field_res_company__bank_ids
+msgid "Company Banks"
+msgstr "Bankrekeningen"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Bank Statement Balances Report"
+msgstr "Saldi bankafschriften"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Name"
+msgstr "Naam"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Date"
+msgstr "Datum"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Journal"
+msgstr "Dagboek"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Closing Balance"
+msgstr "Saldo"
+
+#. module: account_bank_statement_advanced
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_advanced.statement_balance_report
+msgid "Total"
+msgstr "Totaal"
+

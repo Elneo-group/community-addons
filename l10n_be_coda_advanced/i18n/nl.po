@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 13.0\n"
 "Report-Msgid-Bugs-To: support@noviat.com\n"
-"POT-Creation-Date: 2020-09-19 20:32:54.758000\n"
-"PO-Revision-Date: 2021-06-16 08:53+0000\n"
-"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
-"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/"
-"l10n-be-coda-advanced/nl/>\n"
-"Language: nl\n"
+"POT-Creation-Date: 2021-09-22 19:00:42.979000\n"
+"PO-Revision-Date: 2021-09-22 19:00:42.979000\n"
+"Last-Translator: Luc De Meyer (Noviat nv/sa)\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: Dutch\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 4.0.4\n"
 
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.view_bank_statement_form
@@ -216,7 +214,7 @@ msgstr "Alternatieve omschrijving van de rekening"
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_journal_id
 msgid "Journal"
-msgstr "Journaal"
+msgstr "Dagboek"
 
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_bank_id
@@ -251,7 +249,7 @@ msgstr "Actief"
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_company_id
 msgid "Company"
-msgstr "Bedrijf"
+msgstr "Bedrijfsnaam"
 
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account_state
@@ -276,17 +274,12 @@ msgstr "Selecteer details"
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Select your file :"
-msgstr "Selecteer jouw bestand:"
-
-#. module: l10n_be_coda_advanced
-#: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
-msgid "Import CODA File"
-msgstr "Importeer CODA bestand"
+msgstr "Selecteer uw bestand:"
 
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Annuleer"
 
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
@@ -296,7 +289,7 @@ msgstr "Importeer"
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_result
 msgid "Results :"
-msgstr "Resultaten:"
+msgstr "Resultaat :"
 
 #. module: l10n_be_coda_advanced
 #: model_terms:ir.ui.view,arch_db:l10n_be_coda_advanced.account_coda_import_view_form_import
@@ -1031,7 +1024,7 @@ msgstr "Importeer CODA bestand"
 #. module: l10n_be_coda_advanced
 #: model:ir.actions.wizard,name:l10n_be_coda_advanced.wizard_account_coda_action_ac
 msgid "Import CODA File"
-msgstr "CODA-bestand importeren"
+msgstr "Importeer CODA bestand"
 
 #. module: l10n_be_coda_advanced
 #: model:ir.ui.menu,name:l10n_be_coda_advanced.menu_coda_processing
@@ -1046,7 +1039,7 @@ msgstr "Importeer CODA bestanden"
 #. module: l10n_be_coda_advanced
 #: model:ir.ui.menu,name:l10n_be_coda_advanced.coda_bank_account_menu
 msgid "CODA Bank Account Configuration"
-msgstr "CODA Bankrekening configuratie"
+msgstr "CODA bankrekening instellingen"
 
 #. module: l10n_be_coda_advanced
 #: model:ir.ui.menu,name:l10n_be_coda_advanced.account_coda_comm_type_menu
@@ -3956,7 +3949,7 @@ msgstr "nummer van de kredietkaart"
 #. module: l10n_be_coda_advanced
 #: model:account.coda.comm.type,description:l10n_be_coda_advanced.acct_125
 msgid "Credit"
-msgstr "Credit"
+msgstr "krediet"
 
 #. module: l10n_be_coda_advanced
 #: model:account.coda.comm.type,description:l10n_be_coda_advanced.acct_126
@@ -3967,3 +3960,4 @@ msgstr "termijnbeleggingen"
 #: model:account.coda.comm.type,description:l10n_be_coda_advanced.acct_127
 msgid "European direct debit (SEPA)"
 msgstr "europese domicilëring"
+

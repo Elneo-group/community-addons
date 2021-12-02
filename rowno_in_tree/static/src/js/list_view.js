@@ -11,7 +11,6 @@ var _t = core._t;
 ListRenderer.include({
 	_getNumberOfCols: function () {
 		var columns = this._super();
-		columns +=1;
 		return columns;
     },
     _renderFooter: function (isGrouped) {
@@ -94,33 +93,5 @@ ListRenderer.include({
     	
     },
     
-}); 
-
-SectionAndNoteFieldOne2Many.include({
-        _renderBodyCell: function (record, node, index, options) {
-	    var $cell = this._super.apply(this, arguments);
-	    var isSection = record.data.display_type === 'line_section';
-        var isNote = record.data.display_type === 'line_note';
-        if (isSection || isNote) {
-            if (node.attrs.widget === "handle") {
-                return $cell;
-            } else if (node.attrs.name === "name") {
-                var nbrColumns = this._getNumberOfCols();
-                nbrColumns--;
-                if (this.handleField) {
-                    nbrColumns--;
-                }
-                if (this.addTrashIcon) {
-                    nbrColumns--;
-                }
-                $cell.attr('colspan', nbrColumns);
-            } else {
-                $cell.removeClass('o_invisible_modifier');
-                return $cell.addClass('o_hidden');
-            }
-        }
-        return $cell;
-    },
-})
-
+});
 });
