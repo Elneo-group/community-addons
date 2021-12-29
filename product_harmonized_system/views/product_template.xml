@@ -11,7 +11,7 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
-            <group name="group_general" position="inside">
+            <field name="company_id" position="before">
                 <field
                     name="hs_code_id"
                     attrs="{'invisible': [('type', '=', 'service')]}"
@@ -20,7 +20,11 @@
                     name="origin_country_id"
                     attrs="{'invisible': [('type', '=', 'service')]}"
                 />
-            </group>
+                <field
+                    name="origin_state_id"
+                    attrs="{'invisible': [('type', '=', 'service')]}"
+                />
+            </field>
         </field>
     </record>
 </odoo>
