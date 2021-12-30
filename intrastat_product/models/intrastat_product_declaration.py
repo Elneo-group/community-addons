@@ -83,7 +83,7 @@ class IntrastatProductDeclaration(models.Model):
         compute="_compute_year_month",
         string="Period",
         readonly=True,
-        track_visibility="onchange",
+        tracking=True,
         store=True,
         help="Year and month of the declaration.",
     )
@@ -92,7 +92,7 @@ class IntrastatProductDeclaration(models.Model):
         string="Type",
         required=True,
         states={"done": [("readonly", True)]},
-        track_visibility="onchange",
+        tracking=True,
         help="Select the declaration type.",
     )
     action = fields.Selection(
@@ -101,7 +101,7 @@ class IntrastatProductDeclaration(models.Model):
         required=True,
         default="replace",
         states={"done": [("readonly", True)]},
-        track_visibility="onchange",
+        tracking=True,
     )
     revision = fields.Integer(
         string="Revision",
@@ -125,7 +125,7 @@ class IntrastatProductDeclaration(models.Model):
         compute="_compute_numbers",
         string="Number of Declaration Lines",
         store=True,
-        track_visibility="onchange",
+        tracking=True,
     )
     total_amount = fields.Integer(
         compute="_compute_numbers",
@@ -140,7 +140,7 @@ class IntrastatProductDeclaration(models.Model):
         selection=[("draft", "Draft"), ("done", "Done")],
         string="State",
         readonly=True,
-        track_visibility="onchange",
+        tracking=True,
         copy=False,
         default="draft",
         help="State of the declaration. When the state is set to 'Done', "
@@ -344,16 +344,6 @@ class IntrastatProductDeclaration(models.Model):
 
         return weight, suppl_unit_qty
 
-    def _get_amount(self, inv_line):
-        invoice = inv_line.move_id
-        amount = invoice.currency_id._convert(
-            inv_line.price_subtotal,
-            self.company_id.currency_id,
-            self.company_id,
-            invoice.date,
-        )
-        return amount
-
     def _get_region(self, inv_line):
         """
         For supplier invoices/refunds: if the invoice line is linked
@@ -421,8 +411,22 @@ class IntrastatProductDeclaration(models.Model):
             self._account_config_warning(msg)
         return incoterm
 
-    def _get_product_origin_country(self, inv_line):
-        return inv_line.product_id.origin_country_id
+    def _get_product_origin_country_code(self, inv_line, product_origin_country):
+        product_origin_country_code = "QU"
+        if product_origin_country.code:
+            product_origin_country_code = product_origin_country.code
+            year = self.year or str(inv_line.move_id.date.year)
+            if year >= "2021":
+                if (
+                    hasattr(inv_line.product_id, "origin_state_id")
+                    and inv_line.product_id.origin_state_id
+                    and inv_line.product_id.origin_state_id.name.lower()
+                    == "northern ireland"
+                ):
+                    product_origin_country_code = "XI"
+                elif inv_line.product_id.origin_country_id.code == "GB":
+                    product_origin_country_code = "XU"
+        return product_origin_country_code
 
     def _update_computation_line_vals(self, inv_line, line_vals):
         """ placeholder for localization modules """
@@ -473,6 +477,8 @@ class IntrastatProductDeclaration(models.Model):
         Complete this method in the localization module
         with the country-specific logic for arrivals and dispatches.
         Cf. l10n_be_intrastat_product_declaration for an example
+        The dates are based on account.move,date in stead of invoice_date
+        to ensure consistency between intrastat and intracomm tax declaration.
         """
         start_date = date(int(self.year), int(self.month), 1)
         end_date = start_date + relativedelta(day=1, months=+1, days=-1)
@@ -482,6 +488,7 @@ class IntrastatProductDeclaration(models.Model):
             ("state", "=", "posted"),
             ("intrastat_country", "=", True),
             ("company_id", "=", self.company_id.id),
+            ("type", "!=", "entry"),
         ]
         return domain
 
@@ -538,7 +545,7 @@ class IntrastatProductDeclaration(models.Model):
                         inv_line.price_subtotal,
                         self.company_id.currency_id,
                         self.company_id,
-                        invoice.date_invoice,
+                        invoice.date,
                     )
                     total_inv_accessory_costs_cc += acost
 
@@ -604,15 +611,18 @@ class IntrastatProductDeclaration(models.Model):
                     )
                 total_inv_weight += weight
 
-                amount_company_currency = self._get_amount(inv_line)
+                amount_company_currency = -inv_line.balance
                 total_inv_product_cc += amount_company_currency
 
                 if inv_intrastat_line:
-                    product_origin_country = (
-                        inv_intrastat_line.product_origin_country_id
+                    product_origin_country_code = (
+                        inv_intrastat_line.product_origin_country_code
                     )
                 else:
-                    product_origin_country = self._get_product_origin_country(inv_line)
+                    product_origin_country = inv_line.product_id.origin_country_id
+                    product_origin_country_code = self._get_product_origin_country_code(
+                        inv_line, product_origin_country
+                    )
 
                 region = self._get_region(inv_line)
 
@@ -627,7 +637,7 @@ class IntrastatProductDeclaration(models.Model):
                     "amount_company_currency": amount_company_currency,
                     "amount_accessory_cost_company_currency": 0.0,
                     "transaction_id": intrastat_transaction.id,
-                    "product_origin_country_id": product_origin_country.id or False,
+                    "product_origin_country_code": product_origin_country_code,
                     "region_id": region and region.id or False,
                 }
 
@@ -740,8 +750,7 @@ class IntrastatProductDeclaration(models.Model):
             "transaction": computation_line.transaction_id.id or False,
             "transport": computation_line.transport_id.id or False,
             "region": computation_line.region_id.id or False,
-            "product_origin_country": computation_line.product_origin_country_id.id
-            or False,
+            "product_origin_country_code": computation_line.product_origin_country_code,
         }
 
     def group_line_hashcode(self, computation_line):
@@ -759,7 +768,7 @@ class IntrastatProductDeclaration(models.Model):
             "transport_id": computation_line.transport_id.id,
             "region_id": computation_line.region_id.id,
             "parent_id": computation_line.parent_id.id,
-            "product_origin_country_id": computation_line.product_origin_country_id.id,
+            "product_origin_country_code": computation_line.product_origin_country_code,
             "amount_company_currency": 0.0,
         }
         for field in fields_to_sum:
@@ -969,14 +978,25 @@ class IntrastatProductComputationLine(models.Model):
         "intrastat.transaction", string="Intrastat Transaction"
     )
     region_id = fields.Many2one("intrastat.region", string="Intrastat Region")
-    # extended declaration
-    incoterm_id = fields.Many2one("account.incoterms", string="Incoterm")
-    transport_id = fields.Many2one("intrastat.transport_mode", string="Transport Mode")
+    # product_origin_country_id is replaced by product_origin_country_code
+    # this field should be dropped once the localisation modules have been
+    # adapted accordingly
     product_origin_country_id = fields.Many2one(
         "res.country",
         string="Country of Origin of the Product",
         help="Country of origin of the product i.e. product 'made in ____'",
     )
+    product_origin_country_code = fields.Char(
+        string="Country of Origin of the Product",
+        required=True,
+        default="QU",
+        help="2 digit code of country of origin of the product except for the UK.\n"
+        "Specify 'XI' for UK Northern Ireland and 'XU' for rest of the UK.\n"
+        "Specify 'QU' when the country is unknown.\n",
+    )
+    # extended declaration
+    incoterm_id = fields.Many2one("account.incoterms", string="Incoterm")
+    transport_id = fields.Many2one("intrastat.transport_mode", string="Transport Mode")
 
     @api.depends("transport_id")
     def _compute_check_validity(self):
@@ -1049,11 +1069,22 @@ class IntrastatProductDeclarationLine(models.Model):
         "intrastat.transaction", string="Intrastat Transaction"
     )
     region_id = fields.Many2one("intrastat.region", string="Intrastat Region")
-    # extended declaration
-    incoterm_id = fields.Many2one("account.incoterms", string="Incoterm")
-    transport_id = fields.Many2one("intrastat.transport_mode", string="Transport Mode")
+    # product_origin_country_id is replaced by product_origin_country_code
+    # this field should be dropped once the localisation modules have been
+    # adapted accordingly
     product_origin_country_id = fields.Many2one(
         "res.country",
         string="Country of Origin of the Product",
         help="Country of origin of the product i.e. product 'made in ____'",
     )
+    product_origin_country_code = fields.Char(
+        string="Country of Origin of the Product",
+        required=True,
+        default="QU",
+        help="2 digit code of country of origin of the product except for the UK.\n"
+        "Specify 'XI' for UK Northern Ireland and 'XU' for rest of the UK.\n"
+        "Specify 'QU' when the country is unknown.\n",
+    )
+    # extended declaration
+    incoterm_id = fields.Many2one("account.incoterms", string="Incoterm")
+    transport_id = fields.Many2one("intrastat.transport_mode", string="Transport Mode")

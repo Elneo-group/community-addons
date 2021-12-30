@@ -10,6 +10,7 @@ class IntrastatTransaction(models.Model):
     _name = "intrastat.transaction"
     _description = "Intrastat Transaction"
     _order = "code"
+    _rec_name = "code"
     _sql_constraints = [
         (
             "intrastat_transaction_code_unique",
@@ -25,6 +26,7 @@ class IntrastatTransaction(models.Model):
         string="Company",
         default=lambda self: self._default_company_id(),
     )
+    active = fields.Boolean(default=True)
 
     @api.model
     def _default_company_id(self):
