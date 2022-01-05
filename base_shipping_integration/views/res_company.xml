@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_mail_configuration" model="ir.ui.view">
+        <field name="name">Configuration</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Automail Configuration">
+                    <group>
+
+                        <field name="is_automatic_shipment_mail"/>
+                        <field name="mail_template_id"
+                               attrs="{'invisible': [('is_automatic_shipment_mail', '=', False)]}"/>
+
+
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

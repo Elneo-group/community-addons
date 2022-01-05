@@ -1,0 +1,29 @@
+<odoo>
+    <record id="tnt_configuration" model="ir.ui.view">
+        <field name="name">TNT Configuration</field>
+        <field name="model">res.company</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="TNT Configuration">
+                    <group>
+                        <group>
+                            <field name="use_tnt_shipping_provider"/>
+                            <field name="tnt_company"
+                                   attrs="{'invisible': [('use_tnt_shipping_provider','=',False)],'required': [('use_tnt_shipping_provider','!=',False)]}"/>
+                            <field name="tnt_password"
+                                   attrs="{'invisible': [('use_tnt_shipping_provider','=',False)],'required': [('use_tnt_shipping_provider','!=',False)]}"/>
+                            <field name="tnt_account_number"
+                                   attrs="{'invisible': [('use_tnt_shipping_provider','=',False)],'required': [('use_tnt_shipping_provider','!=',False)]}"/>
+                            <field name="tnt_app_id"
+                                   attrs="{'invisible': [('use_tnt_shipping_provider','=',False)],'required': [('use_tnt_shipping_provider','!=',False)]}"/>
+                            <field name="tnt_api_url"
+                                   attrs="{'invisible': [('use_tnt_shipping_provider','=',False)],'required': [('use_tnt_shipping_provider','!=',False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
