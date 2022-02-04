@@ -82,10 +82,18 @@ ListRenderer.include({
     	return $header;
     },
     _renderRow: function (record) {
+        console.log(this);
     	var $row = this._super(record);
     	if (this.mode !== 'edit' && this.state.groupedBy.length==0){
 	    	var index = this.state.data.findIndex(function(e){return record.id===e.id})
-	    	if (index!==-1){
+	    	if (index > 0) {
+	    	    var prev_data = this.state.data[index-1];
+	    	    if (prev_data.data.display_type) {
+	    	        index -= 1;
+	    	    }
+	    	}
+	    	
+	    	if (index!==-1 && !record.data.display_type){
 	    		$row.prepend($("<th class='o_list_row_count_sheliya'>").html(index+1));
 	    	}
     	}
