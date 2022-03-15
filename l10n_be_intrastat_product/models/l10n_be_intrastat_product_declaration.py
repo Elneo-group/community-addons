@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2021 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -38,9 +38,19 @@ class L10nBeIntrastatProductDeclaration(models.Model):
 
     def _get_intrastat_transaction(self, inv_line):
         transaction = super()._get_intrastat_transaction(inv_line)
-        if not transaction:
+        msg1 = _("Select a 1 digit intrastat transaction code.")
+        msg2 = _("Select a 2 digit intrastat transaction code.")
+        if transaction:
+            if int(transaction.code) >= 10 and self.year <= "2021":
+                self._note += self._format_line_note(inv_line, self._line_nbr, [msg1])
+            elif int(transaction.code) < 10 and self.year > "2021":
+                self._note += self._format_line_note(inv_line, self._line_nbr, [msg2])
+        else:
             module = __name__.split("addons.")[1].split(".")[0]
-            transaction = self.env.ref("%s.intrastat_transaction_1" % module)
+            if self.year <= "2021":
+                transaction = self.env.ref("%s.intrastat_transaction_1" % module)
+            else:
+                transaction = self.env.ref("%s.intrastat_transaction_11" % module)
         return transaction
 
     def _get_region(self, inv_line):
@@ -149,14 +159,13 @@ class L10nBeIntrastatProductDeclaration(models.Model):
         total_inv_weight,
     ):
         """
-        In Belgium accessory cost should not be added.
-        cf. Intrastat guide 2015 NBB/BNB:
-        If transport costs and insurance costs are included in the price
-        of the goods, you do not have to make any additional calculation
-        or estimate in order to deduct them. If they are separately known
-        (e.g. stated on a separate line on the invoice),
-        transport and insurance costs may not be included in the value of
-        the goods
+        In Belgium accessory cost should not be added. cf. Intrastat guide 2020
+        NBB/BNB (intrastat_manual_basis_en.pdf, ISSN 1782-5482).
+        If transport and insurance costs are included in the price of the goods,
+        you do not have to make any additional calculation or estimate in
+        order to deduct them. However, if they are separately known (e.g.
+        stated on a separate line on the invoice), transport and insurance
+        costs may not be included in the value of the goods.
         """
         pass
 
@@ -192,15 +201,22 @@ class L10nBeIntrastatProductDeclaration(models.Model):
             )
         self._credit_note_code = hs_code[0]
 
-        self._transaction_2 = self.env.ref("%s.intrastat_transaction_2" % module)
+        if self.year <= "2021":
+            self._transaction_2 = self.env.ref("%s.intrastat_transaction_2" % module)
+        else:
+            self._transaction_2 = self.env.ref("%s.intrastat_transaction_21" % module)
 
     def _get_intrastat_fpos(self):
         fpos = self.env["account.fiscal.position"]
-        module = self.env["ir.module.module"].sudo().search(
-            [
-                ("name", "in", ("l10n_be", "l10n_be_coa_multilang")),
-                ("state", "=", "installed"),
-            ]
+        module = (
+            self.env["ir.module.module"]
+            .sudo()
+            .search(
+                [
+                    ("name", "in", ("l10n_be", "l10n_be_coa_multilang")),
+                    ("state", "=", "installed"),
+                ]
+            )
         )
         if not module:
             return fpos
@@ -285,11 +301,21 @@ class L10nBeIntrastatProductDeclaration(models.Model):
         etree.SubElement(Administration, "Domain").text = "SXX"
 
     def _node_Item(self, parent, line):
+        # TODO: move brexit logic intrastat_product
+        for fld in ("src_dest_country_id", "transaction_id", "region_id", "hs_code_id"):
+            if not line[fld]:
+                raise UserError(
+                    _("Error while processing %s:\nMissing '%s'.")
+                    % (line, line._fields[fld].string)
+                )
         Item = etree.SubElement(parent, "Item")
         etree.SubElement(Item, "Dim", attrib={"prop": "EXTRF"}).text = self._decl_code
+        src_dest_country_code = line.src_dest_country_id.code
+        if src_dest_country_code == "GB" and self.year >= "2021":
+            src_dest_country_code = "XI"
         etree.SubElement(
             Item, "Dim", attrib={"prop": "EXCNT"}
-        ).text = line.src_dest_country_id.code
+        ).text = src_dest_country_code
         etree.SubElement(
             Item, "Dim", attrib={"prop": "EXTTA"}
         ).text = line.transaction_id.code
@@ -309,9 +335,9 @@ class L10nBeIntrastatProductDeclaration(models.Model):
             line.amount_company_currency
         )
         if self.type == "dispatches":
-            etree.SubElement(Item, "Dim", attrib={"prop": "EXCNTORI"}).text = (
-                line.product_origin_country_id.code or "QU"
-            )
+            etree.SubElement(
+                Item, "Dim", attrib={"prop": "EXCNTORI"}
+            ).text = line.product_origin_country_code
             etree.SubElement(Item, "Dim", attrib={"prop": "PARTNERID"}).text = (
                 line.vat_number or ""
             )

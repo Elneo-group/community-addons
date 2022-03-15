@@ -117,6 +117,7 @@ msgid "Action Needed"
 msgstr "Action"
 
 #. module: intrastat_product
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_transaction__active
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_unit__active
 msgid "Active"
 msgstr "Actif"
@@ -667,26 +668,6 @@ msgstr "Code pour la DEB"
 #, python-format
 msgid "Intrastat Code %s:"
 msgstr ""
-
-#. module: intrastat_product
-#: code:addons/intrastat_product/models/hs_code.py:0
-#, python-format
-msgid ""
-"Intrastat Codes should contain 8 digits. This is not the case for Intrastat "
-"Code '%s' which has %d digits."
-msgstr ""
-"Les codes pour la DEB doivent être composés de 8 chiffres. Ce n'est pas le "
-"cas du code pour la DEB '%s' qui compte %d chiffres."
-
-#. module: intrastat_product
-#: code:addons/intrastat_product/models/hs_code.py:0
-#, python-format
-msgid ""
-"Intrastat Codes should only contain digits. This is not the case for code "
-"'%s'."
-msgstr ""
-"Les codes pour la DEB ne doivent contenir que des chiffres. Ce n'est pas le "
-"cas du code '%s'."
 
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_move__intrastat_country
@@ -1526,6 +1507,20 @@ msgstr "Vous devez configurer le pays de la société !"
 #, python-format
 msgid "for period %s"
 msgstr ""
+
+#~ msgid ""
+#~ "Intrastat Codes should contain 8 digits. This is not the case for "
+#~ "Intrastat Code '%s' which has %d digits."
+#~ msgstr ""
+#~ "Les codes pour la DEB doivent être composés de 8 chiffres. Ce n'est pas "
+#~ "le cas du code pour la DEB '%s' qui compte %d chiffres."
+
+#~ msgid ""
+#~ "Intrastat Codes should only contain digits. This is not the case for code "
+#~ "'%s'."
+#~ msgstr ""
+#~ "Les codes pour la DEB ne doivent contenir que des chiffres. Ce n'est pas "
+#~ "le cas du code '%s'."
 
 #~ msgid ""
 #~ "Missing H.S. code on product %s. This product is present in invoice %s."

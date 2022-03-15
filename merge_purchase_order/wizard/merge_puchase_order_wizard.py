@@ -48,6 +48,9 @@ class MergePurchaseOrder(models.TransientModel):
         if len(pick_type_id) == 1 and len(dest_address_id) == 1:
             po.picking_type_id = pick_type_id.id
             po.dest_address_id = dest_address_id.id
+        team_id = purchase_orders.mapped('team_id')
+        if len(team_id) == 1:
+            po.team_id = team_id.id
         default = {'order_id': po.id}
         for order in purchase_orders:
             for sale in order.sale_ids:

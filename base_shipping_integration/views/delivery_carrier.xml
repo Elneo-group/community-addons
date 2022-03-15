@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="shipping_charge_delivery_carrier_view" model="ir.ui.view">
+        <field name="name">Delivery Carrier Custom View</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//field[@name='integration_level']" position="after">
+                <field name="carrier_id" />
+                 <field name="fix_shipping_rate"
+                       attrs="{'invisible': [('delivery_type', 'in', ('fixed','base_on_rule'))]}"/>
+
+                <field name="delivery_type_base" widget="radio"
+                       attrs="{'invisible': [('fix_shipping_rate', '=', False)], 'required': [('fix_shipping_rate', '!=', False)]}"/>
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page string="Pricing"
+                       attrs="{'invisible': ['|',('delivery_type', 'in', ('fixed','base_on_rule')),('fix_shipping_rate', '=', False)]}">
+                    <group
+                            attrs="{'invisible':['|',('delivery_type', '==', 'base_on_rule'),('delivery_type_base', '==', 'base_on_rule')]}">
+                        <group>
+                            <field name="fixed_price"/>
+                        </group>
+                    </group>
+                    <group name="general"
+                           attrs="{'invisible':['|',('delivery_type', '==', 'fixed'),('delivery_type_base', '==', 'fixed')]}">
+                        <field name="price_rule_ids" nolabel="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

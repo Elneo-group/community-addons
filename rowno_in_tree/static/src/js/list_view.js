@@ -85,8 +85,23 @@ ListRenderer.include({
     	var $row = this._super(record);
     	if (this.mode !== 'edit' && this.state.groupedBy.length==0){
 	    	var index = this.state.data.findIndex(function(e){return record.id===e.id})
-	    	if (index!==-1){
+	    	var ini_index = index;
+	    	if (index > 0) {
+                var i = 1
+                while (i <= ini_index) {
+                    var prev_data = this.state.data[ini_index-i];
+                    if (prev_data.data.display_type) {
+                        index -= 1;
+                    }
+                    i += 1;
+                }
+	    	}
+	    	
+	    	if (index!==-1 && !record.data.display_type){
 	    		$row.prepend($("<th class='o_list_row_count_sheliya'>").html(index+1));
+	    	}
+	    	if (index!==-1 && record.data.display_type){
+	    	    $row.prepend($("<th class='o_list_row_count_sheliya'>").html(''));
 	    	}
     	}
     	return $row;
