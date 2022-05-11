@@ -107,6 +107,11 @@ ListRenderer.include({
     	return $row;
     	
     },
+    _renderEmptyRow: function () {
+        var $row = this._super();
+        $row.prepend($("<th class='o_list_row_count_sheliya'>").html(''));
+        return $row;
+    },
     
 });
 });
