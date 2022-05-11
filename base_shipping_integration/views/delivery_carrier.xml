@@ -14,6 +14,7 @@
 
                 <field name="delivery_type_base" widget="radio"
                        attrs="{'invisible': [('fix_shipping_rate', '=', False)], 'required': [('fix_shipping_rate', '!=', False)]}"/>
+                <field name="send_tracking" />
             </xpath>
             <xpath expr="//page[1]" position="before">
                 <page string="Pricing"

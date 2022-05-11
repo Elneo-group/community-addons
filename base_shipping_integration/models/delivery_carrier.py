@@ -40,3 +40,4 @@ class CustomdeliveryCarrier(models.Model):
         default='fixed')
     fix_shipping_rate = fields.Boolean(default=False, string="Fix Shipping Rate")
     carrier_id = fields.Many2one('delivery.carrier',string="Shipping Service")
+    send_tracking = fields.Boolean(default=False, string="Send tracking email")
