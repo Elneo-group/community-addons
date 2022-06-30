@@ -45,8 +45,9 @@ class MergePurchaseOrder(models.TransientModel):
         po.origin = ' / '.join((p.origin for p in purchase_orders.filtered(lambda p: p.origin)))
         pick_type_id = purchase_orders.mapped('picking_type_id')
         dest_address_id = purchase_orders.mapped('dest_address_id')
-        if len(pick_type_id) == 1 and len(dest_address_id) == 1:
+        if len(pick_type_id) == 1:
             po.picking_type_id = pick_type_id.id
+        if len(dest_address_id) == 1:
             po.dest_address_id = dest_address_id.id
         team_id = purchase_orders.mapped('team_id')
         if len(team_id) == 1:
