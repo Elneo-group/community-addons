@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat
+# Copyright 2009-2022 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -36,9 +36,9 @@ class IntrastatProductDeclarationXlsx(models.AbstractModel):
                 "header": {"type": "string", "value": self._("Product C/O")},
                 "line": {
                     "type": "string",
-                    "value": self._render("line.product_origin_country_code or ''"),
+                    "value": self._render("line.product_origin_country_id.name or ''"),
                 },
-                "width": 3,
+                "width": 28,
             },
             "hs_code": {
                 "header": {"type": "string", "value": self._("Intrastat Code")},
@@ -55,7 +55,7 @@ class IntrastatProductDeclarationXlsx(models.AbstractModel):
                 },
                 "line": {
                     "type": "string",
-                    "value": self._render("line.src_dest_country_id.name"),
+                    "value": self._render("line.src_dest_country_code or ''"),
                 },
                 "width": 28,
             },

@@ -80,6 +80,30 @@ msgid "12"
 msgstr ""
 
 #. module: intrastat_product
+#: model:ir.model.fields,help:intrastat_product.field_account_move_intrastat_line__product_origin_country_code
+#: model:ir.model.fields,help:intrastat_product.field_intrastat_product_computation_line__product_origin_country_code
+#: model:ir.model.fields,help:intrastat_product.field_intrastat_product_declaration_line__product_origin_country_code
+msgid ""
+"2 digit code of country of origin of the product except for the UK.\n"
+"Specify 'XI' for UK Northern Ireland and 'XU' for rest of the UK.\n"
+"Specify 'QU' when the country is unknown.\n"
+msgstr ""
+
+#. module: intrastat_product
+#: model:ir.model.fields,help:intrastat_product.field_intrastat_product_declaration_line__src_dest_country_code
+msgid ""
+"2 digit code of country of origin/destination.\n"
+"Specify 'XI' for UK Northern Ireland and 'XU' for rest of the UK."
+msgstr ""
+
+#. module: intrastat_product
+#: model:ir.model.fields,help:intrastat_product.field_intrastat_product_computation_line__src_dest_country_code
+msgid ""
+"2 digit code of country of origin/destination.\n"
+"Specify 'XI' for UK Northern Ireland."
+msgstr ""
+
+#. module: intrastat_product
 #: model_terms:ir.ui.view,arch_db:intrastat_product.intrastat_product_declaration_view_form
 msgid "<span>Intrastat Product Declaration </span>"
 msgstr ""
@@ -266,6 +290,11 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: intrastat_product
+#: model:ir.model,name:intrastat_product.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
@@ -296,12 +325,21 @@ msgid "Country"
 msgstr ""
 
 #. module: intrastat_product
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__src_dest_country_code
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line__src_dest_country_code
+msgid "Country Code"
+msgstr ""
+
+#. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_move_intrastat_line__product_origin_country_id
 msgid "Country of Origin"
 msgstr ""
 
 #. module: intrastat_product
+#: model:ir.model.fields,field_description:intrastat_product.field_account_move_intrastat_line__product_origin_country_code
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__product_origin_country_code
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__product_origin_country_id
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line__product_origin_country_code
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line__product_origin_country_id
 msgid "Country of Origin of the Product"
 msgstr ""
@@ -571,6 +609,11 @@ msgid "H.S. Codes"
 msgstr ""
 
 #. module: intrastat_product
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
+msgid "HS Code"
+msgstr ""
+
+#. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_move_intrastat_line__id
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__id
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration__id
@@ -784,6 +827,11 @@ msgid "Intrastat declaration details"
 msgstr ""
 
 #. module: intrastat_product
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
+msgid "Intrastat information"
+msgstr ""
+
+#. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_account_move__intrastat_transaction_id
 msgid "Intrastat nature of transaction"
 msgstr ""
@@ -911,6 +959,14 @@ msgstr ""
 #. module: intrastat_product
 #: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
 #, python-format
+msgid ""
+"Missing country on invoice partner '%s' or on the delivery address (partner "
+"'%s'). "
+msgstr ""
+
+#. module: intrastat_product
+#: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
+#, python-format
 msgid "Missing unit of measure."
 msgstr ""
 
@@ -1019,8 +1075,43 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: intrastat_product
+#: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
+#, python-format
+msgid ""
+"On invoice '%s', the source/destination country is '%s' which is not part of"
+" the European Union."
+msgstr ""
+
+#. module: intrastat_product
+#: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
+#, python-format
+msgid ""
+"On invoice '%s', the source/destination country is United-Kingdom and the "
+"fiscal position is '%s'. Make sure that the fiscal position is right. If the"
+" origin/destination is Northern Ireland, please set the VAT number of the "
+"partner '%s' in Odoo with its new VAT number starting with 'XI' following "
+"Brexit."
+msgstr ""
+
+#. module: intrastat_product
+#: code:addons/intrastat_product/models/intrastat_product_declaration.py:0
+#, python-format
+msgid ""
+"On invoice '%s', the source/destination country is United-Kingdom, the "
+"fiscal position is '%s' and the partner's VAT number is '%s'. Make sure that"
+" the fiscal position is right. If the origin/destination is Northern "
+"Ireland, please update the VAT number of the partner '%s' in Odoo with its "
+"new VAT number starting with 'XI' following Brexit."
+msgstr ""
+
+#. module: intrastat_product
 #: model_terms:ir.ui.view,arch_db:intrastat_product.view_move_form
 msgid "Origin Region"
+msgstr ""
+
+#. module: intrastat_product
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
+msgid "Origin country"
 msgstr ""
 
 #. module: intrastat_product
@@ -1071,6 +1162,7 @@ msgstr ""
 #: code:addons/intrastat_product/report/intrastat_product_report_xls.py:0
 #: model:ir.model.fields,field_description:intrastat_product.field_account_move_intrastat_line__product_id
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__product_id
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
 #, python-format
 msgid "Product"
 msgstr ""
@@ -1096,6 +1188,11 @@ msgstr ""
 #. module: intrastat_product
 #: model:intrastat.transport_mode,description:intrastat_product.intrastat_transport_2
 msgid "Railway transport (including lorries on railway wagons)"
+msgstr ""
+
+#. module: intrastat_product
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
+msgid "Reference"
 msgstr ""
 
 #. module: intrastat_product
@@ -1201,6 +1298,12 @@ msgstr ""
 #. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_account_move_intrastat_line__sequence
 msgid "Sequence"
+msgstr ""
+
+#. module: intrastat_product
+#: model:ir.model.fields,field_description:intrastat_product.field_res_partner__invoice_intrastat_detail
+#: model:ir.model.fields,field_description:intrastat_product.field_res_users__invoice_intrastat_detail
+msgid "Show intrastat details in invoice report"
 msgstr ""
 
 #. module: intrastat_product
@@ -1384,6 +1487,11 @@ msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: intrastat_product
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
+msgid "Unit Weight"
+msgstr ""
+
+#. module: intrastat_product
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration__message_unread
 msgid "Unread Messages"
 msgstr ""
@@ -1401,6 +1509,12 @@ msgstr ""
 #. module: intrastat_product
 #: model:ir.model.fields,help:intrastat_product.field_intrastat_product_declaration__revision
 msgid "Used to keep track of changes"
+msgstr ""
+
+#. module: intrastat_product
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__vat
+#: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line__vat
+msgid "VAT Number"
 msgstr ""
 
 #. module: intrastat_product
@@ -1428,6 +1542,7 @@ msgstr ""
 #: code:addons/intrastat_product/report/intrastat_product_report_xls.py:0
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_computation_line__weight
 #: model:ir.model.fields,field_description:intrastat_product.field_intrastat_product_declaration_line__weight
+#: model_terms:ir.ui.view,arch_db:intrastat_product.report_invoice_document_intrastat_product
 #, python-format
 msgid "Weight"
 msgstr ""
