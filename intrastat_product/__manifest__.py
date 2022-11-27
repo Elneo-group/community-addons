@@ -7,10 +7,11 @@
 
 {
     "name": "Intrastat Product",
-    "version": "13.0.1.3.3",
+    "version": "13.0.3.0.2",
     "category": "Intrastat",
     "license": "AGPL-3",
     "summary": "Base module for Intrastat Product",
+    "website": "https://github.com/OCA/intrastat-extrastat",
     "author": "brain-tec AG, Akretion, Noviat, Odoo Community Association (OCA)",
     "depends": [
         "intrastat_base",
@@ -30,9 +31,11 @@
         "views/intrastat_transport_mode.xml",
         "views/intrastat_product_declaration.xml",
         "views/res_config_settings.xml",
+        "views/res_partner_view.xml",
         "views/account_move.xml",
         "views/sale_order.xml",
         "views/stock_warehouse.xml",
+        "views/report_invoice.xml",
         "data/intrastat_transport_mode.xml",
         "data/intrastat_unit.xml",
     ],

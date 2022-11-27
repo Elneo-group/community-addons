@@ -1,10 +1,9 @@
-# Copyright 2011-2017 Akretion France (http://www.akretion.com)
-# Copyright 2009-2021 Noviat (http://www.noviat.com)
+# Copyright 2011-2020 Akretion France (http://www.akretion.com)
+# Copyright 2009-2022 Noviat (http://www.noviat.com)
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # @author Luc de Meyer <info@noviat.com>
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -85,38 +84,89 @@ class AccountMove(models.Model):
 
     def _get_intrastat_line_vals(self, line):
         vals = {}
+        notedict = {
+            "note": "",
+            "line_nbr": 0,
+        }
         decl_model = self.env["intrastat.product.declaration"]
         if decl_model._is_product(line):
             hs_code = line.product_id.get_hs_code_recursively()
             if not hs_code:
                 return vals
-            weight, qty = decl_model._get_weight_and_supplunits(line, hs_code)
-            product_origin_country = line.product_id.origin_country_id
-            product_origin_country_code = decl_model._get_product_origin_country_code(
-                line, product_origin_country
-            )
+            weight, qty = decl_model._get_weight_and_supplunits(line, hs_code, notedict)
+            product_country = line.product_id.origin_country_id
+            product_state = line.product_id.origin_state_id
+            country = product_country or product_state.country_id
+            product_origin_country_code = "QU"
+            if country:
+                product_origin_country_code = self.env[
+                    "res.partner"
+                ]._get_intrastat_country_code(product_country, product_state)
             vals.update(
                 {
                     "invoice_line_id": line.id,
                     "hs_code_id": hs_code.id,
-                    "transaction_weight": int(weight),
+                    "transaction_weight": weight,
                     "transaction_suppl_unit_qty": qty,
+                    "product_origin_country_id": line.product_id.origin_country_id.id,
                     "product_origin_country_code": product_origin_country_code,
                 }
             )
         return vals
+
+    def _prepare_intrastat_line_info(self, line):
+        is_intrastat_line = bool(line._name == "account.move.intrastat.line")
+        product = line.product_id
+        return {
+            "product_id": product,
+            "hs_code_id": (
+                line.hs_code_id if is_intrastat_line else product.hs_code_id
+            ),
+            "weight": (
+                line.transaction_weight
+                if is_intrastat_line
+                else self._get_intrastat_line_vals(line)["transaction_weight"]
+            ),
+            "origin_country_id": (
+                line.product_origin_country_id
+                if is_intrastat_line
+                else product.origin_country_id
+            ),
+        }
+
+    def _get_intrastat_lines_info(self):
+        """We obtain a list of information that we will need to group at the end by
+        product and sum weight.
+        """
+        res = {}
+        for line in (
+            self.invoice_line_ids.filtered(
+                lambda x: x.product_id.hs_code_id and x.product_id.origin_country_id
+            )
+            if not self.intrastat_line_ids
+            else self.intrastat_line_ids
+        ):
+            res.setdefault(line.product_id.id, {"weight": 0})
+            vals = self._prepare_intrastat_line_info(line)
+            weight = vals.pop("weight")
+            res[line.product_id.id].update(vals)
+            res[line.product_id.id]["weight"] += weight
+        return res.values()
 
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     hs_code_id = fields.Many2one(
-        comodel_name="hs.code", compute="_compute_hs_code_id", string="Intrastat Code",
+        comodel_name="hs.code",
+        compute="_compute_hs_code_id",
+        string="Intrastat Code",
+        compute_sudo=True,
     )
 
     def _compute_hs_code_id(self):
         for rec in self:
-            intrastat_line = self.move_id.intrastat_line_ids.filtered(
+            intrastat_line = rec.move_id.intrastat_line_ids.filtered(
                 lambda r: r.invoice_line_id == rec
             )
             rec.hs_code_id = (
@@ -170,6 +220,7 @@ class AccountMoveIntrastatLine(models.Model):
     )
     product_origin_country_code = fields.Char(
         string="Country of Origin of the Product",
+        size=2,
         required=True,
         default="QU",
         help="2 digit code of country of origin of the product except for the UK.\n"
@@ -202,10 +253,3 @@ class AccountMoveIntrastatLine(models.Model):
             vals["product_origin_country_code"] = (
                 vals["product_origin_country_code"].upper().strip()
             )
-            if len(vals["product_origin_country_code"]) != 2:
-                raise UserError(
-                    _(
-                        "Intrastat transaction details error:\n"
-                        "Product Origin Country Code must be 2 characters."
-                    )
-                )

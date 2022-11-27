@@ -9,11 +9,12 @@
 
 {
     "name": "Product Harmonized System Codes",
-    "version": "13.0.1.1.0",
+    "version": "13.0.2.0.0",
     "category": "Reporting",
     "license": "AGPL-3",
     "summary": "Base module for Product Import/Export reports",
-    "author": "brain-tec AG, Akretion, Noviat, " "Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/intrastat-extrastat",
+    "author": "brain-tec AG, Akretion, Noviat, Odoo Community Association (OCA)",
     "depends": ["product"],
     "excludes": ["account_intrastat"],
     "data": [
