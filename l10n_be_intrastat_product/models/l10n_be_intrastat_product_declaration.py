@@ -124,8 +124,8 @@ class L10nBeIntrastatProductDeclaration(models.Model):
                 }
             )
 
-    def _update_computation_line_vals(self, inv_line, line_vals):
-        super()._update_computation_line_vals(inv_line, line_vals)
+    def _update_computation_line_vals(self, inv_line, line_vals, notedict):
+        super()._update_computation_line_vals(inv_line, line_vals, notedict)
         # handling of refunds
         # cf. NBB/BNB Intrastat guide 2016, Part,  I - Basis, par 9.6
         inv = inv_line.move_id
@@ -141,7 +141,7 @@ class L10nBeIntrastatProductDeclaration(models.Model):
                         % inv.partner_id.name_get()[0][1]
                     ]
                     self._note += self._format_line_note(
-                        inv_line, self._line_nbr, line_notes
+                        inv_line, notedict, line_notes
                     )
                 else:
                     line_vals["vat_number"] = vat_number

@@ -492,7 +492,7 @@ class IntrastatProductDeclaration(models.Model):
                 )
         return cc
 
-    def _update_computation_line_vals(self, inv_line, line_vals):
+    def _update_computation_line_vals(self, inv_line, line_vals, notedict):
         """ placeholder for localization modules """
 
     def _handle_invoice_accessory_cost(
@@ -708,7 +708,7 @@ class IntrastatProductDeclaration(models.Model):
                     transport = self._get_transport(inv_line)
                     line_vals.update({"transport_id": transport.id})
 
-                self._update_computation_line_vals(inv_line, line_vals)
+                self._update_computation_line_vals(inv_line, line_vals, notedict)
 
                 if line_vals:
                     lines_current_invoice.append(line_vals)
