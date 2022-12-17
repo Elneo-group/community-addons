@@ -36,15 +36,15 @@ class L10nBeIntrastatProductDeclaration(models.Model):
         states={"done": [("readonly", True)]},
     )
 
-    def _get_intrastat_transaction(self, inv_line):
-        transaction = super()._get_intrastat_transaction(inv_line)
+    def _get_intrastat_transaction(self, inv_line, note_dict):
+        transaction = super()._get_intrastat_transaction(inv_line, note_dict)
         msg1 = _("Select a 1 digit intrastat transaction code.")
         msg2 = _("Select a 2 digit intrastat transaction code.")
         if transaction:
             if int(transaction.code) >= 10 and self.year <= "2021":
-                self._note += self._format_line_note(inv_line, self._line_nbr, [msg1])
+                self._note += self._format_line_note(inv_line, note_dict, [msg1])
             elif int(transaction.code) < 10 and self.year > "2021":
-                self._note += self._format_line_note(inv_line, self._line_nbr, [msg2])
+                self._note += self._format_line_note(inv_line, note_dict, [msg2])
         else:
             module = __name__.split("addons.")[1].split(".")[0]
             if self.year <= "2021":

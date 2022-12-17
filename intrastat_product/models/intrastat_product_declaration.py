@@ -308,7 +308,7 @@ class IntrastatProductDeclaration(models.Model):
                 self._format_line_note(inv_line, notedict, line_notes)
         return country
 
-    def _get_intrastat_transaction(self, inv_line):
+    def _get_intrastat_transaction(self, inv_line, note_dict):
         invoice = inv_line.move_id
         if invoice.intrastat_transaction_id:
             return invoice.intrastat_transaction_id
@@ -655,7 +655,7 @@ class IntrastatProductDeclaration(models.Model):
                     )
                     continue
 
-                intrastat_transaction = self._get_intrastat_transaction(inv_line)
+                intrastat_transaction = self._get_intrastat_transaction(inv_line, notedict)
 
                 if inv_intrastat_line:
                     weight = inv_intrastat_line.transaction_weight
