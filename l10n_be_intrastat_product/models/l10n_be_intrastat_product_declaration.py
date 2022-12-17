@@ -140,7 +140,7 @@ class L10nBeIntrastatProductDeclaration(models.Model):
                         _("Missing VAT Number on partner '%s'")
                         % inv.partner_id.name_get()[0][1]
                     ]
-                    self._note += self._format_line_note(
+                    self._format_line_note(
                         inv_line, notedict, line_notes
                     )
                 else:
