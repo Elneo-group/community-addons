@@ -49,7 +49,7 @@ class MergePurchaseOrder(models.TransientModel):
             po.picking_type_id = pick_type_id.id
         if len(dest_address_id) == 1:
             po.dest_address_id = dest_address_id.id
-        team_id = purchase_orders.mapped('team_id')
+        team_id = purchase_orders.mapped('team_id') 
         if len(team_id) == 1:
             po.team_id = team_id.id
         default = {'order_id': po.id}
@@ -78,12 +78,21 @@ class MergePurchaseOrder(models.TransientModel):
                         move_dest.write({'created_purchase_line_id':existing_po_line.id})
                     for move in line.move_ids:
                         move.write({'purchase_line_id':existing_po_line.id})
+                    for sale_line in line.sale_order_line_ids:
+                        existing_po_line.sale_order_line_ids = [(4, sale_line.id)]
+                    if line.sale_line_id and not existing_po_line.sale_line_id:
+                        existing_po_line.sale_line_id = line.sale_line_id
                 else:
                     new_line = line.copy(default=default)
                     for move_dest in line.move_dest_ids:
                         move_dest.write({'created_purchase_line_id':new_line.id})
                     for move in line.move_ids:
                         move.write({'purchase_line_id':new_line.id})
+                    for sale_line in line.sale_order_line_ids:
+                        new_line.sale_order_line_ids = [(4, sale_line.id)]
+                    if line.sale_line_id and not new_line.sale_line_id:
+                        new_line.sale_line_id = line.sale_line_id
+                        
         return po
 
     def merge_into_po(self,purchase_orders,po,default):
@@ -115,12 +124,20 @@ class MergePurchaseOrder(models.TransientModel):
                         move_dest.write({'created_purchase_line_id':existing_po_line.id})
                     for move in line.move_ids:
                         move.write({'purchase_line_id':existing_po_line.id})
+                    for sale_line in line.sale_order_line_ids:
+                        existing_po_line.sale_order_line_ids = [(4, sale_line.id)]
+                    if line.sale_line_id and not existing_po_line.sale_line_id:
+                        existing_po_line.sale_line_id = line.sale_line_id
                 else:
                     new_line = line.copy(default=default)
                     for move_dest in line.move_dest_ids:
                         move_dest.write({'created_purchase_line_id':new_line.id})
                     for move in line.move_ids:
                         move.write({'purchase_line_id':new_line.id})
+                    for sale_line in line.sale_order_line_ids:
+                        new_line.sale_order_line_ids = [(4, sale_line.id)]
+                    if line.sale_line_id and not new_line.sale_line_id:
+                        new_line.sale_line_id = line.sale_line_id
 
     def merge_orders(self):
         purchase_orders = self.env['purchase.order'].browse(
