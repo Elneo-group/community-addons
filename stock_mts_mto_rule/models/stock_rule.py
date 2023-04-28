@@ -41,8 +41,13 @@ class StockRule(models.Model):
             "Product Unit of Measure"
         )
         src_location_id = self.mts_rule_id.location_src_id.id
-        product_location = product.with_context(location=src_location_id)
-        virtual_available = product_location.virtual_available
+        #product_location = product.with_context(location=src_location_id)
+        #virtual_available = product_location.virtual_available
+        
+        wh_id = self.mts_rule_id.warehouse_id.id
+        product_warehouse = product.with_context(warehouse=wh_id)
+        virtual_available = product_warehouse.virtual_available
+        
         qty_available = product.uom_id._compute_quantity(virtual_available, product_uom)
         if float_compare(qty_available, 0.0, precision_digits=precision) > 0:
             if (
