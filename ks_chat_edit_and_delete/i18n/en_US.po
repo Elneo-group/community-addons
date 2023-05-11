@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ks_chat_edit_and_delete
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-18 06:54+0000\n"
+"PO-Revision-Date: 2019-11-18 06:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ks_chat_edit_and_delete
+#: model_terms:ir.ui.view,arch_db:ks_chat_edit_and_delete.res_config_settings_view_form
+msgid "<span>Allow Admin to delete any chat</span>"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model_terms:ir.ui.view,arch_db:ks_chat_edit_and_delete.res_config_settings_view_form
+msgid "<span>Enable</span>"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model_terms:ir.ui.view,arch_db:ks_chat_edit_and_delete.res_config_settings_view_form
+msgid "Chat Edit/Delete"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model,name:ks_chat_edit_and_delete.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model,name:ks_chat_edit_and_delete.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_res_config_settings__ks_admin_delete_access
+msgid "Ks Admin Delete Access"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_res_config_settings__ks_chat_enable
+msgid "Ks Chat Enable"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_mail_mail__ks_msg_del
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_mail_message__ks_msg_del
+msgid "Ks Msg Del"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_mail_mail__ks_msg_edit
+#: model:ir.model.fields,field_description:ks_chat_edit_and_delete.field_mail_message__ks_msg_edit
+msgid "Ks Msg Edit"
+msgstr ""
+
+#. module: ks_chat_edit_and_delete
+#: model:ir.model,name:ks_chat_edit_and_delete.model_mail_message
+msgid "Message"
+msgstr ""
