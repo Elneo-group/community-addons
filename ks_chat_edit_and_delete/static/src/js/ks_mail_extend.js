@@ -34,16 +34,16 @@ odoo.define('ks_chat_edit_and_delete.ks_qweb_load', function (require) {
           /*
           * Render function is used to clone all the messages and start a thread to disabled the edit/delete icons after 15 minutes.
           */
-         /*render: function (thread, options) {
+         render: function (thread, options) {
            var ks_self = this;
             ks_thread_messages = _.clone(thread.getMessages({ domain: options.domain || [] }));
 
 
-            if (!this._updateTimestampsInterval) {
+            /*if (!this._updateTimestampsInterval) {
                 this.ks_updateTimestampsInterval = setInterval(function () {
                     var ks_res = ks_self.ks_updateTimestamps();
                 }, 1000*60);
-            }
+            }*/
 
             var $html = this._super(thread, options);
 
@@ -67,7 +67,7 @@ odoo.define('ks_chat_edit_and_delete.ks_qweb_load', function (require) {
             this.$el.find('.fa-star-o').parent().addClass('ks_hide')
 
             return $html;
-        },*/
+        },
 
          //    Hover discussion thread onchange
          onMessageThreadHover : function(e){
