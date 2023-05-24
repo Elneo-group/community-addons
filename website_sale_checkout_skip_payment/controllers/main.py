@@ -31,12 +31,13 @@ class CheckoutSkipPayment(WebsiteSale):
             .sudo()
             .browse(request.session.get("sale_last_order_id"))
         )
-        order.action_confirm()
-        try:
-            order._send_order_confirmation_mail()
-        except Exception:
-            return request.render(
-                "website_sale_checkout_skip_payment.confirmation_order_error"
-            )
+        if order.state in ('draft', 'sent'):
+            try:
+                order.action_confirm()
+                order._send_order_confirmation_mail()
+            except Exception:
+                return request.render(
+                    "website_sale_checkout_skip_payment.confirmation_order_error"
+                )
         request.website.sale_reset()
         return request.render("website_sale.confirmation", {"order": order})
