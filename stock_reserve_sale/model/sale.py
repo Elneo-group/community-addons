@@ -157,7 +157,7 @@ class SaleOrderLine(models.Model):
             reservable = False
             if (
                 not (
-                    line.state != "draft"
+                    line.state != "draft" or line.state != "sent"
                     or line._get_procure_method() == "make_to_order"
                     or not line.product_id
                     or line.product_id.type == "service"
@@ -171,7 +171,7 @@ class SaleOrderLine(models.Model):
     def _compute_is_readonly(self):
         for line in self:
             line.is_readonly = (
-                len(line.reservation_ids) > 0 or line.order_id.state != "draft"
+                len(line.reservation_ids) > 0 or line.order_id.state not in ['draft', 'sent']
             )
 
     reservation_ids = fields.One2many(
