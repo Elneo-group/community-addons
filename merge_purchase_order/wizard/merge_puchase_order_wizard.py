@@ -142,6 +142,9 @@ class MergePurchaseOrder(models.TransientModel):
     def merge_orders(self):
         purchase_orders = self.env['purchase.order'].browse(
             self._context.get('active_ids', []))
+        picking_types = set(purchase_orders.mapped('picking_type_id'))
+        if len(picking_types) > 1:
+            raise UserError(_("There is atleast one different delivery type for the selected orders, please select orders with the same delivery type."))
         if len(self._context.get('active_ids', [])) < 2:
             raise UserError(
                 _('Please select atleast two purchase orders to perform '
