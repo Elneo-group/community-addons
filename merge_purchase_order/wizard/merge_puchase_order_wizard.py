@@ -20,6 +20,7 @@ class MergePurchaseOrder(models.TransientModel):
                 'Merge order on existing selected order and delete others')],
             default='new_cancel')
     purchase_order_id = fields.Many2one('purchase.order', 'Purchase Order')
+    merge_lines = fields.Boolean("Merge lines with the same product ?", default=False)
 
     @api.onchange('merge_type')
     def onchange_merge_type(self):
@@ -66,7 +67,7 @@ class MergePurchaseOrder(models.TransientModel):
                                 line.price_unit == poline.price_unit:
                             existing_po_line = poline
                             break
-                if existing_po_line:
+                if self.merge_lines and existing_po_line:
                     existing_po_line.product_qty += line.product_qty
                     po_taxes = [
                         tax.id for tax in existing_po_line.taxes_id]
@@ -112,7 +113,7 @@ class MergePurchaseOrder(models.TransientModel):
                                 line.price_unit == po_line.price_unit:
                             existing_po_line = po_line
                             break
-                if existing_po_line:
+                if self.merge_lines and existing_po_line:
                     existing_po_line.product_qty += line.product_qty
                     po_taxes = [
                         tax.id for tax in existing_po_line.taxes_id]
