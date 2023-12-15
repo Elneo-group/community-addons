@@ -13,7 +13,7 @@ class CrmTeam(models.Model):
 
     _inherit = "crm.team"
     _parent_store = True
-    parent_path = fields.Char(index=True)
+    parent_path = fields.Char(index=True, unaccent=False)
     parent_id = fields.Many2one(comodel_name="crm.team", string="Parent team")
     child_ids = fields.One2many(
         comodel_name="crm.team",
