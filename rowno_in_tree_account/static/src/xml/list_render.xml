@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <template>
     <t t-name="rowno_in_tree.ListRendererInsideView" t-inherit="account.sectionAndNoteListRenderer"
-       t-inherit-mode="extension" owl="1">
+       t-inherit-mode="extension">
         <xpath expr="//table[@class='o_section_and_note_list_view']/thead/tr/th[1]" position="before">
             <th class="row_no">#</th>
         </xpath>
@@ -10,7 +10,6 @@
             t-name="rowno_in_tree_account.AccountListRenderer"
             t-inherit="account.ListRenderer"
             t-inherit-mode="extension"
-            owl="1"
     >
         <xpath expr="//table/thead/tr/th[@t-if='hasSelectors']" position="before">
             <th class="row_no">#</th>
