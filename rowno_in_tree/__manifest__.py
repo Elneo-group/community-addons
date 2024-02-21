@@ -7,10 +7,8 @@
     "depends": ["web"],
     "data": [],
     "assets": {
-        'web.assets_frontend': [
-            'rowno_in_tree/static/src/scss/rowno_in_tree.scss',
-        ],
         "web.assets_backend": [
+            "rowno_in_tree/static/src/scss/rowno_in_tree.scss",
             "rowno_in_tree/static/src/xml/list_render.xml",
         ],
     },
