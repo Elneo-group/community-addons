@@ -2,7 +2,7 @@
 # Copyright 2018 Tecnativa - Cristina Martin R.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Google Tag Managetr",
+    "name": "Google Tag Manager",
     "version": "17.0.1.0.0",
     "author": "ABF OSIELL, Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
