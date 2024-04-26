@@ -27,7 +27,7 @@ class DateRange(models.Model):
         domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]",
         check_company=True,
     )
-    type_name = fields.Char(related="type_id.name", store=True, string="Type Name", translate=False)
+    type_name = fields.Char(related="type_id.name", store=True, string="Type Name")
     company_id = fields.Many2one(
         comodel_name="res.company", string="Company", index=1, default=_default_company
     )
