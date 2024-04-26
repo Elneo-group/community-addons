@@ -70,18 +70,16 @@
                 expr="//field[@name='child_ids']/form//field[@name='name']"
                 position="after"
             >
-                <div colspan="2">
+                <div class="oe_edit_only" colspan="2">
                     <field name="is_company" invisible="True" />
                     <group invisible="is_company">
                         <field
                             name="lastname"
                             required="not firstname and not is_company and type == 'contact'"
-                            invisible="type != 'contact'"
                         />
                         <field
                             name="firstname"
                             required="not lastname and not is_company and type == 'contact'"
-                            invisible="type != 'contact'"
                         />
                     </group>
                 </div>

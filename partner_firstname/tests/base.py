@@ -17,7 +17,7 @@ class MailInstalled:
 
 class BaseCase(TransactionCase, MailInstalled):
     def setUp(self):
-        super(BaseCase, self).setUp()
+        super().setUp()
         self.check_fields = True
         self.expect("Núñez", "Fernán")
         self.create_original()
@@ -31,7 +31,7 @@ class BaseCase(TransactionCase, MailInstalled):
         """Define what is expected in each field when ending."""
         self.lastname = lastname
         self.firstname = firstname
-        self.name = name or "{} {}".format(firstname, lastname)
+        self.name = name or f"{firstname} {lastname}"
 
     def tearDown(self):
         if self.check_fields:
@@ -45,7 +45,7 @@ class BaseCase(TransactionCase, MailInstalled):
                     "Test failed with wrong %s" % field,
                 )
 
-        super(BaseCase, self).tearDown()
+        super().tearDown()
 
     def test_copy(self):
         """Copy the partner and compare the result."""

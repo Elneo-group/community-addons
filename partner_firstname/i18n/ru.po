@@ -21,9 +21,17 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: partner_firstname
+#. odoo-python
 #: code:addons/partner_firstname/models/res_users.py:0
 #, python-format
-msgid "%s (copy)"
+msgid "%(login)s (copy)"
+msgstr ""
+
+#. module: partner_firstname
+#. odoo-python
+#: code:addons/partner_firstname/models/res_users.py:0
+#, python-format
+msgid "%(name)s (copy)"
 msgstr ""
 
 #. module: partner_firstname
@@ -42,6 +50,7 @@ msgid "Contacts require a name."
 msgstr ""
 
 #. module: partner_firstname
+#. odoo-python
 #: code:addons/partner_firstname/exceptions.py:0
 #, python-format
 msgid "Error(s) with partner %d's name."
@@ -66,6 +75,7 @@ msgid "Name"
 msgstr ""
 
 #. module: partner_firstname
+#. odoo-python
 #: code:addons/partner_firstname/exceptions.py:0
 #, python-format
 msgid "No name is set."
@@ -77,6 +87,7 @@ msgid "Order to compose partner fullname"
 msgstr ""
 
 #. module: partner_firstname
+#: model:ir.model.fields,field_description:partner_firstname.field_res_config_settings__partner_names_order
 #: model_terms:ir.ui.view,arch_db:partner_firstname.res_config_settings_view_form
 msgid "Partner Names Order"
 msgstr ""
@@ -84,11 +95,6 @@ msgstr ""
 #. module: partner_firstname
 #: model:ir.model.fields,field_description:partner_firstname.field_res_config_settings__partner_names_order_changed
 msgid "Partner Names Order Changed"
-msgstr ""
-
-#. module: partner_firstname
-#: model:ir.model.fields,field_description:partner_firstname.field_res_config_settings__partner_names_order
-msgid "Partner names order"
 msgstr ""
 
 #. module: partner_firstname
@@ -105,7 +111,7 @@ msgstr ""
 
 #. module: partner_firstname
 #: model:ir.model,name:partner_firstname.model_res_users
-msgid "Users"
+msgid "User"
 msgstr ""
 
 #~ msgid "Partner"

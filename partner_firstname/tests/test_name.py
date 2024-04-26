@@ -48,18 +48,20 @@ class PartnerContactCase(BaseCase):
         self.original.name = "  newfïrstname  newlästname  "
 
         # Need this to refresh the ``name`` field
-        self.original.invalidate_cache(["name"])
+        self.original.invalidate_recordset(["name"])
 
 
 class PartnerCompanyCase(BaseCase):
     def create_original(self):
-        super(PartnerCompanyCase, self).create_original()
+        res = super().create_original()
         self.original.is_company = True
+        return res
 
     def test_copy(self):
         """Copy the partner and compare the result."""
-        super(PartnerCompanyCase, self).test_copy()
+        res = super().test_copy()
         self.expect(self.name, False, self.name)
+        return res
 
     def test_company_inverse(self):
         """Test the inverse method in a company record."""
@@ -70,7 +72,7 @@ class PartnerCompanyCase(BaseCase):
 
 class UserCase(PartnerContactCase):
     def create_original(self):
-        name = "{} {}".format(self.firstname, self.lastname)
+        name = f"{self.firstname} {self.lastname}"
 
         # Cannot create users if ``mail`` is installed
         if self.mail_installed():
@@ -85,4 +87,4 @@ class UserCase(PartnerContactCase):
         """Copy the partner and compare the result."""
         # Skip if ``mail`` is installed
         if not self.mail_installed():
-            super(UserCase, self).test_copy()
+            return super().test_copy()

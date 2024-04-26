@@ -21,7 +21,7 @@ class CompanyCase(TransactionCase):
         data = {"name": "Söme name"}
         record = self.env[self.model].with_context(**self.context).create(data)
         record.unlink()
-        record.recompute()
+        record.flush_recordset()
 
 
 class PersonCase(CompanyCase):
@@ -35,4 +35,4 @@ class UserCase(CompanyCase, MailInstalled):
     def test_computing_after_unlink(self):
         # Cannot create users if ``mail`` is installed
         if not self.mail_installed():
-            super(UserCase, self).test_computing_after_unlink()
+            return super().test_computing_after_unlink()
