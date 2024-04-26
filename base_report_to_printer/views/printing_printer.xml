@@ -51,11 +51,9 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <group>
-                        <group name="name">
-                            <field name="system_name" />
-                            <field name="server_id" />
-                        </group>
+                    <group name="name">
+                        <field name="system_name" />
+                        <field name="server_id" />
                     </group>
                     <group col="4" colspan="4" name="default">
                         <field name="default" />
