@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="AmlseSearchBarFacets" t-inherit="web.SearchBar.Facets">
+        <xpath expr="//div[hasclass('o_searchview_facet_label')]" position="attributes">
+            <attribute name="t-if">
+               facet.values.length > 0 and '🌟' != facet.values[0]
+            </attribute>
+        </xpath>
+    </t>
+    <t t-name="account_move_line_search_extension.SearchBar" t-inherit="web.SearchBar">
+            <xpath expr="//t[@t-call='web.SearchBar.Facets']" position="attributes">
+                <attribute name="t-call">AmlseSearchBarFacets</attribute>
+            </xpath>
+    </t>
+</templates>
