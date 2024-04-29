@@ -16,14 +16,14 @@ def _insert_account_payments(env):
         env.cr,
         """
         INSERT INTO account_payment (
-            create_date, create_uid, write_date, write_uid, old_bank_payment_line_name,
+            create_date, create_uid, write_date, write_uid,
             payment_order_id, partner_id, amount, currency_id,
             payment_method_id, old_bank_payment_line_id, payment_type,
             partner_type,
             destination_account_id, payment_reference, move_id
         )
         SELECT
-            bpl.create_date, bpl.create_uid, bpl.write_date, bpl.write_uid, bpl.name,
+            bpl.create_date, bpl.create_uid, bpl.write_date, bpl.write_uid,
             bpl.order_id, bpl.partner_id, bpl.amount_currency, 1,
             apm.payment_method_id, bpl.id, apo.payment_type,
             CASE WHEN apo.payment_type = 'inbound' THEN 'customer' ELSE 'supplier' END,
@@ -92,8 +92,13 @@ def create_moves_from_orphan_account_payments(env):
         GROUP BY ap.id
         """
     )
+    rows = env.cr.fetchall()
+    i = 0
     deprecated_acc_by_company = {}
-    for row in env.cr.fetchall():
+    for row in rows:
+        i+=1
+        if i % 500 == 0:
+            _logger.warning("%s / %s" % (str(i), str(len(rows))))
         payment = (
             env["account.payment"]
             .with_context(
