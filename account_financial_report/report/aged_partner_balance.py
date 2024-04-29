@@ -1,4 +1,4 @@
-# © 2016 Julien Coux (Camptocamp)
+# ?? 2016 Julien Coux (Camptocamp)
 # Copyright 2020 ForgeFlow S.L. (https://www.forgeflow.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -71,20 +71,25 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         else:
             ag_pb_data[acc_id]["older"] += residual
             ag_pb_data[acc_id][prt_id]["older"] += residual
-        days_difference = abs((today - due_date).days)
-        for index, line in enumerate(interval_lines):
-            lower_limit = 0 if not index else interval_lines[index - 1].inferior_limit
-            next_line = interval_lines[index] if index < len(interval_lines) else None
-            interval_range = self._get_values_for_range_intervals(
-                lower_limit, next_line.inferior_limit
-            )
-            if (
-                days_difference in interval_range
-                or days_difference == line.inferior_limit
-            ):
-                ag_pb_data[acc_id][line] += residual
-                ag_pb_data[acc_id][prt_id][line] += residual
-                break
+        if due_date:
+            days_difference = abs((today - due_date).days)
+            for index, line in enumerate(interval_lines):
+                lower_limit = (
+                    0 if not index else interval_lines[index - 1].inferior_limit
+                )
+                next_line = (
+                    interval_lines[index] if index < len(interval_lines) else None
+                )
+                interval_range = self._get_values_for_range_intervals(
+                    lower_limit, next_line.inferior_limit
+                )
+                if (
+                    days_difference in interval_range
+                    or days_difference == line.inferior_limit
+                ):
+                    ag_pb_data[acc_id][line] += residual
+                    ag_pb_data[acc_id][prt_id][line] += residual
+                    break
         return ag_pb_data
 
     def _get_values_for_range_intervals(self, num1, num2):
@@ -222,7 +227,7 @@ class AgedPartnerBalanceReport(models.AbstractModel):
                 elif not move_line["name"]:
                     ref_label = move_line["ref"]
                 else:
-                    ref_label = move_line["ref"] + str(" - ") + move_line["name"]
+                    ref_label = move_line["ref"] + " - " + move_line["name"]
                 move_line_data.update(
                     {
                         "line_rec": line_model.browse(move_line["id"]),
@@ -279,19 +284,24 @@ class AgedPartnerBalanceReport(models.AbstractModel):
             ml["120_days"] += amount
         else:
             ml["older"] += amount
-        days_difference = abs((today - due_date).days)
-        for index, interval_line in enumerate(interval_lines):
-            lower_limit = 0 if not index else interval_lines[index - 1].inferior_limit
-            next_line = interval_lines[index] if index < len(interval_lines) else None
-            interval_range = self._get_values_for_range_intervals(
-                lower_limit, next_line.inferior_limit
-            )
-            if (
-                days_difference in interval_range
-                or days_difference == interval_line.inferior_limit
-            ):
-                ml[interval_line] += amount
-                break
+        if due_date:
+            days_difference = abs((today - due_date).days)
+            for index, interval_line in enumerate(interval_lines):
+                lower_limit = (
+                    0 if not index else interval_lines[index - 1].inferior_limit
+                )
+                next_line = (
+                    interval_lines[index] if index < len(interval_lines) else None
+                )
+                interval_range = self._get_values_for_range_intervals(
+                    lower_limit, next_line.inferior_limit
+                )
+                if (
+                    days_difference in interval_range
+                    or days_difference == interval_line.inferior_limit
+                ):
+                    ml[interval_line] += amount
+                    break
 
     def _create_account_list(
         self,
@@ -414,7 +424,12 @@ class AgedPartnerBalanceReport(models.AbstractModel):
         aged_partner_configuration = self.env[
             "account.age.report.configuration"
         ].browse(data["age_partner_config_id"])
-        (ag_pb_data, accounts_data, partners_data, journals_data,) = self.with_context(
+        (
+            ag_pb_data,
+            accounts_data,
+            partners_data,
+            journals_data,
+        ) = self.with_context(
             age_partner_config=aged_partner_configuration
         )._get_move_lines_data(
             company_id,
