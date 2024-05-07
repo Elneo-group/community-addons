@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_journal_refund_settings
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-01 06:19+0000\n"
+"PO-Revision-Date: 2021-06-16 08:53+0000\n"
+"Last-Translator: Anja De Mey <anja.demey@elneo.com>\n"
+"Language-Team: Dutch <https://translation.elneo.com/projects/noviat/account-"
+"journal-refund-settings/nl/>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
+
+#. module: account_journal_refund_settings
+#: model_terms:ir.ui.view,arch_db:account_journal_refund_settings.account_journal_dashboard_kanban_view
+msgid "<span>New Credit Note</span>"
+msgstr "<span>Nieuwe kredietnota</span>"
+
+#. module: account_journal_refund_settings
+#: model_terms:ir.ui.view,arch_db:account_journal_refund_settings.account_journal_dashboard_kanban_view
+msgid "<span>New Refund</span>"
+msgstr "<span>Nieuwe terugbetaling</span>"
+
+#. module: account_journal_refund_settings
+#: model:ir.model,name:account_journal_refund_settings.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Terugboeking Account"
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields.selection,name:account_journal_refund_settings.selection__account_journal__refund_usage__both
+msgid "Both"
+msgstr "Beide"
+
+#. module: account_journal_refund_settings
+#: model:ir.model,name:account_journal_refund_settings.model_account_journal
+#: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_move__journal_id
+msgid "Journal"
+msgstr "Journaal"
+
+#. module: account_journal_refund_settings
+#: model:ir.model,name:account_journal_refund_settings.model_account_move
+msgid "Journal Entries"
+msgstr "Journaalposten"
+
+#. module: account_journal_refund_settings
+#: model:ir.model,name:account_journal_refund_settings.model_account_move_line
+msgid "Journal Item"
+msgstr "Journaalitem"
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_bank_statement_import_journal_creation__refund_journal_id
+#: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_journal__refund_journal_id
+msgid "Refund Journal"
+msgstr "Terugbetaling Journaal"
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_bank_statement_import_journal_creation__refund_usage
+#: model:ir.model.fields,field_description:account_journal_refund_settings.field_account_journal__refund_usage
+msgid "Refund Usage"
+msgstr "Terugbetaling Gebruik"
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields.selection,name:account_journal_refund_settings.selection__account_journal__refund_usage__refund
+msgid "Refunds"
+msgstr "Terugbetalingen"
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields.selection,name:account_journal_refund_settings.selection__account_journal__refund_usage__regular
+msgid "Regular"
+msgstr "Normaal"
+
+#. module: account_journal_refund_settings
+#: code:addons/account_journal_refund_settings/models/account_move.py:0
+#, python-format
+msgid "Select the Journal before entering lines."
+msgstr "Selecteer het journaal voordat u regels invoert."
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields,help:account_journal_refund_settings.field_account_bank_statement_import_journal_creation__refund_journal_id
+#: model:ir.model.fields,help:account_journal_refund_settings.field_account_journal__refund_journal_id
+msgid "Select the default Journal for Refunds created via the Refund Button."
+msgstr ""
+"Selecteer het standaardjournaal voor terugbetalingen die via de "
+"terugbetalingsknop zijn aangemaakt."
+
+#. module: account_journal_refund_settings
+#: model:ir.model.fields,help:account_journal_refund_settings.field_account_bank_statement_import_journal_creation__refund_usage
+#: model:ir.model.fields,help:account_journal_refund_settings.field_account_journal__refund_usage
+msgid ""
+"Use this field to restrict the use of a Sale/Purchase to only refunds or "
+"only regular invoices."
+msgstr ""
+"Gebruik dit veld om het gebruik van een verkoop/aankoop te beperken tot "
+"alleen terugbetalingen of alleen gewone facturen."
+
+#. module: account_journal_refund_settings
+#: code:addons/account_journal_refund_settings/models/account_move.py:0
+#, python-format
+msgid "You cannot post a refund in a regular sale/purchase journal."
+msgstr ""
+"U kunt geen terugbetaling boeken in een gewoon verkoop-/aankoopjournaal."
+
+#. module: account_journal_refund_settings
+#: code:addons/account_journal_refund_settings/models/account_move.py:0
+#, python-format
+msgid "You cannot post a regular invoice in a dedicated refund journal."
+msgstr ""
+"U kunt een gewone factuur niet in een speciaal terugbetalingsjournaal "
+"plaatsen.U kunt een gewone factuur niet in een speciaal "
+"terugbetalingsjournaal plaatsen."
