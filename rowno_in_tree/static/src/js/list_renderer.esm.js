@@ -9,7 +9,7 @@ patch(ListRenderer.prototype, {
         const child_table = table.firstElementChild.firstElementChild;
         if (!$(child_table.firstChild).hasClass("o_list_row_count_sheliya")) {
             const a = $(child_table).prepend(
-                '<th class="o_list_row_number_header o_list_row_count_sheliya" style="width: 4% !important;">'
+                '<th class="o_list_row_number_header o_list_row_count_sheliya row_no">'
             );
             a.find("th.o_list_row_count_sheliya").html("#");
         }

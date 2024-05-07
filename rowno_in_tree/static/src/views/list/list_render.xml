@@ -26,6 +26,12 @@
         >
             <t t-set="RowNumber" t-value="RowNumber+1" />
         </xpath>
+        <xpath expr="//td[@class='o_field_x2many_list_row_add']" position="attributes">
+            <attribute name="t-att-colspan">withHandleColumn ? nbCols : nbCols + 1</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-key='emptyRowId']/td" position="attributes">
+            <attribute name="t-att-colspan">nbCols + 1</attribute>
+        </xpath>
     </t>
 
     <t
