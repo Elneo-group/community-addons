@@ -7,9 +7,9 @@ def _pre_init_hook(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
     _update_be_banks(env)
 
-# def _post_init_hook(cr, registry):
-#     env = api.Environment(cr, SUPERUSER_ID, {})
-#     _update_be_partner_banks(env)
+def _post_init_hook(cr, registry):
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    _update_be_partner_banks(env)
 
 def _update_be_banks(env):
     # in 8.0 this module was called l10n_be_partner
