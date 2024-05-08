@@ -250,8 +250,8 @@ class AccountMove(models.Model):
             res = True
         return res
 
-    def _format_bbacomm(self, val):
-        bba = re.sub(r"\D", "", val)
+    def _format_bbacomm(self, payment_reference):
+        bba = re.sub(r"\D", "", payment_reference)
         bba = "+++{}/{}/{}+++".format(bba[0:3], bba[3:7], bba[7:])
         return bba
 
