@@ -14,8 +14,7 @@ class AccountAccount(models.Model):
             tax_ids = (
                 self.env["account.tax"]
                 .with_context(active_test=False)
-                ._search([("cash_basis_transition_account_id", "=", rec.id)])
-                ._result
+                .search([("cash_basis_transition_account_id", "=", rec.id)])
             )
             if tax_ids:
                 raise UserError(
