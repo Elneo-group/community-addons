@@ -63,6 +63,23 @@ class AccountMove(models.Model):
                         action=action,
                         button_text=_("Open list"),
                     )
+                    
+    def _get_duplicated_supplier_invoice_domain(self, only_posted=False):
+        """
+        Override this method to customize customer specific
+        duplicate check query.
+        """
+        domain = [
+            ("move_type", "=", self.move_type),
+            ("commercial_partner_id", "=", self.commercial_partner_id.id),
+            ("company_id", "=", self.company_id.id),
+            ("id", "not in", self.ids),
+        ]
+        if only_posted:
+            domain = domain + [("state", "=", "posted")]
+        else:
+            domain = domain + [("state", "!=", "cancel")]
+        return domain
 
     def _get_duplicated_supplier_invoice_domain_extra(self):
         """
