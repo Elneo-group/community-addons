@@ -77,66 +77,66 @@ def _create_hooks(env):
     type(env["account.move.line"])._check_reconciliation = _check_reconciliation
 
 
-def create_moves_from_orphan_account_payments(env):
-    """Recreate missing journal entries on the newly created account payments."""
-    env.cr.execute(
-        """
-        SELECT ap.id, MIN(apl.date), MIN(bpl.company_id), MIN(apo.name),
-            MIN(apo.journal_id), MIN(apl.currency_id), MIN(apo.state), MIN(apo.id)
-        FROM bank_payment_line bpl
-        JOIN account_payment ap ON ap.old_bank_payment_line_id = bpl.id
-        JOIN account_payment_order apo ON apo.id = bpl.order_id
-        JOIN account_payment_line apl ON apl.bank_line_id = bpl.id
-        LEFT JOIN account_move_line aml ON aml.bank_payment_line_id = bpl.id
-        WHERE aml.move_id IS NULL
-        GROUP BY ap.id
-        """
-    )
-    rows = env.cr.fetchall()
-    i = 0
-    deprecated_acc_by_company = {}
-    for row in rows:
-        i+=1
-        if i % 500 == 0:
-            _logger.warning("%s / %s" % (str(i), str(len(rows))))
-        payment = (
-            env["account.payment"]
-            .with_context(
-                check_move_validity=False,
-                tracking_disable=True,
-            )
-            .browse(row[0])
-        )
-        move = env["account.move"].create(
-            {
-                "name": "/",
-                "date": row[1],
-                "payment_id": payment.id,
-                "move_type": "entry",
-                "company_id": row[2],
-                "ref": row[3],
-                "journal_id": row[4],
-                "currency_id": row[5],
-                "state": "draft" if row[6] in {"open", "generated"} else "cancel",
-                "payment_order_id": row[7],
-            }
-        )
-        payment.move_id = move
-        # Avoid deprecated account warning
-        if payment.company_id not in deprecated_acc_by_company:
-            deprecated_accounts = env["account.account"].search(
-                [("deprecated", "=", True), ("company_id", "=", payment.company_id.id)]
-            )
-            deprecated_acc_by_company[payment.company_id] = deprecated_accounts
-            deprecated_accounts.deprecated = False
-        try:
-            payment._synchronize_to_moves(["date"])  # no more changed fields needed
-        except Exception as e:
-            _logger.error("Failed for payment with id %s: %s", payment.id, e)
-            raise
-    # Restore deprecated accounts
-    for deprecated_accounts in deprecated_acc_by_company.values():
-        deprecated_accounts.deprecated = True
+# def create_moves_from_orphan_account_payments(env):
+#     """Recreate missing journal entries on the newly created account payments."""
+#     env.cr.execute(
+#         """
+#         SELECT ap.id, MIN(apl.date), MIN(bpl.company_id), MIN(apo.name),
+#             MIN(apo.journal_id), MIN(apl.currency_id), MIN(apo.state), MIN(apo.id)
+#         FROM bank_payment_line bpl
+#         JOIN account_payment ap ON ap.old_bank_payment_line_id = bpl.id
+#         JOIN account_payment_order apo ON apo.id = bpl.order_id
+#         JOIN account_payment_line apl ON apl.bank_line_id = bpl.id
+#         LEFT JOIN account_move_line aml ON aml.bank_payment_line_id = bpl.id
+#         WHERE aml.move_id IS NULL
+#         GROUP BY ap.id
+#         """
+#     )
+#     rows = env.cr.fetchall()
+#     i = 0
+#     deprecated_acc_by_company = {}
+#     for row in rows:
+#         i+=1
+#         if i % 500 == 0:
+#             _logger.warning("%s / %s" % (str(i), str(len(rows))))
+#         payment = (
+#             env["account.payment"]
+#             .with_context(
+#                 check_move_validity=False,
+#                 tracking_disable=True,
+#             )
+#             .browse(row[0])
+#         )
+#         move = env["account.move"].create(
+#             {
+#                 "name": "/",
+#                 "date": row[1],
+#                 "payment_id": payment.id,
+#                 "move_type": "entry",
+#                 "company_id": row[2],
+#                 "ref": row[3],
+#                 "journal_id": row[4],
+#                 "currency_id": row[5],
+#                 "state": "draft" if row[6] in {"open", "generated"} else "cancel",
+#                 "payment_order_id": row[7],
+#             }
+#         )
+#         payment.move_id = move
+#         # Avoid deprecated account warning
+#         if payment.company_id not in deprecated_acc_by_company:
+#             deprecated_accounts = env["account.account"].search(
+#                 [("deprecated", "=", True), ("company_id", "=", payment.company_id.id)]
+#             )
+#             deprecated_acc_by_company[payment.company_id] = deprecated_accounts
+#             deprecated_accounts.deprecated = False
+#         try:
+#             payment._synchronize_to_moves(["date"])  # no more changed fields needed
+#         except Exception as e:
+#             _logger.error("Failed for payment with id %s: %s", payment.id, e)
+#             raise
+#     # Restore deprecated accounts
+#     for deprecated_accounts in deprecated_acc_by_company.values():
+#         deprecated_accounts.deprecated = True
 
 
 def _delete_hooks(env):
@@ -172,7 +172,7 @@ def migrate(env, version):
     )
     _insert_account_payments(env)
     _create_hooks(env)
-    create_moves_from_orphan_account_payments(env)
+    # create_moves_from_orphan_account_payments(env)
     openupgrade.logged_query(
         env.cr, "ALTER TABLE account_payment ALTER move_id SET NOT NULL"
     )
