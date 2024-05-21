@@ -33,7 +33,7 @@ class AccountMove(models.Model):
                 company_id = (self.company_id or self.env.company).id
                 j_dom = [
                     ("type", "=", j_type),
-                    ("refund_usage", "=", j_refund_usage),
+                    ("refund_usage", "in", j_refund_usage),
                     ("company_id", "=", company_id),
                 ]
                 move.suitable_journal_ids = self.env["account.journal"].search(j_dom)
@@ -82,7 +82,7 @@ class AccountMove(models.Model):
             company_id = (self.company_id or self.env.company).id
             j_dom = [
                 ("type", "=", j_type),
-                ("refund_usage", "=", j_refund_usage),
+                ("refund_usage", "in", j_refund_usage),
                 ("company_id", "=", company_id),
             ]
             journals = self.env["account.journal"].search(j_dom)

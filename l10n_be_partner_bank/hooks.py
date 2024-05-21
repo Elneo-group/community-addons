@@ -112,7 +112,7 @@ def _update_be_partner_banks(env):
     """
     write on acc_number to set bank_id
     """
-    be_partner_banks = self.env["res.partner.bank"].search([("acc_number", "ilike", "BE%")])
+    be_partner_banks = env["res.partner.bank"].search([("acc_number", "ilike", "BE%")])
     be_partner_banks_allow = be_partner_banks.filtered(lambda b: b.allow_out_payment)
     [x.write({"allow_out_payment": False}) for x in be_partner_banks_allow]
     [x.write({"acc_number": x.acc_number}) for x in be_partner_banks]
