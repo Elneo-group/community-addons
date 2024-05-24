@@ -30,5 +30,6 @@ class AccountTax(models.Model):
     def _compute_display_name(self):
         super()._compute_display_name()
         for record in self:
+            name = record.display_name
             if self.env.context.get("append_code_to_tax_name"):
                 record.display_name = f"[{record.code}] {name}"
