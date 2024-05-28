@@ -72,7 +72,7 @@ class AccountMove(models.Model):
                             "dedicated refund journal."
                         )
                     )
-        super().post()
+        super().action_post()
     
     def _search_default_journal(self):
         journal = super()._search_default_journal()
