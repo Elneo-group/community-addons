@@ -2,8 +2,8 @@
 # Code inspired by OCA account_journal_lock_date 11.0 module
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
-from odoo.exceptions import UserError
+from odoo import _, api, models, fields
+from datetime import date, timedelta
 
 
 class AccountMove(models.Model):
