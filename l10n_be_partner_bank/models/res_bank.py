@@ -6,6 +6,7 @@ import re
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
+from odoo.osv import expression
 
 COUNTRY_CODES = ["BE"]
 
