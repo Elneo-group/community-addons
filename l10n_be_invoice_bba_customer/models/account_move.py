@@ -402,7 +402,7 @@ class AccountMove(models.Model):
         dup_ids = []
         if self._name == "account.move":
             dup_dom = self._get_duplicate_bba_domain(bbacomm)
-            dup_ids = self._search(dup_dom, limit=1)
+            dup_ids = self.search(dup_dom, limit=1)
         return dup_ids.id
 
     def _get_duplicate_bba_domain(self, bbacomm):
