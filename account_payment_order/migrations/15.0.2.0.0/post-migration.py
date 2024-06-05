@@ -11,6 +11,9 @@ def _insert_account_payments(env):
     openupgrade.logged_query(
         env.cr, "ALTER TABLE account_payment ADD old_bank_payment_line_id INT4"
     )
+    openupgrade.logged_query(
+        env.cr, "ALTER TABLE account_payment ADD old_bank_payment_line_name character varying"
+    )
     # Create an account.payment record for each bank.payment.line
     openupgrade.logged_query(
         env.cr,
