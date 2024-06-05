@@ -101,9 +101,10 @@ class ResBank(models.Model):
     def _name_search(self, name, domain=None, operator="ilike", limit=None, order=None):
         domain = domain or []
         if name and operator == "ilike":
+            domain += [("name", "ilike", name)]
             be_bban = len(name) == 3 and name.isdigit()
             if be_bban:
-                domain += [("bban_code_list", "ilike", name)]
+                domain = expression.OR([("bban_code_list", "ilike", name)], domain)
             if operator in expression.NEGATIVE_TERM_OPERATORS:
                 domain = ["&", "!"] + domain[1:]
         return self._search(domain, limit=limit, order=order)

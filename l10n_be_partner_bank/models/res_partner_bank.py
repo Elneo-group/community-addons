@@ -66,4 +66,5 @@ class ResPartnerBank(models.Model):
                             bban_code=bban_code,
                         )
                     )
-                vals["bank_id"] = bank_ids[0]
+                vals["bank_id"] = bank_ids[0].id
+                
