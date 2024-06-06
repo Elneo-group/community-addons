@@ -96,7 +96,12 @@ def create_moves_from_orphan_account_payments(env):
         """
     )
     deprecated_acc_by_company = {}
-    for row in env.cr.fetchall():
+    i = 0
+    rows = env.cr.fetchall()
+    for row in rows:
+        i += 1
+        if i % 1000 == 0:
+            _logger.warning("%s / %s" % (str(i), str(len(rows)),))
         payment = (
             env["account.payment"]
             .with_context(
