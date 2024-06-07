@@ -182,12 +182,12 @@ def migrate(env, version):
         env.cr, "ALTER TABLE account_payment ALTER move_id DROP NOT NULL"
     )
     _insert_account_payments(env)
-    _create_hooks(env)
-    create_moves_from_orphan_account_payments(env)
-    openupgrade.logged_query(
-        env.cr, "ALTER TABLE account_payment ALTER move_id SET NOT NULL"
-    )
-    _delete_hooks(env)
+    # _create_hooks(env)
+    # create_moves_from_orphan_account_payments(env)
+    # openupgrade.logged_query(
+    #     env.cr, "ALTER TABLE account_payment ALTER move_id SET NOT NULL"
+    # )
+    # _delete_hooks(env)
     _insert_payment_line_payment_link(env)
     openupgrade.delete_records_safely_by_xml_id(
         env, ["account_payment_order.bank_payment_line_company_rule"]
