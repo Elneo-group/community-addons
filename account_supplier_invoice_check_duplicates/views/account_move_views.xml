@@ -7,7 +7,7 @@
     <field name="inherit_id" ref="account.view_move_form"/>
     <field name="arch" type="xml">
       <field name="ref" position="after">
-        <field name="force_encoding" invisible="type not in ['in_invoice', 'in_refund', 'in_receipt']" readonly="state != 'draft'" />
+        <field name="force_encoding" invisible="move_type not in ['in_invoice', 'in_refund', 'in_receipt']" readonly="state != 'draft'" />
       </field>
     </field>
   </record>
