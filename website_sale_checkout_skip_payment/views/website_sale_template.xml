@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="checkout_layout" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//t[@t-call='payment.express_checkout']" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment" inherit_id="website_sale.payment">
+        <xpath expr="//t[@name='website_sale_non_free_cart']" position="replace">
+            <t t-if="not errors and website_sale_order.amount_total and not website.checkout_skip_payment" name="website_sale_non_free_cart">
+                <div t-if="payment_methods_sudo or tokens_sudo"
+                        id="payment_method"
+                        class="o_not_editable mt-4">
+                    <t t-call="payment.form"/>
+                </div>
+                <div t-else="" class="alert alert-warning mt-4">
+                    <t t-set="hide_payment_button" t-value="True"/>
+                    <strong>No suitable payment option could be found.</strong><br/>
+                    <div t-if="not request.env.is_admin()">
+                        If you believe that it is an error, please contact the website administrator.
+                    </div>
+                    <div class="mt-2" groups="base.group_system">
+                        <a t-if="request.env.company.country_id.is_stripe_supported_country"
+                            t-attf-href="/web#action=#{action_activate_stripe_id}"
+                            role="button"
+                            class="btn btn-primary"
+                            t-out="'ACTIVATE STRIPE'"
+                        />
+                        <div t-else=""
+                                class="d-inline"
+                                title="Stripe Connect is not available in your country, please use another payment provider."
+                        >
+                            <button t-out="'ACTIVATE STRIPE'" class="btn btn-primary" disabled="true"/>
+                        </div>
+                        <a role="button"
+                            class="btn-link alert-warning ps-2"
+                            t-attf-href="/web#action=#{payment_action_id}"
+                        >
+                            <strong><i class="oi oi-arrow-right"></i> View alternatives</strong>
+                        </a>
+                    </div>
+                </div>
+            </t>
+            <div class="row">
+                <div class="col-3 mt-3" t-if="website.checkout_skip_payment">
+                    <a role="button" href="/shop/cart" class="btn btn-secondary">
+                        <i class="fa fa-chevron-left" />
+                        Return to Cart
+                    </a>
+                </div>
+                <div
+                    class="js_skip_payment col-9 mt-3"
+                    t-if="website.checkout_skip_payment"
+                    id="skip_payment_method"
+                >
+                    <form
+                        target="_self"
+                        action="/shop/confirmation"
+                        method="post"
+                        class="float-right"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <a role="button" class="btn btn-primary a-submit" href="#">
+                            <span>Confirm <span class="fa fa-chevron-right" /></span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    
+    <template id="confirmation" inherit_id="website_sale.confirmation">
+        <xpath expr="//a[@role='button']/parent::div" position="attributes">
+            <attribute name="t-if">tx_sudo.state in ['pending', 'done'] or (website.checkout_skip_payment and order.state == 'sale')</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('mb-4')]/parent::t" position="attributes">
+            <attribute name="t-if">tx_sudo.state == 'done' or (website.checkout_skip_payment and order.state == 'sale')</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']" position="after">
+            <div
+                class="alert alert-info"
+                role="alert"
+                t-if="website.checkout_skip_payment"
+            >
+                <span t-field="website.website_sale_checkout_skip_message" />
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-call='website_sale.payment_confirmation_status']" position="attributes">
+            <attribute name="t-if">not website.checkout_skip_payment</attribute>
+        </xpath>
+    </template>
+</odoo>
