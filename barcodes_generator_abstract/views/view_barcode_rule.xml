@@ -14,7 +14,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <xpath expr="//form/group" position="after">
                 <group
                     string="Barcode Generation"
-                    invisible="encoding == 'any' or padding == 0"
+                    invisible="encoding == 'any' or not padding"
                 >
                     <field name="generate_type" />
                     <field name="padding" invisible="generate_type == 'no'" />
@@ -31,7 +31,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         class="alert alert-info oe_button_box"
                         role="alert"
                         colspan="2"
-                        invisible="sequence_id != False or generate_type != 'sequence'"
+                        invisible="sequence_id or generate_type != 'sequence'"
                     >
                             If you leave the sequence field blank, a sequence will be created automatically when the barcode rule is saved, based on the padding of the barcode.
                     </div>
