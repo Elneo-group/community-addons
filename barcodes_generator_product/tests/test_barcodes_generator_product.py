@@ -9,11 +9,12 @@ from odoo.tests.common import TransactionCase
 class Tests(TransactionCase):
     """Tests 'Barcodes Generator for Products'"""
 
-    def setUp(self):
-        super().setUp()
-        self.ProductTemplate = self.env["product.template"]
-        self.ProductProduct = self.env["product.product"]
-        self.barcode_rule_manually = self.env.ref(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ProductTemplate = cls.env["product.template"]
+        cls.ProductProduct = cls.env["product.product"]
+        cls.barcode_rule_manually = cls.env.ref(
             "barcodes_generator_product.rule_product_generated_barcode_manually"
         )
 
@@ -30,10 +31,10 @@ class Tests(TransactionCase):
         self.assertEqual(
             self.template_mono.barcode,
             "2054321000001",
-            "Incorrect Manual Barcode Generation for non varianted Template."
-            " Pattern : {} - Base : {}".format(
-                self.template_mono.barcode_rule_id.pattern,
-                self.template_mono.barcode_base,
+            (
+                "Incorrect Manual Barcode Generation for non varianted Template. "
+                f"Pattern : {self.template_mono.barcode_rule_id.pattern} - "
+                f"Base : {self.template_mono.barcode_base}"
             ),
         )
 
@@ -53,10 +54,10 @@ class Tests(TransactionCase):
         self.assertEqual(
             self.product_variant_1.barcode,
             "2012345000001",
-            "Incorrect Manual Barcode Generation for varianted Product."
-            " Pattern : {} - Base : {}".format(
-                self.product_variant_1.barcode_rule_id.pattern,
-                self.product_variant_1.barcode_base,
+            (
+                "Incorrect Manual Barcode Generation for varianted Product. "
+                f"Pattern : {self.product_variant_1.barcode_rule_id.pattern} - "
+                f"Base : {self.product_variant_1.barcode_base}"
             ),
         )
 

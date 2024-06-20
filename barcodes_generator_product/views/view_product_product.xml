@@ -10,7 +10,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view" />
-        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="barcode" position="before">
                 <field
@@ -19,22 +18,23 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     domain="[('generate_model', '=', 'product.product')]"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
+                    widget="selection"
                 />
                 <field name="generate_type" invisible="1" />
                 <label
                     for="barcode_base"
-                    invisible="barcode_rule_id == False"
+                    invisible="not barcode_rule_id"
                     groups="barcodes_generator_abstract.generate_barcode"
                 />
                 <div
                     name="div_barcode_base"
                     class="o_row"
-                    invisible="barcode_rule_id == False"
+                    invisible="not barcode_rule_id"
                     groups="barcodes_generator_abstract.generate_barcode"
                 >
                     <field
                         name="barcode_base"
-                        invisible="generate_type != 'manual'"
+                        readonly="generate_type != 'manual'"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
@@ -50,20 +50,23 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 </div>
             </field>
 
-            <field name="barcode" position="replace">
+            <field name="barcode" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="barcode" position="after">
                 <label for="barcode" />
                 <div name="div_barcode" class="o_row">
                     <field
                         name="barcode"
                         class="oe_inline"
-                        invisible="generate_type != 'sequence' "
+                        readonly="generate_type == 'sequence'"
                     />
                     <button
                         name="generate_barcode"
                         type="object"
                         string="Generate Barcode"
                         help="Generate Barcode (Using Barcode Rule)"
-                        invisible="barcode_rule_id == False or barcode_base == 0"
+                        invisible="not barcode_rule_id or barcode_base == 0"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
@@ -76,7 +79,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="product_variant_easy_edit_view" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
-        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="barcode" position="before">
                 <field
@@ -85,22 +87,23 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     domain="[('generate_model', '=', 'product.product')]"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
+                    widget="selection"
                 />
                 <field name="generate_type" invisible="1" />
                 <label
                     for="barcode_base"
-                    invisible="barcode_rule_id == False"
+                    invisible="not barcode_rule_id"
                     groups="barcodes_generator_abstract.generate_barcode"
                 />
                 <div
                     name="div_barcode_base"
                     class="o_row"
-                    invisible="barcode_rule_id == False"
+                    invisible="not barcode_rule_id"
                     groups="barcodes_generator_abstract.generate_barcode"
                 >
                     <field
                         name="barcode_base"
-                        invisible="generate_type != 'manual' "
+                        readonly="generate_type != 'manual'"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
@@ -116,7 +119,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 </div>
             </field>
 
-            <field name="barcode" position="replace">
+            <field name="barcode" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </field>
+            <field name="barcode" position="after">
                 <label
                     for="barcode"
                     groups="barcodes_generator_abstract.generate_barcode"
@@ -132,7 +138,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         type="object"
                         string="Generate Barcode"
                         help="Generate Barcode (Using Barcode Rule)"
-                        invisible="barcode_rule_id == False or barcode_base == 0"
+                        invisible="not barcode_rule_id or barcode_base == 0"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
