@@ -21,7 +21,9 @@ class TestStockQuantManualAssign(TransactionCase):
         )
         cls.location_src = cls.env.ref("stock.stock_location_locations_virtual")
         cls.location_dst = cls.env.ref("stock.stock_location_customers")
-        cls.picking_type_out = cls.env.ref("stock.warehouse0").out_type_id.id
+        cls.picking_type_out = cls.ModelDataObj._xmlid_to_res_id(
+            "stock.picking_type_out"
+        )
         cls.env["stock.picking.type"].browse(
             cls.picking_type_out
         ).reservation_method = "manual"
