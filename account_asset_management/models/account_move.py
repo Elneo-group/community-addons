@@ -111,11 +111,9 @@ class AccountMove(models.Model):
                 aml.with_context(
                     allow_asset=True, allow_asset_removal=True
                 ).asset_id = asset.id
-            new_name_get = ""
-            for name_get in move.line_ids.filtered(
-                "asset_profile_id"
-            ).asset_id._compute_display_name():
-                new_name_get = name_get
+            new_name_get = []
+            for asset in move.line_ids.filtered("asset_profile_id").asset_id:
+                new_name_get = [asset.id, asset.display_name]
             if new_name_get:
                 message = _(
                     "This invoice created the asset(s): %s",

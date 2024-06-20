@@ -13,7 +13,6 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.osv import expression
 
 _logger = logging.getLogger(__name__)
 
@@ -30,6 +29,7 @@ class AccountAsset(models.Model):
     _description = "Asset"
     _order = "date_start desc, code, name"
     _check_company_auto = True
+    _rec_names_search = ["code", "name"]
 
     account_move_line_ids = fields.One2many(
         comodel_name="account.move.line",
@@ -465,27 +465,13 @@ class AccountAsset(models.Model):
         amls.write({"asset_id": False})
         return super().unlink()
 
-    @api.model
-    def name_search(self, name, args=None, operator="ilike", limit=100):
-        args = args or []
-        domain = []
-        if name:
-            domain = ["|", ("code", "=ilike", name + "%"), ("name", operator, name)]
-            if operator in expression.NEGATIVE_TERM_OPERATORS:
-                domain = ["&", "!"] + domain[1:]
-        assets = self.search(domain + args, limit=limit)
-        return assets._compute_display_name()
-
     @api.depends("name", "code")
     def _compute_display_name(self):
-        result = []
         for asset in self:
             name = asset.name
             if asset.code:
                 name = " - ".join([asset.code, name])
             asset.display_name = name
-            result.append((asset.id, name))
-        return result
 
     def validate(self):
         for asset in self:
@@ -1011,7 +997,8 @@ class AccountAsset(models.Model):
                 fy_residual_amount -= fy_amount
                 if currency.is_zero(fy_residual_amount):
                     break
-        i_max = i
+        if table:
+            i_max = i
         table = table[: i_max + 1]
         return table
 
