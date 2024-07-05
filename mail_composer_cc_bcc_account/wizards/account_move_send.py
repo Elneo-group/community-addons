@@ -29,18 +29,10 @@ class AccountMoveSend(models.TransientModel):
         readonly=False,
     )
 
-    def _get_default_mail_partner_cc_ids(self, move, mail_template):
+    def _get_partner_ids_from_mail(self, move, emails):
         partners = self.env["res.partner"].with_company(move.company_id)
-        if mail_template.email_cc:
-            for mail_data in tools.email_split(mail_template.email_cc):
-                partners |= partners.find_or_create(mail_data)
-        return partners
-
-    def _get_default_mail_partner_bcc_ids(self, move, mail_template):
-        partners = self.env["res.partner"].with_company(move.company_id)
-        if mail_template.email_bcc:
-            for mail_data in tools.email_split(mail_template.email_bcc):
-                partners |= partners.find_or_create(mail_data)
+        for mail_data in tools.email_split(emails):
+            partners |= partners.find_or_create(mail_data)
         return partners
 
     @api.model
@@ -59,11 +51,11 @@ class AccountMoveSend(models.TransientModel):
     def _compute_mail_partner_cc_bcc_ids(self):
         for wizard in self:
             if wizard.mode == "invoice_single" and wizard.mail_template_id:
-                wizard.partner_cc_ids = self._get_default_mail_partner_cc_ids(
-                    self.move_ids, wizard.mail_template_id
+                wizard.partner_cc_ids = self._get_partner_ids_from_mail(
+                    wizard.move_ids, wizard.mail_template_id.email_cc
                 )
-                wizard.partner_bcc_ids = self._get_default_mail_partner_bcc_ids(
-                    self.move_ids, wizard.mail_template_id
+                wizard.partner_bcc_ids = self._get_partner_ids_from_mail(
+                    wizard.move_ids, wizard.mail_template_id.email_bcc
                 )
             else:
                 wizard.partner_cc_ids = None
@@ -111,25 +103,23 @@ class AccountMoveSend(models.TransientModel):
     def _send_mail(self, move, mail_template, **kwargs):
         """Send the journal entry passed as parameter by mail."""
         partner_ids = kwargs.get("partner_ids", [])
-
-        new_message = move.with_context(
+        move_with_context = move.with_context(
             no_new_invoice=True,
             mail_notify_author=self.env.user.partner_id.id in partner_ids,
             is_from_composer=True,
             partner_cc_ids=self.partner_cc_ids,
             partner_bcc_ids=self.partner_bcc_ids,
-        ).message_post(
-            message_type="comment",
-            **kwargs,
-            **{
-                "email_layout_xmlid": "mail.mail_notification_layout_with_responsible_signature",  # noqa: E501
-                "email_add_signature": not mail_template,
-                "mail_auto_delete": mail_template.auto_delete,
-                "mail_server_id": mail_template.mail_server_id.id,
-                "reply_to_force_new": False,
-            },
         )
-
+        extra_args = {
+            "email_layout_xmlid": "mail.mail_notification_layout_with_responsible_signature",  # noqa: E501
+            "email_add_signature": not mail_template,
+            "mail_auto_delete": mail_template.auto_delete,
+            "mail_server_id": mail_template.mail_server_id.id,
+            "reply_to_force_new": False,
+            "message_type": "comment",
+        }
+        kwargs.update(extra_args)
+        new_message = move_with_context.message_post(**kwargs)
         # Prevent duplicated attachments linked to the invoice.
         new_message.attachment_ids.write(
             {
