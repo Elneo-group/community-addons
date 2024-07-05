@@ -5,31 +5,35 @@
 from odoo import http
 from odoo.http import request
 
+from odoo.addons.payment.controllers.portal import PaymentPortal
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
-class CheckoutSkipPayment(WebsiteSale):
 
+class CheckoutSkipPaymentWebsite(WebsiteSale):
+    def _get_shop_payment_values(self, order, **kwargs):
+        res = super()._get_shop_payment_values(order, **kwargs)
+        if order.website_id.checkout_skip_payment:
+            res["submit_button_label"] = "Confirm"
+            res["hide_payment_button"] = True
+        return res
+
+
+class CheckoutSkipPayment(PaymentPortal):
     @http.route()
-    def shop_payment_confirmation(self, **post):
+    def payment_confirm(self, tx_id, access_token, **kwargs):
         if not request.website.checkout_skip_payment:
-            return super().shop_payment_confirmation(**post)
+            return super().payment_confirm(tx_id, access_token, **kwargs)
         order = (
             request.env["sale.order"]
             .sudo()
             .browse(request.session.get("sale_last_order_id"))
         )
-        if order.state in ('draft', 'sent'):
-            try:
-                order.action_confirm()
-                order._send_order_confirmation_mail()
-            except Exception:
-                return request.render(
-                    "website_sale_checkout_skip_payment.confirmation_order_error"
-                )
+        order.action_confirm()
+        try:
+            order._send_order_confirmation_mail()
+        except Exception:
+            return request.render(
+                "website_sale_checkout_skip_payment.confirmation_order_error"
+            )
         request.website.sale_reset()
-        values = self._prepare_shop_payment_confirmation_values(order)
-        return request.render("website_sale.confirmation", values)
-    
-    
-    
-    
+        return request.render("website_sale.confirmation", {"order": order})

@@ -5,7 +5,7 @@
 {
     "name": "Website Sale Checkout Skip Payment",
     "summary": "Skip payment for logged users in checkout process",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.0.1",
     "category": "Website",
     "website": "https://github.com/OCA/e-commerce",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -14,9 +14,14 @@
     "installable": True,
     "depends": ["website_sale"],
     "data": [
-        "views/partner_view.xml",
-        "views/res_config_settings_views.xml",
         "views/website_sale_skip_payment.xml",
         "views/website_sale_template.xml",
+        "views/partner_view.xml",
+        "views/res_config_settings_views.xml",
     ],
+    "assets": {
+        "web.assets_tests": [
+            "website_sale_checkout_skip_payment/static/tests/**/*",
+        ],
+    },
 }
