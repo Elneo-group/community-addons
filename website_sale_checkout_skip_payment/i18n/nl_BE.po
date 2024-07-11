@@ -1,26 +1,18 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-#   * website_sale_checkout_skip_payment
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e-20240522\n"
+"Project-Id-Version: Flemish (Odoo 17)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 09:34+0000\n"
-"PO-Revision-Date: 2024-07-11 09:34+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2024-07-11 10:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Flemish <https://translation.elneo.com/projects/odoo-177/"
+"website_sale_checkout_skip_payment/nl_BE/>\n"
+"Language: nl_BE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid ""
-"<i class=\"fa fa-chevron-left\"/>\n"
-"                                Return to Cart"
-msgstr ""
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -32,12 +24,7 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
 msgid "<span>Confirm <span class=\"fa fa-chevron-right\"/></span>"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "<strong><i class=\"oi oi-arrow-right\"/> View alternatives</strong>"
-msgstr ""
+msgstr "<span>Bevestigen <span class=\"fa fa-chevron-right\"/></span>"
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
@@ -45,16 +32,8 @@ msgid ""
 "<strong>Error!</strong> An error occurred trying to\n"
 "                            confirm the sale order."
 msgstr ""
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "<strong>No suitable payment option could be found.</strong><br/>"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "ADDITIONAL INFORMATION FOR OUR SALES TEAM"
-msgstr ""
+"<strong>Fout!</strong> Er is een fout opgetreden bij het proberen\n"
+"                            bevestig de verkooporder."
 
 #. module: website_sale_checkout_skip_payment
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_website__checkout_skip_payment
@@ -72,21 +51,9 @@ msgid "Contact"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid ""
-"If you believe that it is an error, please contact the website "
-"administrator."
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
 msgid "Message shown to the user when the purchase is finished"
 msgstr "Bericht om weertegeven aan de gebruiker wanner de verkoop is afgerond"
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "PO..."
-msgstr ""
 
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.res_config_settings_view_form
@@ -96,19 +63,12 @@ msgstr ""
 #. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.confirmation_order_error
 msgid "Shop - Confirmation - Error"
-msgstr ""
+msgstr "Winkel - Bevestiging - Fout"
 
 #. module: website_sale_checkout_skip_payment
-#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment
+#: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_partner__skip_website_checkout_payment,
 #: model:ir.model.fields,field_description:website_sale_checkout_skip_payment.field_res_users__skip_website_checkout_payment
 msgid "Skip Website Checkout Payment"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid ""
-"Stripe Connect is not available in your country, please use another payment "
-"provider."
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
@@ -127,11 +87,58 @@ msgid "Website Sale SKip Message"
 msgstr ""
 
 #. module: website_sale_checkout_skip_payment
-#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
-msgid "YOUR REFERENCE"
-msgstr ""
-
-#. module: website_sale_checkout_skip_payment
 #: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.order_state_message
 msgid "Your order is waiting manual confirmation."
 msgstr "Uw bestelling wacht op handmatige bevestiging."
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid ""
+"<i class=\"fa fa-chevron-left\"/>\n"
+"                                Return to Cart"
+msgstr ""
+"<i class=\"fa fa-chevron-left\"/>\n"
+"                                Terug naar winkelwagen"
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "<strong><i class=\"oi oi-arrow-right\"/> View alternatives</strong>"
+msgstr "<strong><i class=\"oi oi-arrow-right\"/> Bekijk alternatieven</strong>"
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "<strong>No suitable payment option could be found.</strong><br/>"
+msgstr ""
+"<strong>Er kon geen geschikte betalingsoptie worden gevonden.</strong><br/>"
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "ADDITIONAL INFORMATION FOR OUR SALES TEAM"
+msgstr "AANVULLENDE INFORMATIE VOOR ONS VERKOOPTEAM"
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid ""
+"If you believe that it is an error, please contact the website administrator."
+msgstr ""
+"Als u denkt dat het om een fout gaat, neem dan contact op met de "
+"websitebeheerder."
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "PO..."
+msgstr ""
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid ""
+"Stripe Connect is not available in your country, please use another payment "
+"provider."
+msgstr ""
+"Stripe Connect is niet beschikbaar in jouw land. Gebruik een andere "
+"betalingsprovider."
+
+#. module: website_sale_checkout_skip_payment
+#: model_terms:ir.ui.view,arch_db:website_sale_checkout_skip_payment.payment
+msgid "YOUR REFERENCE"
+msgstr "UW REFERENTIE"
