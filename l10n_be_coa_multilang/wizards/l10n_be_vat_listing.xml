@@ -89,6 +89,7 @@
           <page name="listing" string="Listing">
             <field name="client_ids" nolabel="1" readonly="1">
               <tree>
+                <field name="currency_id" column_invisible="1" />
                 <field name="vat" />
                 <field name="partner_id" />
                 <field name="base_amount" sum="Total Base Amount" />
