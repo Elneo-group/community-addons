@@ -163,6 +163,10 @@ Contributors
       -  João Marques
       -  Víctor Martínez
 
+-  Open Source Integrators <https://opensourceintegrators.com>:
+
+      Daniel Reis <dreis@opensourceintegrators.com>
+
 Maintainers
 -----------
 
