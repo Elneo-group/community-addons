@@ -7,8 +7,7 @@ account tax code
 ================
 
 This module adds a 'code' field to taxes in order to facilitate e.g.
-the tax object lookup, the synchronisation with tax templates or
-the construction of tax reports.
+the tax object lookup or the construction of tax reports.
 
 Installation
 ============
