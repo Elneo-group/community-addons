@@ -11,12 +11,22 @@ class ResUsers(models.Model):
         inverse_name="user_id",
         string="Role lines",
         default=lambda self: self._default_role_lines(),
+        groups="base.group_erp_manager",
     )
+
+    show_alert = fields.Boolean(compute="_compute_show_alert")
+
+    @api.depends("role_line_ids")
+    def _compute_show_alert(self):
+        for user in self:
+            user.show_alert = user.role_line_ids.filtered(lambda rec: rec.is_enabled)
+
     role_ids = fields.One2many(
         comodel_name="res.users.role",
         string="Roles",
         compute="_compute_role_ids",
         compute_sudo=True,
+        groups="base.group_erp_manager",
     )
 
     @api.model
