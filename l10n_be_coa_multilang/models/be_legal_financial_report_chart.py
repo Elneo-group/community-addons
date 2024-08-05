@@ -35,7 +35,7 @@ class BeLegalFinancialReportChart(models.Model):
                 name = " - ".join([rec.code, rec.name])
             else:
                 name = rec.name
-            rec.name = name
+            rec.display_name = name
 
     @api.depends("parent_id", "parent_id.level")
     def _compute_level(self):
