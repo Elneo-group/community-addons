@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 06:19+0000\n"
-"PO-Revision-Date: 2021-06-01 06:19+0000\n"
+"POT-Creation-Date: 2024-07-23 20:41+0000\n"
+"PO-Revision-Date: 2024-07-23 20:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,5 +37,6 @@ msgstr ""
 
 #. module: l10n_account_translate_config
 #: model:ir.model.fields,field_description:l10n_account_translate_config.field_res_config_settings__module_l10n_account_translate_off
+#: model_terms:ir.ui.view,arch_db:l10n_account_translate_config.res_config_settings_view_form
 msgid "Monolingual General Accounts"
 msgstr ""

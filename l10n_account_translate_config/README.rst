@@ -7,9 +7,8 @@ Monolingual General Accounts
 ============================
 
 This module adds on option to the Accounting Settings allowing to set translate=False
-on the General Account (account.account) name field
-and hence neutralise undesired multilingual account names provoked by
-the localisation modules that depend on l10n_multilang (e.g. l10n_be, l10n_ch).
+on the General Account (account.account) name field and hence neutralises undesired 
+multilingual account names provoked by e.g. duplicating General Accounts.
 
 Installation
 ============
