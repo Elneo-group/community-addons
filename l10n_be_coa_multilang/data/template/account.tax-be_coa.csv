@@ -1,0 +1,5 @@
+id,code,sequence,description,invoice_label,name,price_include,amount,amount_type,type_tax_use,tax_group_id,active,repartition_line_ids/repartition_type,repartition_line_ids/document_type,repartition_line_ids/tag_ids,repartition_line_ids/account_id,repartition_line_ids/factor_percent,name@fr,name@nl
+attn_VAT-OUT-21-S,VAT-OUT-21-S,10,21%,21%,21% Services,False,21,percent,sale,atg_VAT_21,True,base,invoice,+03,,,21% Services,21% Diensten
+,,,,,,,,,,,,tax,invoice,+54,aatn_451054,,,
+,,,,,,,,,,,,base,refund,+49,,,,
+,,,,,,,,,,,,tax,refund,+64,aatn_451054,,,
