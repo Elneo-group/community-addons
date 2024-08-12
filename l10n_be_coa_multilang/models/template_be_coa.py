@@ -12,7 +12,7 @@ class AccountChartTemplate(models.AbstractModel):
     @template("be_coa")
     def _get_be_coa_template_data(self):
         return {
-            "name": _("Accounting with legal reports"),
+            "name": _("Multilingual Chart of Accounts (en/nl/fr)"),
             "visible": True,
             "code_digits": "6",
             "property_account_receivable_id": "aatn_400000",

@@ -2,18 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
 <title>README.rst</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
 
-See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
 customize this style sheet.
 */
 
@@ -363,11 +363,14 @@ ul.auto-toc {
 
 
 <a class="reference external image-reference" href="https://www.gnu.org/licenses/agpl"><img alt="License: AGPL-3" src="https://img.shields.io/badge/license-AGPL--3-blue.png" /></a>
-<div class="section" id="alternative-for-the-l10n-be-belgian-accounting-module-including-legal-reports">
-<h1>Alternative for the 'l10n_be' belgian accounting module including legal reports</h1>
+<div class="section" id="multilanguage-alternative-for-the-l10n-be-belgian-accounting-module">
+<h1>Multilanguage alternative for the 'l10n_be' belgian accounting module</h1>
 <p>This module activates the following functionality:</p>
 <blockquote>
 <ul class="simple">
+<li>Multilanguage support (en/nl/fr) for Chart of Accounts (CoA), Taxes
+and Tax Codes.</li>
+<li>Multilingual accounting templates.</li>
 <li>Support for the NBB/BNB legal Balance and P&amp;L reportscheme including
 auto-configuration of the correct financial report entry when
 creating/changing a general account.</li>
@@ -379,6 +382,8 @@ based upon the account group when creating a new general account.</li>
 <li>allows to select mono- versus multilingual
 Chart of Accounts</li>
 <li>allows to select which languages to install</li>
+<li>copies the CoA, Tax, Tax Tags and Fiscal Position translations
+from the installation templates</li>
 </ul>
 </dd>
 </dl>
@@ -423,6 +428,7 @@ will be used for the Intervat XML VAT declarations.</p>
 <ul class="simple">
 <li>implement carry_over_condition_method</li>
 <li>refine coa autotyping with new account types (e.g. off_balance, expense_depreciation)</li>
+<li>fiscal position EU privé</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">

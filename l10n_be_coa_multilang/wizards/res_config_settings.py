@@ -7,7 +7,10 @@ from odoo import models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    def execute(self):
+    def execute_DISABLE(self):  # TODO: restore or drop
+        """
+        Launch the account chart setup wizard
+        """
         if (
             self.chart_template
             and self.chart_template == "be_coa"

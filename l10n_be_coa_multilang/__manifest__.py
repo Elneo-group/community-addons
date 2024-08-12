@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Belgium - Accounting with legal reports",
+    "name": "Belgium - Multilingual Chart of Accounts (en/nl/fr)",
     "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "author": "Noviat",
@@ -22,6 +22,10 @@
         "security/ir.model.access.csv",
         "data/account_report_data.xml",
         "data/account_report_line_data.xml",
+        # "data/account_tax_template_data.xml",  TODO
+        # "data/account_fiscal_position_template_data.xml",  TODO
+        # "data/account_fiscal_position_tax_template_data.xml",  TODO
+        # "data/account_fiscal_position_account_template_data.xml",  TODO
         "data/be_legal_financial_report_chart_data.xml",
         "data/be_legal_financial_report_scheme_data.xml",
         "data/ir_sequence_data.xml",
