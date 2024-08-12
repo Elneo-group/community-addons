@@ -43,7 +43,7 @@ class L10nBeUpdateBeReportscheme(models.TransientModel):
                 account._onchange_code()
         # write list of entries that are not included in
         # the BNB reports to the note field
-        if self.env.context.get("l10n.be.coa.multilang.config"):
+        if self.env.context.get("l10n_be_coa_multilang_config"):
             # avoid warning for unaffected earnings account
             # when running config wizard
             non_be_scheme_accounts = non_be_scheme_accounts.filtered(

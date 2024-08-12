@@ -1,4 +1,4 @@
-# Copyright 2009-202 Noviat
+# Copyright 2009-2024 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -31,14 +31,11 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
         "This behaviour can be changed afterwards via "
         "Settings -> Configuration -> Accounting",
     )
-    coa_lang = fields.Selection(
-        selection=[("en", "English"), ("fr", "French"), ("nl", "Dutch")],
-        string="Chart of Accounts Language",
-        default=lambda self: self._default_coa_lang(),
-        help="Select the language of the Chart Of Accounts",
-    )
     company_id = fields.Many2one(
-        comodel_name="res.company", string="Company", required=True
+        comodel_name="res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
     )
 
     @api.model
@@ -57,25 +54,6 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
             )
         return not translate and True or False
 
-    @api.model
-    def _default_coa_lang(self):
-        res = self.env.context.get("lang")
-        res = res and res[:2]
-        return res in ["fr", "nl"] and res or "en"
-
-    @api.model
-    def default_get(self, fields_list):
-        upd_ctx = {}
-        active_model = self.env.context.get("active_model")
-        active_id = self.env.context.get("active_id")
-        if active_model == "account.config.settings":
-            acc_config_wiz = self.env[active_model].browse(active_id)
-            upd_ctx["default_company_id"] = acc_config_wiz.company_id.id
-        elif not self.env.context.get("default_company_id"):
-            upd_ctx["default_company_id"] = self.env.company.id
-        self = self.with_context(**upd_ctx)
-        return super().default_get(fields_list)
-
     @api.onchange("load_nl_BE", "load_fr_BE", "load_nl_NL", "load_fr_FR")
     def _onchange_load_lang(self):
         if self.load_nl_BE or self.load_fr_BE:
@@ -84,63 +62,8 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
         elif self.load_nl_NL or self.load_fr_FR:
             self.load_nl_BE = False
             self.load_fr_BE = False
-        if self.load_nl_BE or self.load_nl_NL:
-            self.coa_lang = "nl"
-        elif self.load_fr_BE or self.load_fr_FR:
-            self.coa_lang = "fr"
 
-    def _field_check(self, in_field, in_recs, out_recs):
-        for i, in_rec in enumerate(in_recs):
-            out_rec = out_recs[i]
-            if getattr(in_rec, in_field) != getattr(out_rec, in_field):
-                _logger.error(
-                    "generate translations from template "
-                    "%s (id:%s) failed (error 3)!"
-                    "\n%s,%s = '%s' i.s.o. '%s'.",
-                    in_rec._name,
-                    in_rec.id,
-                    out_rec._name,
-                    in_field,
-                    getattr(out_rec, in_field),
-                    getattr(in_rec, in_field),
-                )
-                raise UserError(
-                    _(
-                        "The generation of translations "
-                        "from the template for %s failed!"
-                        "\nPlease report this issue via your "
-                        "Odoo support channel."
-                    )
-                    % out_rec._name
-                )
-
-    def _copy_xlat(self, langs, in_field, in_recs, out_recs):
-        # create ir.translation entries based upon
-        # 1-1 relationship between in_ and out_ params
-        if len(in_recs) != len(out_recs):
-            _logger.error(
-                "The generation of translations from template "
-                "for %s failed (error 1)!",
-                out_recs._name,
-            )
-            raise UserError(
-                _(
-                    "The generation of translations from the template "
-                    "for %s failed!"
-                    "\nPlease report this issue via your Odoo support channel."
-                )
-                % out_recs._name
-            )
-        for lang in langs:
-            for i, in_rec in enumerate(in_recs):
-                out_rec = out_recs[i]
-                value = in_rec.with_context(lang=lang).read([in_field])[0][in_field]
-                if value:
-                    out_rec.with_context(lang=lang).write({in_field: value})
-
-    def execute(self):  # noqa C901
-        self_no_ctx = self.with_context(active_test=False)
-
+    def execute(self):
         if self.monolang_coa:
             to_install = self.env["ir.module.module"].search(
                 [("name", "=", "l10n_account_translate_off")]
@@ -159,14 +82,11 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
             if to_uninstall.state == "installed":
                 to_uninstall.button_immediate_uninstall()
 
-        module = __name__.split("addons.")[1].split(".")[0]
-        chart_template = self.env.ref("%s.l10n_be_coa_multilang_template" % module)
-        chart_templates = [chart_template]
-        parent_chart = chart_template.parent_id
-        while parent_chart:
-            chart_templates.insert(0, parent_chart)
-            parent_chart = parent_chart.parent_id
-        chart_template_ids = [x.id for x in chart_templates]
+        # Update company country, this is required for auto-configuration
+        # of the legal financial reportscheme.
+        be = self.env.ref("base.be")
+        if self.company_id.country_id != be:
+            self.company_id.country_id = be
 
         # load languages
         langs = (
@@ -190,117 +110,10 @@ class L10nBeCoaMultilangConfig(models.TransientModel):
                     self.env["res.lang"]._activate_lang(lang)
                     installed_modules._update_translations(filter_lang=lang)
 
-        # find all installed fr/nl languages
-        lang_rs = self.env["res.lang"].search(
-            ["|", ("code", "=like", "fr_%"), ("code", "=like", "nl_%")]
-        )
-        langs = [lang.code for lang in lang_rs]
-
-        # copy account.account translations
-        in_field = "name"
-        account_tmpls = self_no_ctx.env["account.account.template"].search(
-            [("chart_template_id", "in", chart_template_ids)], order="code"
-        )
-        accounts = self_no_ctx.env["account.account"].search(
-            [("company_id", "=", self.company_id.id)], order="code"
-        )
-        # Remove accounts with no account_template counterpart.
-        # The logic is based upon template codes with length equal
-        # to acount.chart.template,code_digits which is the case
-        # for the current 'l10n_be_coa_multilang' chart
-        codes = accounts.mapped("code")
-        account_tmpls = account_tmpls.filtered(lambda r: r.code in codes)
-        tmpl_codes = account_tmpls.mapped("code")
-        accounts = accounts.filtered(lambda r: r.code in tmpl_codes)
-        if self.monolang_coa:
-            lang = False
-            if self.coa_lang == "en":
-                lang = (
-                    self.env["res.lang"]
-                    .search([("code", "=like", "en_%")], limit=1)
-                    .code
-                )
-            elif self.coa_lang == "nl":
-                lang = (self.load_nl_BE and "nl_BE") or (self.load_nl_NL and "nl_NL")
-                if not lang:
-                    lang = (
-                        self.env["res.lang"]
-                        .search([("code", "=like", "nl_%")], limit=1)
-                        .code
-                    )
-            elif self.coa_lang == "fr":
-                lang = (self.load_fr_BE and "fr_BE") or (self.load_fr_FR and "fr_FR")
-                if not lang:
-                    lang = (
-                        self.env["res.lang"]
-                        .search([("code", "=like", "fr_%")], limit=1)
-                        .code
-                    )
-            if not lang:
-                raise UserError(
-                    _(
-                        "The setup of the Accounts has failed since language "
-                        "'%s' is not installed on your database."
-                    )
-                    % self.coa_lang
-                )
-            account_tmpls = account_tmpls.with_context(lang=lang)
-            for i, account in enumerate(accounts):
-                account.name = account_tmpls[i].name
-        else:
-            for i, account in enumerate(accounts):
-                account.name = account_tmpls[i].name
-            # no field value check to enable mono- to multi-lang
-            # via this config wizard
-            self._copy_xlat(langs, in_field, account_tmpls, accounts)
-
-        # copy account.group translations
-        ag_tmpls = self_no_ctx.env["account.group.template"].search(
-            [("chart_template_id", "in", chart_template_ids)], order="code_prefix_start"
-        )
-        account_groups = self_no_ctx.env["account.group"].search(
-            [("company_id", "=", self.company_id.id)], order="code_prefix_start"
-        )
-        in_field = "name"
-        # Perform basic sanity check on in/out pairs to protect against
-        # changes in the process that generates objects from templates
-        self._field_check(in_field, ag_tmpls, account_groups)
-        self._copy_xlat(langs, in_field, ag_tmpls, account_groups)
-
-        # copy account.tax translations
-        tax_tmpls = self_no_ctx.env["account.tax.template"].search(
-            [("chart_template_id", "in", chart_template_ids)],
-            order="sequence,description,name",
-        )
-        taxes = self_no_ctx.env["account.tax"].search(
-            [("company_id", "=", self.company_id.id)], order="sequence,description,name"
-        )
-        self._field_check("name", tax_tmpls, taxes)
-        in_fields = ["name", "description"]
-        for in_field in in_fields:
-            self._copy_xlat(langs, in_field, tax_tmpls, taxes)
-
-        # copy account.fiscal.position translations and note field
-        fpos_tmpls = self_no_ctx.env["account.fiscal.position.template"].search(
-            [("chart_template_id", "in", chart_template_ids)], order="name"
-        )
-        fpos = self_no_ctx.env["account.fiscal.position"].search(
-            [("company_id", "=", self.company_id.id)], order="name"
-        )
-        # Perform basic sanity check on in/out pairs to protect against
-        # changes in the process that generates objects from templates
-        self._field_check("name", fpos_tmpls, fpos)
-        for i, tmpl in enumerate(fpos_tmpls):
-            if tmpl.note:
-                fpos[i].note = tmpl.note
-        in_fields = ["name", "note"]
-        for in_field in in_fields:
-            self._copy_xlat(langs, in_field, fpos_tmpls, fpos)
-
         # update the entries in the BNB/NBB legal report scheme
         upd_wiz = self.env["l10n.be.update.be.reportscheme"]
-        note = upd_wiz.with_context(  # pylint: disable=W8121
-            {"l10n.be.coa.multilang.config": 1}
+        note = upd_wiz.with_context(
+            l10n_be_coa_multilang_config=True
         )._update_be_reportscheme(self.company_id)
         if note:
             wiz = upd_wiz.create({"note": note})

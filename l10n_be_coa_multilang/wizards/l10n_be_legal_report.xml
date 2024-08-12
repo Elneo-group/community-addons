@@ -88,10 +88,11 @@
                             decoration-uf="font and 'u' in font"
                             decoration-it="font and 'i' in font"
                         >
-              <field name="sequence" invisible="1" />
-              <field name="color" invisible="1" />
-              <field name="font" invisible="1" />
-              <field name="code" invisible="1" />
+              <field name="sequence" column_invisible="1" />
+              <field name="color" column_invisible="1" />
+              <field name="font" column_invisible="1" />
+              <field name="code" column_invisible="1" />
+              <field name="currency_id" column_invisible="1" />
               <field name="chart_id" string=" " />
               <field name="amount" string=" " invisible="not code" />
               <button
