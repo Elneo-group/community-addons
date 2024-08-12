@@ -2,15 +2,12 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=====================================================================
-Multilanguage alternative for the 'l10n_be' belgian accounting module
-=====================================================================
+===============================================================================
+Alternative for the 'l10n_be' belgian accounting module including legal reports
+===============================================================================
 
 This module activates the following functionality:
 
-    * Multilanguage support (en/nl/fr) for Chart of Accounts (CoA), Taxes
-      and Tax Codes.
-    * Multilingual accounting templates.
     * Support for the NBB/BNB legal Balance and P&L reportscheme including
       auto-configuration of the correct financial report entry when
       creating/changing a general account.
@@ -20,8 +17,6 @@ This module activates the following functionality:
         - allows to select mono- versus multilingual
           Chart of Accounts
         - allows to select which languages to install
-        - copies the CoA, Tax, Tax Tags and Fiscal Position translations
-          from the installation templates
     * Intervat XML VAT declarations
         - Periodical VAT Declaration
         - Periodical Intracom Declaration
@@ -60,7 +55,6 @@ Roadmap
 
 - implement carry_over_condition_method
 - refine coa autotyping with new account types (e.g. off_balance, expense_depreciation)
-- fiscal position EU privé
 
 Bug Tracker
 ===========
