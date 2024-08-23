@@ -22,7 +22,7 @@
                 />
                 <field name="partner_id" />
                 <field name="product_id" optional="hide" />
-                <field name="statement_id" invisible="1" />
+                <field name="statement_id" column_invisible="True" />
                 <field name="ref" optional="show" />
                 <field name="name" optional="show" />
                 <field
@@ -37,7 +37,7 @@
                     width="0.5"
                     optional="hide"
                 />
-                <field name="reconciled" invisible="1" />
+                <field name="reconciled" column_invisible="True" />
                 <field name="price_unit" optional="hide" />
                 <field name="quantity" optional="hide" />
                 <field name="debit" sum="Total Debit" />
@@ -49,8 +49,8 @@
                     groups="base.group_multi_currency"
                     optional="hide"
                 />
-                <field name="currency_id" invisible="1" />
-                <field name="company_currency_id" invisible="1" />
+                <field name="currency_id" column_invisible="True" />
+                <field name="company_currency_id" column_invisible="True" />
                 <field
                     name="company_id"
                     groups="base.group_multi_company"
