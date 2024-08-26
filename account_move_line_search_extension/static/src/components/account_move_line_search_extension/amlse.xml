@@ -91,5 +91,9 @@
                 </table>
             </div>
         </xpath>
+        
+        <xpath expr="//div/table/tfoot/tr/td" position="before">
+            <td />
+        </xpath>
     </t>
 </templates>
