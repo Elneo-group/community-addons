@@ -86,11 +86,12 @@ class AccountBankStatementLine(models.Model):
         Replace this method to work on transaction_date i.s.o. date.
         """
         for st_line in self.filtered(lambda line: line._origin.id):
-            st_line.internal_index = (
-                f'{st_line.transaction_date.strftime("%Y%m%d")}'
-                f"{MAXINT - st_line.sequence:0>10}"
-                f"{st_line._origin.id:0>10}"
-            )
+            if st_line.transaction_date:
+                st_line.internal_index = (
+                    f'{st_line.transaction_date.strftime("%Y%m%d")}'
+                    f"{MAXINT - st_line.sequence:0>10}"
+                    f"{st_line._origin.id:0>10}"
+                )
 
     @api.depends("is_reconciled")
     def _compute_reconcile_state(self):
