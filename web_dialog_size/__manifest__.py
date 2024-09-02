@@ -12,8 +12,6 @@
     "Siddharth Bhalgami,"
     "Tecnativa, "
     "Amaris, "
-    "Dakshal Jethava, "
-    "Heni Shah, "
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/web",
     "category": "web",
@@ -24,11 +22,18 @@
     "assets": {
         "web.assets_backend": [
             "/web_dialog_size/static/src/js/web_dialog_size.esm.js",
-            "/web_dialog_size/static/src/js/web_dialog_draggable.esm.js",
             "/web_dialog_size/static/src/scss/web_dialog_size.scss",
-            "/web_dialog_size/static/src/xml/web_dialog_size.xml",
             "/web_dialog_size/static/src/xml/ExpandButton.xml",
-            "/web_dialog_size/static/src/xml/DialogDraggable.xml",
+            (
+                "after",
+                "/web/static/src/core/dialog/dialog.xml",
+                "/web_dialog_size/static/src/xml/web_dialog_header.xml",
+            ),
+            (
+                "after",
+                "/web/static/src/views/view_dialogs/select_create_dialog.xml",
+                "/web_dialog_size/static/src/xml/select_create_dialog.xml",
+            ),
         ],
     },
 }

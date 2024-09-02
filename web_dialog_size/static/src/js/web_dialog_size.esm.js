@@ -1,19 +1,24 @@
 /** @odoo-module **/
 
-import {Component, onMounted} from "@odoo/owl";
 import {ActionDialog} from "@web/webclient/actions/action_dialog";
+import {Component, onMounted} from "@odoo/owl";
 import {Dialog} from "@web/core/dialog/dialog";
-import {jsonrpc} from "@web/core/network/rpc_service";
-import {patch} from "@web/core/utils/patch";
 import {SelectCreateDialog} from "@web/views/view_dialogs/select_create_dialog";
+import {patch} from "@web/core/utils/patch";
+import {useService} from "@web/core/utils/hooks";
 
 export class ExpandButton extends Component {
     setup() {
+        this.orm = useService("orm");
         this.last_size = this.props.getsize();
+        this.config = this.orm.call(
+            "ir.config_parameter",
+            "get_web_dialog_size_config"
+        );
 
         onMounted(() => {
             var self = this;
-            jsonrpc("/dialogsize", {}).then(function (r) {
+            this.config.then(function (r) {
                 if (r.default_maximize && stop) {
                     self.dialog_button_extend();
                 }

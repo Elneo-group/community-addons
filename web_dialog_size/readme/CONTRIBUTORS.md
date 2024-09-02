@@ -5,11 +5,11 @@
 - Wolfgang Pichler \<<wpichler@callino.at>\>
 - David Vidal \<<david.vidal@tecnativa.com>\>
 - Quentin Theuret \<<quentin.theuret@amaris.com>\>
-- Dakshal Jethava \<<jethavadakshal25@gmail.com>\>
 - [Tecnativa](https://www.tecnativa.com):
   - Pedro M. Baeza
   - Jairo Llopis
   - Ernesto Tejeda
+  - Carlos Roca
 - Sudhir Arya \<<sudhir@erpharbor.com>\>
 - Pierre Pizzetta \<<pierre@devreaction.com>\>
 - Mantas Šniukas \<<mantas@vialaurea.lt>\>
