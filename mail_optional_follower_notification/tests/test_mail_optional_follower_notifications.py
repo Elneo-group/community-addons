@@ -13,6 +13,7 @@ class TestMailOptionalFollowernotifications(TransactionCase):
         demo_user = cls.env.ref("base.user_demo")
         cls.partner_follower = demo_user.partner_id
         cls.partner_no_follower = demo_user.copy().partner_id
+        cls.partner_no_follower.email = "test@example.com"
         cls.partner_01.message_subscribe(partner_ids=[cls.partner_follower.id])
         ctx = cls.env.context.copy()
         ctx.update(
