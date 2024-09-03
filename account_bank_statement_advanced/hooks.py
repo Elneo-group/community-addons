@@ -1,4 +1,4 @@
-# Copyright 2021 Noviat
+# Copyright 2024 Noviat
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 

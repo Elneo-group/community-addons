@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 
@@ -287,17 +287,19 @@ class AccountBankStatementLine(models.Model):
                 if statement.journal_id:
                     vals["journal_id"] = statement.journal_id.id
                 if not vals.get("transaction_date"):
-                    vals["transaction_date"] = statement.date
+                    vals["transaction_date"] = statement.date or vals.get("date")
                 if not vals.get("date"):
                     vals["date"] = statement.accounting_date or statement.date
                 if statement.import_format in READONLY_IMPORT_FORMATS:
                     skip_sync = True
             else:
-                vals["transaction_date"] = vals["date"]
+                vals["transaction_date"] = vals.get("date")
             if not vals.get("amount"):
                 vals_list_no_amount.append(vals)
             elif skip_sync:
                 vals_list_skip_sync.append(vals)
+            if not vals["transaction_date"]:
+                vals["transaction_date"] = fields.Date.context_today(self)
 
         # do not create amls when no amount (e.g. globalisation line)
         if vals_list_no_amount:

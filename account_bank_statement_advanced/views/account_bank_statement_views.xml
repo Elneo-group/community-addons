@@ -1,20 +1,5 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <!--
-       Bypass bug caused by missing company_id field in account module.
-       This bug results in problems during upgrade all.
-    -->
-    <record id="view_bank_statement_tree" model="ir.ui.view">
-        <field name="name">account.bank.statement.tree</field>
-        <field name="model">account.bank.statement</field>
-        <field name="inherit_id" ref="account.view_bank_statement_tree" />
-        <field name="arch" type="xml">
-            <field name="is_valid" position="after">
-                <field name="company_id" column_invisible="1" />
-            </field>
-        </field>
-    </record>
 
     <record id="account_bank_statement_view_tree" model="ir.ui.view">
         <field name="name">account.bank.statement.tree</field>
@@ -115,7 +100,7 @@
                             <field
                                 name="journal_id"
                                 domain="[('type', '=', 'bank')]"
-                                readonly="not line_ids or state == 'confirm' or import_format_readonly"
+                                readonly="line_ids or state == 'confirm' or import_format_readonly"
                                 options="{'no_open': True, 'no_create': True}"
                             />
                             <field
@@ -336,6 +321,5 @@
         />
         <field name="act_window_id" ref="account.action_bank_statement_tree" />
     </record>
-
 
 </odoo>

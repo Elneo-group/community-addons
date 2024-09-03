@@ -37,9 +37,6 @@ class AccountBankStatement(models.Model):
         "The following statement fields become readonly when this flag is set:\n"
         "date, balance_start, balance_end_real, journal_id.",
     )
-    journal_id = fields.Many2one(
-        readonly=False,
-    )
     move_line_ids = fields.One2many(
         comodel_name="account.move.line",
         inverse_name="statement_id",
