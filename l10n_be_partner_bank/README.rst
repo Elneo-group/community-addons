@@ -10,4 +10,10 @@ This module adds the following functionality
 
 - list of Belgian banks with BBAN and IBAN are added when installing the module
 - automatic BBAN/IBAN conversion when adding a bank to a partner
+- add bank to Partner Bank records for Belgian IBAN numbers
 
+Known Issues / Roadmap
+======================
+
+- Replace loading of Belgian banks from module data to setup wizard. 
+- Refactor module to base module + localisation modules in order to extend support for multiple countries.

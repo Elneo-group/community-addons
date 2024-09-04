@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import re
@@ -6,21 +6,21 @@ import re
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
-from odoo.osv import expression
 
 COUNTRY_CODES = ["BE"]
 
 
 class ResBank(models.Model):
     _inherit = "res.bank"
-    
+
+    # TODO: move bic constraint to account_bank_statement_advanced
     _sql_constraints = [("unique_bic", "unique(bic)", "The BIC must be unique.")]
 
     bban_codes = fields.Char(string="BBAN Codes")
     bban_code_list = fields.Char(
         compute="_compute_bban_code_list", store=True, readonly=False
     )
-    
+
     @api.depends("bban_codes")
     def _compute_bban_code_list(self):
         self_codes = self.filtered(lambda r: r.bban_codes)
@@ -28,7 +28,8 @@ class ResBank(models.Model):
         self_no_codes.update({"bban_code_list": False})
         for rec in self_codes:
             err_msg = _(
-                "Error in BBAN Codes for '{bank}', BIC: {bic}: Incorrect BBAN code range"
+                "Error in BBAN Codes for '{bank}', BIC: {bic}: "
+                "Incorrect BBAN code range"
             ).format(bank=rec.name, bic=rec.bic or "")
             codes = rec.bban_codes.split(",")
             code_list = []
@@ -48,7 +49,7 @@ class ResBank(models.Model):
                 else:
                     raise UserError(err_msg)
                 rec.bban_code_list = str(code_list)
-    
+
     @api.constrains("bban_codes")
     def _check_bban_codes(self):
         pattern = r"^[0-9,-]*$"
@@ -58,10 +59,11 @@ class ResBank(models.Model):
             if not re.match(pattern, rec.bban_codes):
                 raise UserError(
                     _(
-                        "Error in BBAN Codes for {bank}: this should be a list of 3-digit codes"
+                        "Error in BBAN Codes for {bank}: "
+                        "this should be a list of 3-digit codes"
                     ).format(bank=rec.name)
                 )
-    
+
     @api.constrains("bban_code_list")
     def _check_bban_code_list(self):
         banks = self.env["res.bank"].search(
@@ -83,31 +85,36 @@ class ResBank(models.Model):
                                 dup_bic=bank.bic,
                             )
                         )
-    
+
+    # TODO: move normalise_bic logic to account_bank_statement_advanced
     @api.model_create_multi
     def create(self, vals_list):
         [self._normalise_bic(vals) for vals in vals_list if "bic" in vals]
         return super().create(vals_list)
-    
+
     def write(self, vals):
         if vals.get("bic"):
             self._normalise_bic(vals)
         return super().write(vals)
-    
+
     def _normalise_bic(self, vals):
         vals["bic"] = vals["bic"].replace(" ", "").upper()
-        
+
     @api.model
-    def _name_search(self, name, domain=None, operator="ilike", limit=None, order=None):
-        domain = domain or []
+    def _name_search(
+        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
+        args = args or []
         if name and operator == "ilike":
-            domain += [("name", "ilike", name)]
             be_bban = len(name) == 3 and name.isdigit()
             if be_bban:
-                domain = expression.OR([("bban_code_list", "ilike", name)], domain)
-            if operator in expression.NEGATIVE_TERM_OPERATORS:
-                domain = ["&", "!"] + domain[1:]
-        return self._search(domain, limit=limit, order=order)
+                domain = [("bban_code_list", "ilike", name)]
+                return self._search(
+                    domain + args, limit=limit, access_rights_uid=name_get_uid
+                )
+        return super()._name_search(
+            name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid
+        )
 
     @api.model
     def _bban2iban(self, country_code, bban):

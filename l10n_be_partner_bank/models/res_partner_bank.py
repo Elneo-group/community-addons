@@ -1,3 +1,6 @@
+# Copyright 2009-2024 Noviat.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import _, api, models
 from odoo.exceptions import UserError
 
@@ -5,14 +8,15 @@ from odoo.addons.base_iban.models.res_partner_bank import normalize_iban
 
 from .res_bank import COUNTRY_CODES
 
+
 class ResPartnerBank(models.Model):
-    _inherit = 'res.partner.bank'
-    
+    _inherit = "res.partner.bank"
+
     @api.model_create_multi
     def create(self, vals_list):
         [self._update_partner_bank_vals(vals) for vals in vals_list]
         return super().create(vals_list)
-    
+
     def write(self, vals):
         if "bank_id" in vals or "acc_number" in vals:
             for rec in self:
@@ -22,7 +26,7 @@ class ResPartnerBank(models.Model):
                     vals["acc_number"] = rec.acc_number
                 self._update_partner_bank_vals(vals)
         return super().write(vals)
-    
+
     def _update_partner_bank_vals(self, vals):
         self._bban2iban(vals)
         if (
@@ -35,7 +39,7 @@ class ResPartnerBank(models.Model):
                 # the pretty_iban function should to the upper()
                 vals["acc_number"] = vals["acc_number"].upper()
                 self._update_partner_bank_vals_with_bank(country_code, vals)
-    
+
     def _bban2iban(self, vals):
         if (
             vals.get("bank_id")
@@ -56,15 +60,16 @@ class ResPartnerBank(models.Model):
             bban_code = iban[4:7]
             bank_ids = (
                 self.env["res.bank"]
-                .search([("bban_code_list", "ilike", bban_code)])
+                ._search([("bban_code_list", "ilike", bban_code)])
+                .get_result_ids()
             )
             if bank_ids:
                 if len(bank_ids) > 1:
                     raise UserError(
                         _(
-                            "Duplicate bank records found for BBAN Code '%(bban_code)s'.",
+                            "Duplicate bank records found for "
+                            "BBAN Code '%(bban_code)s'.",
                             bban_code=bban_code,
                         )
                     )
-                vals["bank_id"] = bank_ids[0].id
-                
+                vals["bank_id"] = bank_ids[0]
