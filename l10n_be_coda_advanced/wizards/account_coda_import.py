@@ -3074,7 +3074,7 @@ class AccountCodaImport(models.TransientModel):
                 # To DO : extend for other countries
                 bank_code = iban[4:7]
                 if bic:
-                    banks = self.env["res.bank"].search(
+                    banks = self.env["res.bank"].search( 
                         [
                             ("bic", "=", bic),
                             ("bban_code_list", "ilike", bank_code),
@@ -3087,14 +3087,14 @@ class AccountCodaImport(models.TransientModel):
                         bank = self.env["res.bank"].create(
                             {
                                 "name": bic,
-                                "code": bank_code,
+                                "bban_codes": bank_code,
                                 "bic": bic,
                                 "country": bank_country.id,
                             }
                         )
                 else:
                     banks = self.env["res.bank"].search(
-                        [("code", "=", bank_code), ("country", "=", bank_country.id)]
+                        [("bban_code_list", "ilike", bank_code), ("country", "=", bank_country.id)]
                     )
                     if banks:
                         bank = banks[0]
