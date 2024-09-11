@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -83,6 +83,17 @@ msgid ""
 "\n"
 "\n"
 "No matching CODA Bank Account Configuration record found !"
+msgstr ""
+
+#. module: l10n_be_coda_advanced
+#. odoo-python
+#: code:addons/l10n_be_coda_advanced/wizards/account_coda_import.py:0
+#, python-format
+msgid ""
+"\n"
+"\n"
+"The CODA File contains a statement which is not processed since the associated CODA Bank Account Configuration record is defined as type 'Skip' !\n"
+"Please adjust the settings for CODA Bank Account '%(cba)s' ('Bank Account Number'='%(nbr)s', 'Currency'='%(cur)s' and 'Account Description'='%(desc)s') if you need to import statements for this Bank Account !"
 msgstr ""
 
 #. module: l10n_be_coda_advanced
@@ -616,7 +627,7 @@ msgstr ""
 
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_account_mapping_rule__analytic_distribution
-msgid "Analytic"
+msgid "Analytic Distribution"
 msgstr ""
 
 #. module: l10n_be_coda_advanced
@@ -2768,18 +2779,6 @@ msgid "LPG"
 msgstr ""
 
 #. module: l10n_be_coda_advanced
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_comm_type____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_import____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_category____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_code____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_type____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_account_mapping_rule____last_update
-#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_be_coda_advanced
 #. odoo-python
 #: code:addons/l10n_be_coda_advanced/wizards/account_coda_import.py:0
 #, python-format
@@ -2982,6 +2981,13 @@ msgid "Night safe"
 msgstr ""
 
 #. module: l10n_be_coda_advanced
+#: model:ir.model.fields,help:l10n_be_coda_advanced.field_coda_bank_account__type
+msgid ""
+"No Bank Statements will be generated for CODA Files containing Statements of type 'Skip'\n"
+"The CODA import wizard will also not generate any warning message for such statements. "
+msgstr ""
+
+#. module: l10n_be_coda_advanced
 #. odoo-python
 #: code:addons/l10n_be_coda_advanced/wizards/account_coda_import.py:0
 #, python-format
@@ -3010,6 +3016,11 @@ msgstr ""
 #. module: l10n_be_coda_advanced
 #: model:account.coda.trans.code,description:l10n_be_coda_advanced.actcc_01_60
 msgid "Non-presented circular cheque"
+msgstr ""
+
+#. module: l10n_be_coda_advanced
+#: model:ir.model.fields.selection,name:l10n_be_coda_advanced.selection__coda_bank_account__type__normal
+msgid "Normal"
 msgstr ""
 
 #. module: l10n_be_coda_advanced
@@ -4064,6 +4075,11 @@ msgid ""
 msgstr ""
 
 #. module: l10n_be_coda_advanced
+#: model:ir.model.fields.selection,name:l10n_be_coda_advanced.selection__coda_bank_account__type__skip
+msgid "Skip"
+msgstr ""
+
+#. module: l10n_be_coda_advanced
 #: model:ir.model.fields,help:l10n_be_coda_advanced.field_account_coda_import__skip_undefined
 msgid ""
 "Skip Bank Statements for accounts which have not been defined in the CODA "
@@ -4574,6 +4590,7 @@ msgstr ""
 #. module: l10n_be_coda_advanced
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_comm_type__code
 #: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_account_coda_trans_code__type
+#: model:ir.model.fields,field_description:l10n_be_coda_advanced.field_coda_bank_account__type
 msgid "Type"
 msgstr ""
 
