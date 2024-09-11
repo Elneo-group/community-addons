@@ -1,4 +1,4 @@
-# Copyright 2009-2022 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
@@ -24,8 +24,8 @@ class AccountMoveLine(models.Model):
         lines = self.filtered(
             lambda line: line.display_type == "product" and line.move_id.is_invoice()
         )
+        commercial_partner = lines and lines[0].partner_id.commercial_partner_id
         for line in lines:
-            commercial_partner = line.partner_id.commercial_partner_id
             if (
                 line.partner_id
                 and commercial_partner.property_in_inv_account_id
