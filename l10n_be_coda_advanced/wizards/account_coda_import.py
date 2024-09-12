@@ -3073,8 +3073,13 @@ class AccountCodaImport(models.TransientModel):
             if iban[:2] == "BE":
                 # To DO : extend for other countries
                 bank_code = iban[4:7]
+                err_msg = _(
+                    "\n        Bank lookup failed. "
+                    "Please define a Bank with "
+                    "Code '%(bank_code)s' and Country '%(country)s' !"
+                ) % {"bank_code": bank_code, "country": bank_country.name}
                 if bic:
-                    banks = self.env["res.bank"].search( 
+                    banks = self.env["res.bank"].search(
                         [
                             ("bic", "=", bic),
                             ("bban_code_list", "ilike", bank_code),
@@ -3084,27 +3089,19 @@ class AccountCodaImport(models.TransientModel):
                     if banks:
                         bank = banks[0]
                     else:
-                        bank = self.env["res.bank"].create(
-                            {
-                                "name": bic,
-                                "bban_codes": bank_code,
-                                "bic": bic,
-                                "country": bank_country.id,
-                            }
-                        )
+                        feedback = err_msg
                 else:
                     banks = self.env["res.bank"].search(
-                        [("bban_code_list", "ilike", bank_code), ("country", "=", bank_country.id)]
+                        [
+                            ("bban_code_list", "ilike", bank_code),
+                            ("country", "=", bank_country.id),
+                        ]
                     )
                     if banks:
                         bank = banks[0]
                         bic = bank.bic
                     else:
-                        feedback = _(
-                            "\n        Bank lookup failed. "
-                            "Please define a Bank with "
-                            "Code '%(bank_code)s' and Country '%(country)s' !"
-                        ) % {"bank_code": bank_code, "country": bank_country.name}
+                        feedback = err_msg
             else:
                 if not bic:
                     feedback = _(
