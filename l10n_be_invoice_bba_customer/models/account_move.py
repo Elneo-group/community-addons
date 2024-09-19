@@ -23,6 +23,29 @@ class AccountMove(models.Model):
     invoice_date_changed = fields.Boolean(store=False)
     journal_partner_changed = fields.Boolean(store=False)
 
+    def _get_invoice_reference_be_partner(self):
+        """ This computes the reference based on the belgian national standard
+            “OGM-VCS”.
+            For instance, if an invoice is issued for the partner with internal
+            reference 'food buyer 654', the digits will be extracted and used as
+            the data. This will lead to a check number equal to 72 and the
+            reference will be '+++000/0000/65472+++'.
+            If no reference is set for the partner, its id in the database will
+            be used.
+        """
+        self.ensure_one()
+        return self._generate_bbacomm(algorithm="partner")
+
+    def _get_invoice_reference_be_invoice(self):
+        """ This computes the reference based on the belgian national standard
+            “OGM-VCS”.
+            The data of the reference is the database id number of the invoice.
+            For instance, if an invoice is issued with id 654, the check number
+            is 72 so the reference will be '+++000/0000/65472+++'.
+        """
+        self.ensure_one()
+        return self._generate_bbacomm(algorithm="invoice")
+
     def _compute_payment_reference(self):
         """
         payment_reference is stored, computed without api.depends,
