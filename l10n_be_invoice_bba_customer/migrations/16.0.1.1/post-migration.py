@@ -1,4 +1,8 @@
+# Copyright 2009-2024 Noviat.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from openupgradelib import openupgrade
+
 
 @openupgrade.migrate()
 def migrate(env, version):
@@ -8,7 +12,7 @@ def migrate(env, version):
         .with_context(active_test=False)
         .search([("out_inv_comm_standard", "=", "bba")])
     )
-    bba_partners.write({"out_inv_comm_standard" : "be"})
+    bba_partners.write({"out_inv_comm_standard": "be"})
     other_partners = partners - bba_partners
     other_partners.write(
         {

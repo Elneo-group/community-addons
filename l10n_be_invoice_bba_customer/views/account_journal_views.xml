@@ -7,9 +7,7 @@
     <field name="inherit_id" ref="account.view_account_journal_form" />
     <field name="arch" type="xml">
       <field name="invoice_reference_type" position="attributes">
-        <attribute
-                    name="invisible"
-                >invoice_reference_model == 'partner'</attribute>
+        <attribute name="invisible">invoice_reference_model == 'partner'</attribute>
       </field>
     </field>
   </record>

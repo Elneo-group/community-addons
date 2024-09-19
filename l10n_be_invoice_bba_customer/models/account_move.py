@@ -166,6 +166,7 @@ class AccountMove(models.Model):
         """
         if self.move_type != "out_invoice":
             return
+
         self.invoice_date_changed = False
         if self.journal_id.invoice_reference_model != "partner":
             if self._is_bbacomm_invoice():
@@ -179,6 +180,13 @@ class AccountMove(models.Model):
                 self.payment_reference = self._get_invoice_computed_reference()
             return
         cp = self.commercial_partner_id
+        if (
+            cp.out_inv_comm_standard == "odoo"
+            and cp.invoice_reference_type_odoo == "invoice"
+            and self.name == "/"
+        ):
+            self.payment_reference = False
+            return
         if (
             not self.invoice_date
             or (
@@ -212,8 +220,8 @@ class AccountMove(models.Model):
                 if rec.payment_reference != vals["payment_reference"]:
                     raise UserError(
                         _(
-                            "You are not allowed to modify the Payment Reference of a posted "
-                            "Customer Invoice."
+                            "You are not allowed to modify the Payment Reference "
+                            "of a posted Customer Invoice."
                         )
                     )
 
@@ -250,9 +258,9 @@ class AccountMove(models.Model):
             res = True
         return res
 
-    def _format_bbacomm(self, payment_reference):
-        bba = re.sub(r"\D", "", payment_reference)
-        bba = "+++{}/{}/{}+++".format(bba[0:3], bba[3:7], bba[7:])
+    def _format_bbacomm(self, val):
+        bba = re.sub(r"\D", "", val)
+        bba = f"+++{bba[0:3]}/{bba[3:7]}/{bba[7:]}+++"
         return bba
 
     def _generate_bbacomm(self, algorithm=None):
@@ -293,7 +301,7 @@ class AccountMove(models.Model):
                 "|",
                 ("journal_id.invoice_reference_model", "=", "be"),
                 ("partner_id.out_inv_comm_standard", "=", "be"),
-                ("payment_reference", "like", "+++{}/{}/%".format(doy, year)),
+                ("payment_reference", "like", f"+++{doy}/{year}/%"),
             ],
             order="payment_reference desc",
             limit=1,
@@ -341,7 +349,7 @@ class AccountMove(models.Model):
                     (
                         "payment_reference",
                         "like",
-                        "+++{}/{}/%+++".format(partner_ref_nr[:3], partner_ref_nr[3:]),
+                        f"+++{partner_ref_nr[:3]}/{partner_ref_nr[3:]}/%+++",
                     ),
                 ],
                 order="payment_reference desc",
@@ -378,7 +386,7 @@ class AccountMove(models.Model):
         base = int(bbacomm)
         mod = base % 97 or 97
         mod = str(mod).rjust(2, "0")
-        bbacomm = "+++{}/{}/{}{}+++".format(bbacomm[:3], bbacomm[3:7], bbacomm[7:], mod)
+        bbacomm = f"+++{bbacomm[:3]}/{bbacomm[3:7]}/{bbacomm[7:]}{mod}+++"
         if self._get_objects_with_duplicate_bba(bbacomm):
             # generate new bbacom to cope with duplicate bba from random generator
             bbacomm = self._generate_bbacomm_random()
@@ -392,7 +400,7 @@ class AccountMove(models.Model):
         base = int(bbacomm)
         mod = base % 97 or 97
         mod = str(mod).rjust(2, "0")
-        return "+++{}/{}/{}{}+++".format(bbacomm[:3], bbacomm[3:7], bbacomm[7:], mod)
+        return f"+++{bbacomm[:3]}/{bbacomm[3:7]}/{bbacomm[7:]}{mod}+++"
 
     def _get_objects_with_duplicate_bba(self, bbacomm):
         """
@@ -400,10 +408,10 @@ class AccountMove(models.Model):
         such as Sale Orders, Payment Reminders, ...
         """
         dup_ids = []
-        if self._name == "account.move":
+        if self._name == "account.move" and bbacomm != '':
             dup_dom = self._get_duplicate_bba_domain(bbacomm)
-            dup_ids = self.search(dup_dom, limit=1)
-        return dup_ids.id
+            dup_ids = list(self._search(dup_dom, limit=1).get_result_ids())
+        return dup_ids
 
     def _get_duplicate_bba_domain(self, bbacomm):
         dom = [
