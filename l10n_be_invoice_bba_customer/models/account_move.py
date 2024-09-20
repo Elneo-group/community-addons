@@ -44,7 +44,7 @@ class AccountMove(models.Model):
             is 72 so the reference will be '+++000/0000/65472+++'.
         """
         self.ensure_one()
-        return self._generate_bbacomm(algorithm="invoice")
+        return self._generate_bbacomm()
 
     def _compute_payment_reference(self):
         """
@@ -299,6 +299,7 @@ class AccountMove(models.Model):
                 algorithm = self.journal_id.invoice_reference_type
                 if algorithm == "partner":
                     algorithm = "partner_ref"
+            algorithm = "random"
         ref_function = getattr(self, f"_generate_bbacomm_{algorithm}", None)
         if ref_function is None:
             raise UserError(
