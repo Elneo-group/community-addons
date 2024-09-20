@@ -53,6 +53,9 @@ class AccountMove(models.Model):
         cf. self.env.add_to_compute()
         """
         for rec in self:
+            if not rec.partner_id:
+                rec.payment_reference = False
+                continue
             if rec.journal_partner_changed:
                 rec._onchange_journal_partner_payment_reference()
             if rec.invoice_date_changed:
