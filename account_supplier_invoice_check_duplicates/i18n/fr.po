@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * account_supplier_invoice_check_duplicates
+# 	* account_supplier_invoice_check_duplicates
 #
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
 #: model:ir.model.fields,help:account_supplier_invoice_check_duplicates.field_account_payment__force_encoding
 msgid "Accept the encoding of this invoice although it looks like a duplicate."
-msgstr "Accepter l'encodage de cette facture même si elle semble être en doublon."
+msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates
 #. odoo-python
@@ -40,7 +40,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_supplier_invoice_check_duplicates.field_account_move__force_encoding
 #: model:ir.model.fields,field_description:account_supplier_invoice_check_duplicates.field_account_payment__force_encoding
 msgid "Force Encoding"
-msgstr "Forcer l'encodage"
+msgstr ""
 
 #. module: account_supplier_invoice_check_duplicates
 #: model:ir.model,name:account_supplier_invoice_check_duplicates.model_account_move

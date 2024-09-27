@@ -1,5 +1,6 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 
 from odoo import _, api, fields, models
 from odoo.exceptions import RedirectWarning
@@ -9,14 +10,12 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     force_encoding = fields.Boolean(
-        string="Force Encoding",
         copy=False,
-        readonly=True,
         help="Accept the encoding of this invoice although "
         "it looks like a duplicate.",
     )
-    
-    @api.depends('ref', 'move_type', 'partner_id', 'invoice_date', "payment_reference")
+
+    @api.depends("ref", "move_type", "partner_id", "invoice_date", "payment_reference")
     def _compute_duplicated_ref_ids(self):
         """
         Inherit the standard addons _compute_duplicated_ref_ids
@@ -24,7 +23,15 @@ class AccountMove(models.Model):
         """
         return super()._compute_duplicated_ref_ids()
 
-    @api.constrains('ref', 'move_type', 'partner_id', 'journal_id', 'invoice_date', 'state', 'payment_reference')
+    @api.constrains(
+        "ref",
+        "move_type",
+        "partner_id",
+        "journal_id",
+        "invoice_date",
+        "state",
+        "payment_reference",
+    )
     def _check_duplicate_supplier_reference(self):
         """
         Replace the standard addons _check_duplicate_supplier_reference
@@ -55,15 +62,16 @@ class AccountMove(models.Model):
                     ]
                     raise RedirectWarning(
                         message=_(
-                            "Duplicated vendor reference detected. You probably encoded twice "
-                            "the same vendor bill/credit note. Duplicate invoice(s): %s."
+                            "Duplicated vendor reference detected. You probably "
+                            "encoded twice the same vendor bill/credit note. "
+                            "Duplicate invoice(s): %s."
                             "\nCheck 'Force Encoding' when this is not a duplicate."
                         )
                         % ", ".join([dup.name for dup in duplicated_invoices]),
                         action=action,
                         button_text=_("Open list"),
                     )
-                    
+
     def _get_duplicated_supplier_invoice_domain(self, only_posted=False):
         """
         Override this method to customize customer specific
@@ -117,4 +125,3 @@ class AccountMove(models.Model):
                 only_posted=only_posted
             ).ids
         return duplicated_invoices
-
