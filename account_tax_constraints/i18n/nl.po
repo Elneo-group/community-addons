@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * account_tax_constraints
+# 	* account_tax_constraints
 #
 msgid ""
 msgstr ""
@@ -36,16 +36,6 @@ msgid ""
 "You cannot delete a tax that has been set on Journal Items.\n"
 "\n"
 "Journal Item IDs: %s"
-msgstr ""
-
-#. module: account_tax_constraints
-#. odoo-python
-#: code:addons/account_tax_constraints/models/account_tax.py:0
-#, python-format
-msgid ""
-"You cannot delete a tax that has been set on legacy invoice lines.\n"
-"\n"
-"Invoice Line IDs: %s"
 msgstr ""
 
 #. module: account_tax_constraints

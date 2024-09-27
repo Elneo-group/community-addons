@@ -1,7 +1,7 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models, api
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -14,15 +14,19 @@ class AccountAccount(models.Model):
             tax_ids = (
                 self.env["account.tax"]
                 .with_context(active_test=False)
-                .search([("cash_basis_transition_account_id", "=", rec.id)])
+                ._search([("cash_basis_transition_account_id", "=", rec.id)])
+                .get_result_ids()
             )
             if tax_ids:
                 raise UserError(
                     _(
                         "You cannot delete an account that "
-                        "has been set on tax object."
-                        "\nAccount: %(acount)s"
+                        "has been set on tax objects."
+                        "\nAccount: %(account)s"
                         "\nTax Object IDs: %(tax_ids)s"
                     )
-                    % {"account": rec.code, "tax_ids": tax_ids}
+                    % {
+                        "account": rec.code,
+                        "tax_ids": ", ".join([str(x) for x in tax_ids]),
+                    }
                 )
