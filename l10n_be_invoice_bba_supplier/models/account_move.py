@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import re
@@ -35,7 +35,9 @@ class AccountMove(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            inv_type = vals.get("move_type") or self.env.context.get("default_move_type")
+            inv_type = vals.get("move_type") or self.env.context.get(
+                "default_move_type"
+            )
             if (
                 inv_type != "in_invoice"
                 or vals.get("supplier_payment_ref_type") != "bba"
@@ -79,5 +81,5 @@ class AccountMove(models.Model):
 
     def _format_bbacomm(self, payment_reference):
         bba = re.sub(r"\D", "", payment_reference)
-        bba = "+++{}/{}/{}+++".format(bba[0:3], bba[3:7], bba[7:])
+        bba = f"+++{bba[0:3]}/{bba[3:7]}/{bba[7:]}+++"
         return bba

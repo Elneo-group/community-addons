@@ -1,4 +1,4 @@
-# Copyright 2009-2023 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -9,6 +9,6 @@
     "author": "Noviat",
     "license": "AGPL-3",
     "data": ["views/account_move_views.xml"],
-    "depends": ["account", "base_view_inheritance_extension"],
+    "depends": ["account"],
     "installable": True,
 }

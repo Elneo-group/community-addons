@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * l10n_be_invoice_bba_supplier
+# 	* l10n_be_invoice_bba_supplier
 #
 msgid ""
 msgstr ""
