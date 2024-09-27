@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
@@ -20,7 +20,7 @@ class AccountJournal(models.Model):
         help="Use this field to restrict the use of a Sale/Purchase "
         "to only refunds or only regular invoices.",
     )
-    # TODO - We remove it in V13, why ?
+
     @api.onchange("refund_usage")
     def _onchange_refund_usage(self):
         if self.refund_usage == "refund":

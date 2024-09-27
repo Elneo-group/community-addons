@@ -1,7 +1,7 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 # mapping invoice type to journal type
@@ -39,8 +39,8 @@ class AccountMove(models.Model):
                 move.suitable_journal_ids = self.env["account.journal"].search(j_dom)
         return res
 
-    def action_switch_move_type(self):
-        super().action_switch_move_type()
+    def action_switch_invoice_into_refund_credit_note(self):
+        super().action_switch_invoice_into_refund_credit_note()
         for move in self:
             if (
                 move.is_invoice()
@@ -48,6 +48,7 @@ class AccountMove(models.Model):
                 and move.journal_id.refund_journal_id
             ):
                 move.journal_id = move.journal_id.refund_journal_id
+        return
 
     def action_post(self):
         for move in self:
@@ -72,8 +73,8 @@ class AccountMove(models.Model):
                             "dedicated refund journal."
                         )
                     )
-        super().action_post()
-    
+        return super().action_post()
+
     def _search_default_journal(self):
         journal = super()._search_default_journal()
         j_type = T2T.get(self.move_type)
@@ -89,7 +90,3 @@ class AccountMove(models.Model):
             if len(journals) == 1:
                 journal = journals
         return journal
-    
-    
-    
-    

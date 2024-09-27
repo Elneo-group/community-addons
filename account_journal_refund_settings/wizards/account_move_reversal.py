@@ -1,4 +1,4 @@
-# Copyright 2009-2020 Noviat.
+# Copyright 2009-2024 Noviat.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
@@ -29,7 +29,7 @@ class AccountMoveReversal(models.TransientModel):
                         aj_out_dom
                     )
         return res
-    
+
     @api.depends("move_ids")
     def _compute_journal_id(self):
         res = super()._compute_journal_id()
@@ -40,4 +40,3 @@ class AccountMoveReversal(models.TransientModel):
                 if aj_in.refund_journal_id:
                     record.journal_id = aj_in.refund_journal_id
         return res
-
