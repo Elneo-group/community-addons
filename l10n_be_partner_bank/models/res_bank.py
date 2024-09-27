@@ -100,21 +100,30 @@ class ResBank(models.Model):
     def _normalise_bic(self, vals):
         vals["bic"] = vals["bic"].replace(" ", "").upper()
 
+    # @api.model
+    # def _name_search( 
+    #     self, name, args=None, operator="ilike", limit=100, name_get_uid=None
+    # ):
+    #     args = args or []
+    #     if name and operator == "ilike":
+    #         be_bban = len(name) == 3 and name.isdigit()
+    #         if be_bban:
+    #             domain = [("bban_code_list", "ilike", name)]
+    #             return self._search(
+    #                 domain + args, limit=limit, access_rights_uid=name_get_uid
+    #             )
+    #     return super()._name_search(
+    #         name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid
+    #     )
+    
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
-        args = args or []
+    def _name_search(self, name, domain=None, operator="ilike", limit=None, order=None):
+        domain = domain or []
         if name and operator == "ilike":
             be_bban = len(name) == 3 and name.isdigit()
             if be_bban:
-                domain = [("bban_code_list", "ilike", name)]
-                return self._search(
-                    domain + args, limit=limit, access_rights_uid=name_get_uid
-                )
-        return super()._name_search(
-            name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid
-        )
+                domain += [("bban_code_list", "ilike", name)]
+        return self._search(domain, limit=limit, order=order)
 
     @api.model
     def _bban2iban(self, country_code, bban):
