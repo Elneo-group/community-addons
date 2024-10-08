@@ -15,4 +15,8 @@ patch(ListRenderer.prototype, {
         }
         return super.freezeColumnWidths();
     },
+    getGroupNameCellColSpan(group) {
+        let colspan = super.getGroupNameCellColSpan(group);
+        return colspan + 1;
+    },
 });
