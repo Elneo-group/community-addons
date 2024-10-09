@@ -52,7 +52,7 @@ class AccountBankStatement(models.Model):
         tracking=True,
         selection=[
             ("draft", "Draft"),
-            ("confirm", "Confirm"),
+            ("confirm", "Confirmed"),
         ],
         default="draft",
     )
