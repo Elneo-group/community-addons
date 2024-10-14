@@ -7,12 +7,12 @@ from odoo import models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def _compute_name(self):
-        """
-        Skip name computation when its handled by statement create/write.
-        """
-        if not self.env.context.get("skip_account_move_compute_name"):
-            return super()._compute_name()
+    # def _compute_name(self):
+    #     """
+    #     Skip name computation when its handled by statement create/write.
+    #     """
+    #     if not self.env.context.get("skip_account_move_compute_name"):
+    #         return super()._compute_name()
 
     def _constrains_date_sequence(self):
         for rec in self:
