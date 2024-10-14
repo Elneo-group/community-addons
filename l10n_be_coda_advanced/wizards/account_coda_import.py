@@ -960,8 +960,8 @@ class AccountCodaImport(models.TransientModel):
                     )
         return discard
 
-    def _create_bank_statement(self, wiz_dict, coda_statement):
-        bank_st = False
+    def _prepare_st_vals(self, wiz_dict, coda_statement):
+        st_vals = False
         cba = coda_statement["coda_bank_params"]
         journal = cba.journal_id
         balance_start_check = False
@@ -987,7 +987,7 @@ class AccountCodaImport(models.TransientModel):
                     )
                     % journal.name
                 )
-                return bank_st
+                return st_vals
             else:
                 data = self.env["account.move.line"].read_group(
                     [
@@ -1016,7 +1016,7 @@ class AccountCodaImport(models.TransientModel):
             if cba.balance_start_enforce:
                 wiz_dict["nb_err"] += 1
                 wiz_dict["err_string"] += balance_start_err_string
-                return bank_st
+                return st_vals
             else:
                 coda_statement["coda_parsing_note"] += "\n" + balance_start_err_string
 
@@ -1033,31 +1033,7 @@ class AccountCodaImport(models.TransientModel):
             "company_id": cba.company_id.id,
             "coda_bank_account_id": cba.id,
         }
-
-        try:
-            st = self.env["account.bank.statement"].with_company(cba.company_id)
-            bank_st = st.create(st_vals)
-        except (UserError, ValidationError) as e:
-            wiz_dict["nb_err"] += 1
-            err_string = e.args[0]
-            wiz_dict["err_string"] += _("\nApplication Error ! ") + err_string
-            tb = "".join(format_exception(*exc_info()))
-            _logger.error(
-                "Application Error while processing Statement %s\n%s",
-                coda_statement.get("name", "/"),
-                tb,
-            )
-        except Exception as e:
-            wiz_dict["nb_err"] += 1
-            wiz_dict["err_string"] += _("\nSystem Error : ") + str(e)
-            tb = "".join(format_exception(*exc_info()))
-            _logger.error(
-                "System Error while processing Statement %s\n%s",
-                coda_statement.get("name", "/"),
-                tb,
-            )
-
-        return bank_st
+        return st_vals
 
     def _prepare_statement_line(  # noqa: C901
         self, wiz_dict, coda_statement, transaction, coda_parsing_note
@@ -1249,7 +1225,6 @@ class AccountCodaImport(models.TransientModel):
             "counterparty_currency": transaction["counterparty_currency"],
             "globalisation_id": transaction["globalisation_id"],
             "payment_reference": transaction["payment_reference"],
-            "statement_id": coda_statement["bank_st_id"],
             "journal_id": cba.journal_id.id,
             "name": move_name,
             "narration": transaction["note"].replace("\n", "<br>"),
@@ -1278,13 +1253,6 @@ class AccountCodaImport(models.TransientModel):
                 )
 
         return st_line_vals
-
-    def _create_bank_statement_line(self, wiz_dict, coda_statement, transaction):
-        st_line_vals = self._prepare_st_line_vals(wiz_dict, coda_statement, transaction)
-        cba = coda_statement["coda_bank_params"]
-        stl = self.env["account.bank.statement.line"].with_company(cba.company_id)
-        st_line = stl.create(st_line_vals)
-        transaction["st_line_id"] = st_line.id
 
     def _discard_empty_statement(self, wiz_dict, coda_statement):
         """
@@ -1634,7 +1602,7 @@ class AccountCodaImport(models.TransientModel):
         bank_statements = self.env["account.bank.statement"]
 
         for coda_statement in coda_statements:
-            bank_st = False
+            st_vals = False
             cba = coda_statement["coda_bank_params"]
             self._coda_statement_hook(wiz_dict, coda_statement)
             discard = self._check_duplicate(wiz_dict, coda_statement)
@@ -1656,15 +1624,10 @@ class AccountCodaImport(models.TransientModel):
                 discard = self._discard_empty_statement(wiz_dict, coda_statement)
 
             if not discard and not coda_statement.get("skip"):
-                bank_st = self._create_bank_statement(wiz_dict, coda_statement)
-                if bank_st:
-                    bank_statements += bank_st
-                    coda_statement["bank_st_id"] = bank_st.id
-                    coda.company_ids |= coda_statement["coda_bank_params"].company_id
-                else:
-                    break
-            else:
-                break
+                st_vals = self._prepare_st_vals(wiz_dict, coda_statement)
+
+            if not st_vals:
+                continue
 
             # prepare bank statement line values and merge
             # information records into the statement line
@@ -1691,11 +1654,15 @@ class AccountCodaImport(models.TransientModel):
             # resequence since _coda_transaction_hook may add/remove lines
             transaction_seq = 0
             st_balance_end = round(coda_statement["balance_start"], 2)
+            line_vals_list = []
             for transaction in bank_st_transactions:
                 transaction_seq += 1
                 transaction["sequence"] = transaction_seq
                 st_balance_end += round(transaction["amount"], 2)
-                self._create_bank_statement_line(wiz_dict, coda_statement, transaction)
+                st_line_vals = self._prepare_st_line_vals(
+                    wiz_dict, coda_statement, transaction
+                )
+                line_vals_list.append(st_line_vals)
 
             if round(st_balance_end - coda_statement["balance_end_real"], 2):
                 err_string = _(
@@ -1711,9 +1678,41 @@ class AccountCodaImport(models.TransientModel):
                 }
                 coda_statement["coda_parsing_note"] += "\n" + err_string
 
-            # trigger calculate balance_end
-            bank_st.write({"balance_start": coda_statement["balance_start"]})
-            journal_name = cba.journal_id.name
+            st_vals.update(
+                {
+                    "balance_start": coda_statement["balance_start"],
+                    "line_ids": [(0, 0, x) for x in line_vals_list],
+                }
+            )
+
+            bank_st = self.env["account.bank.statement"].with_company(cba.company_id)
+            try:
+                bank_st = bank_st.create(st_vals)
+            except (UserError, ValidationError) as e:
+                wiz_dict["nb_err"] += 1
+                err_string = e.args[0]
+                wiz_dict["err_string"] += _("\nApplication Error ! ") + err_string
+                tb = "".join(format_exception(*exc_info()))
+                _logger.error(
+                    "Application Error while processing Statement %s\n%s",
+                    coda_statement.get("name", "/"),
+                    tb,
+                )
+            except Exception as e:
+                wiz_dict["nb_err"] += 1
+                wiz_dict["err_string"] += _("\nSystem Error : ") + str(e)
+                tb = "".join(format_exception(*exc_info()))
+                _logger.error(
+                    "System Error while processing Statement %s\n%s",
+                    coda_statement.get("name", "/"),
+                    tb,
+                )
+            if bank_st:
+                bank_statements += bank_st
+                coda_statement["bank_st_id"] = bank_st.id
+                coda.company_ids |= coda_statement["coda_bank_params"].company_id
+            else:
+                continue
 
             coda_statement["coda_parsing_note"] = coda_parsing_note
 
@@ -1728,7 +1727,7 @@ class AccountCodaImport(models.TransientModel):
                 "Ending Balance: %(balance_end_real).2f"
                 "%(coda_parsing_note)s"
             ) % {
-                "journal_name": journal_name,
+                "journal_name": cba.journal_id.name,
                 "coda_version": coda_statement["coda_version"],
                 "coda_seq_number": coda_statement["coda_seq_number"],
                 "paper_nb_seq_number": coda_statement.get("paper_nb_seq_number")
