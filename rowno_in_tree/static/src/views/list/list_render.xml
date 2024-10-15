@@ -24,7 +24,7 @@
             expr="//t[@t-call='{{ constructor.recordRowTemplate }}']"
             position="after"
         >
-            <t t-if="!record.data['display_type']" t-set="RowNumber" t-value="RowNumber+1" />
+            <t t-if="!record.data['display_type'] or (record.data['display_type'] and record.data['display_type'] != 'line_section' and record.data['display_type'] != 'line_note')" t-set="RowNumber" t-value="RowNumber+1" />
         </xpath>
         <xpath expr="//td[@class='o_field_x2many_list_row_add']" position="attributes">
             <attribute name="t-att-colspan">withHandleColumn ? nbCols : nbCols + 1</attribute>
@@ -41,7 +41,7 @@
         owl="1"
     >
         <xpath expr="//tr/td[@t-if='hasSelectors']" position="before">
-            <td t-if="!record.data['display_type']" tabindex="-1">
+            <td t-if="!record.data['display_type'] or (record.data['display_type'] and record.data['display_type'] != 'line_section' and record.data['display_type'] != 'line_note')" tabindex="-1">
                 <span t-esc="RowNumber" />
             </td>
         </xpath>
