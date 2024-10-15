@@ -123,6 +123,8 @@ class ResBank(models.Model):
             be_bban = len(name) == 3 and name.isdigit()
             if be_bban:
                 domain += [("bban_code_list", "ilike", name)]
+            else:
+                domain += ["|",("name","ilike",name),("bic","ilike",name)]
         return self._search(domain, limit=limit, order=order)
 
     @api.model
