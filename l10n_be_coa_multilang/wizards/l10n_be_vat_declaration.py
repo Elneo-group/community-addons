@@ -354,6 +354,8 @@ class L10nBeVatDeclaration(models.TransientModel):
         # blocking controls
         negative_cases = intervat_cases.filtered(lambda x: x.amount < 0.0)
         if negative_cases:
+            if not self.note:
+                self.note = ""
             self.note += _("Negative values found for cases %s") % [
                 str(x.case_id.code) for x in negative_cases
             ]
