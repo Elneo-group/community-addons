@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record
@@ -20,8 +20,12 @@
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="incoterm_id" position="attributes">
-                <attribute name="required">[('reporting_level','=','extended')]</attribute>
-                <attribute name="invisible">[('reporting_level','!=','extended')]</attribute>
+                <attribute
+                    name="required"
+                >[('reporting_level','=','extended')]</attribute>
+                <attribute
+                    name="invisible"
+                >[('reporting_level','!=','extended')]</attribute>
             </field>
         </field>
     </record>
@@ -60,11 +64,17 @@
         />
         <field name="arch" type="xml">
             <field name="vat" position="attributes">
-                <attribute name="invisible">[('declaration_type','=','arrivals')]</attribute>
+                <attribute
+                    name="invisible"
+                >[('declaration_type','=','arrivals')]</attribute>
             </field>
             <field name="incoterm_id" position="attributes">
-                <attribute name="required">[('reporting_level','=','extended')]</attribute>
-                <attribute name="invisible">[('reporting_level','!=','extended')]</attribute>
+                <attribute
+                    name="required"
+                >[('reporting_level','=','extended')]</attribute>
+                <attribute
+                    name="invisible"
+                >[('reporting_level','!=','extended')]</attribute>
             </field>
         </field>
     </record>
@@ -82,7 +92,9 @@
         />
         <field name="arch" type="xml">
             <field name="vat" position="attributes">
-                <attribute name="invisible">[('declaration_type','=','arrivals')]</attribute>
+                <attribute
+                    name="invisible"
+                >[('declaration_type','=','arrivals')]</attribute>
             </field>
         </field>
     </record>
