@@ -1119,6 +1119,8 @@ class IntrastatProductComputationLine(models.Model):
                 code = "XU"
                 # XU can be used when you don't know if the product
                 # originate from Great-Britain or from Northern Ireland
+            if not code:
+                code = "QU"
             this.product_origin_country_code = code
 
     @api.constrains("vat")
