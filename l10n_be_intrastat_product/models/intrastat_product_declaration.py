@@ -269,7 +269,7 @@ class IntrastatProductDeclaration(models.Model):
         if self.declaration_type == "dispatches":
             etree.SubElement(
                 Item, "Dim", attrib={"prop": "EXCNTORI"}
-            ).text = line.product_origin_country_code or ""
+            ).text = line.product_origin_country_code or "QU"
             etree.SubElement(Item, "Dim", attrib={"prop": "PARTNERID"}).text = (
                 line.vat or ""
             )
